@@ -7,6 +7,8 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.insert(0, parent_dir)
 
 import config
+import cirq
+
 
 class XGate():
     """docstring for XGate."""
@@ -22,5 +24,5 @@ class XGate():
              self.quantum_circuit.x(self.qubit)
              return self.quantum_circuit
         elif self.provider == 'Google':
-             self.quantum_circuit.append(cirq.H(self.qubit))
+             self.quantum_circuit.append(cirq.X(self.qubit))
              return self.quantum_circuit
