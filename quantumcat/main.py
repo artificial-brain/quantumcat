@@ -1,9 +1,8 @@
-from gate import XGate
-import cirq
+from quantumcat.circuit import QCircuit
 
 if __name__ == '__main__':
-    # qc = QuantumCircuit(1)
-    qc = cirq.Circuit()
-    # cirq.NamedQubit("a")
-    x_gate = XGate(qc,  cirq.NamedQubit("a"))
-    print(x_gate.apply())
+    circuit = QCircuit(2, 2)
+    circuit.x_gate(1)
+    circuit.y_gate(0)
+    circuit.z_gate(1)
+    print(circuit.get_operations())
