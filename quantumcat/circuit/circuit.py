@@ -1,5 +1,8 @@
 from quantumcat.circuit.op_type import OpType
 from quantumcat.exceptions import CircuitError
+from quantumcat.utils import ErrorMessages
+from quantumcat.circuit import convert
+from quantumcat.utils import providers
 
 
 class QCircuit:
@@ -10,6 +13,8 @@ class QCircuit:
         self.qubits = qubits
         self.cbits = cbits
         self.operations = []
+        self.converted_q_circuit = None
+        self.provider = None
 
     def x_gate(self, qubit):
         self.check_raise_error(qubit)
@@ -28,4 +33,27 @@ class QCircuit:
 
     def check_raise_error(self, qubit):
         if qubit > (self.qubits - 1):
-            raise CircuitError('Qubit is out of bound')
+            raise CircuitError(ErrorMessages.qubit_out_of_bound)
+
+    def draw_circuit(self, provider=providers.IBM_PROVIDER):
+        if self.converted_q_circuit is None or self.provider != provider:
+            self.provider = provider
+            converted_q_circuit = self.convert_circuit()
+            self.converted_q_circuit = converted_q_circuit
+
+        if self.provider == providers.IBM_PROVIDER:
+            print(self.converted_q_circuit.draw())
+        elif self.provider == providers.GOOGLE_PROVIDER:
+            pass
+        elif self.provider == providers.MICROSOFT_PROVIDER:
+            pass
+
+    def convert_circuit(self):
+        converted_q_circuit = None
+        if self.provider == providers.IBM_PROVIDER:
+            converted_q_circuit = convert.to_qiskit(self, self.qubits, self.cbits)
+        elif self.provider == providers.GOOGLE_PROVIDER:
+            converted_q_circuit = convert.to_cirq(self, self.qubits, self.cbits)
+        if self.provider == providers.MICROSOFT_PROVIDER:
+            converted_q_circuit = convert.to_q_sharp(self, self.qubits, self.cbits)
+        return converted_q_circuit
