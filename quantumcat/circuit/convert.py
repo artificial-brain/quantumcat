@@ -1,5 +1,6 @@
 from qiskit import QuantumCircuit
 from quantumcat.utils import gates_map
+from quantumcat.circuit.op_type import OpType
 
 
 def to_qiskit(q_circuit, qubits, cbits):
@@ -9,7 +10,10 @@ def to_qiskit(q_circuit, qubits, cbits):
         operation = next(iter(index.items()))
         qiskit_op = gates_map.quantumcat_to_qiskit[operation[1]]
         qargs = operation[0]
-        qiskit_qc.append(qiskit_op(), [qargs])
+        if qiskit_op == OpType.measure:
+            qiskit_qc.measure([qargs], [index['cbit']])
+        else:
+            qiskit_qc.append(qiskit_op(), [qargs])
     return qiskit_qc
 
 
