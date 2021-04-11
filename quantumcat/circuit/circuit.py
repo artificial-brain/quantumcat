@@ -52,7 +52,7 @@ class QCircuit:
         if self.provider == providers.IBM_PROVIDER:
             print(self.converted_q_circuit.draw())
         elif self.provider == providers.GOOGLE_PROVIDER:
-            pass
+            print(self.converted_q_circuit)
         elif self.provider == providers.MICROSOFT_PROVIDER:
             pass
 
@@ -72,6 +72,9 @@ class QCircuit:
         if self.provider == providers.IBM_PROVIDER:
             return execute_circuit.on_qiskit(self.converted_q_circuit, backend,
                                              simulator_name, repetitions, api).get_counts()
+        elif self.provider == providers.GOOGLE_PROVIDER:
+            return execute_circuit.on_cirq(self.converted_q_circuit, backend,
+                                           simulator_name, repetitions, api)
 
     def check_and_convert(self, provider):
         if self.converted_q_circuit is None or self.provider != provider:
