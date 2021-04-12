@@ -9,27 +9,34 @@ def to_qiskit(q_circuit, qubits, cbits):
     qiskit_qc = QuantumCircuit(qubits, cbits)
     for op in operations:
         operation = next(iter(op.items()))
-        qiskit_op = gates_map.quantumcat_to_qiskit[operation[1]]
-        qargs = operation[0]
+        qiskit_op = gates_map.quantumcat_to_qiskit[operation[0]]
+        qargs = operation[1]
+        print(qiskit_op, qargs)
         if qiskit_op == OpType.measure:
-            qiskit_qc.measure([qargs], [op['cbit']])
+            qiskit_qc.measure(qargs[0], qargs[1])
         else:
-            qiskit_qc.append(qiskit_op(), [qargs])
+            qiskit_qc.append(qiskit_op(), qargs)
     return qiskit_qc
 
 
 def to_cirq(q_circuit, qubits, cbits):
     operations = q_circuit.operations
     cirq_qc = cirq.Circuit()
-    lined_qubits = cirq.LineQubit.range(qubits)
+    named_qubits = cirq.NamedQubit.range(qubits, prefix='q')
+    # print(operations)
     for op in operations:
         operation = next(iter(op.items()))
-        qiskit_op = gates_map.quantumcat_to_cirq[operation[1]]
-        qargs = operation[0]
-        if qiskit_op == OpType.measure:
-            cirq_qc.append(cirq.ops.measure(lined_qubits[qargs]))
+        cirq_op = gates_map.quantumcat_to_cirq[operation[0]]
+        qargs = operation[1]
+        if cirq_op == OpType.measure:
+            qubit = named_qubits[qargs[0][0]]
+            cirq_qc.append(cirq.ops.measure(qubit))
         else:
-            cirq_qc.append([qiskit_op(lined_qubits[qargs])])
+            pass
+            # Need to complete below to support multi gates
+            # print(named_qubits[qargs[i]] for i in range(qubits))
+            # qubit = named_qubits[qargs[0]]
+            # cirq_qc.append([cirq_op(j)])
     return cirq_qc
 
 
