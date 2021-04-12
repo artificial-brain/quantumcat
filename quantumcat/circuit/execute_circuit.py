@@ -1,6 +1,6 @@
 from quantumcat.utils import constants
 from qiskit import Aer
-from qiskit import execute
+from qiskit import execute, QuantumCircuit
 import cirq
 
 

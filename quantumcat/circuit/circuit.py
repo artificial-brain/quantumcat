@@ -20,20 +20,31 @@ class QCircuit:
 
     def x_gate(self, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({qubit: OpType.x_gate})
+        self.operations.append({OpType.x_gate: [qubit]})
 
     def y_gate(self, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({qubit: OpType.y_gate})
+        self.operations.append({OpType.y_gate: [qubit]})
 
     def z_gate(self, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({qubit: OpType.z_gate})
+        self.operations.append({OpType.z_gate: [qubit]})
+
+    def cx_gate(self, control_qubit, target_qubit):
+        self.check_qubit_boundary(control_qubit)
+        self.check_qubit_boundary(target_qubit)
+        self.operations.append({OpType.cx_gate: [[control_qubit], [target_qubit]]})
+
+    def ccx_gate(self, control_qubit1, control_qubit2, target_qubit):
+        self.check_qubit_boundary(control_qubit1)
+        self.check_qubit_boundary(control_qubit2)
+        self.check_qubit_boundary(target_qubit)
+        self.operations.append({OpType.cx_gate: [[control_qubit1], [control_qubit2], [target_qubit]]})
 
     def measure(self, qubit, cbit):
         self.check_qubit_boundary(qubit)
         self.check_cbit_boundary(cbit)
-        self.operations.append({qubit: OpType.measure, "cbit": cbit})
+        self.operations.append({OpType.measure: [[qubit], [cbit]]})
 
     def get_operations(self):
         return self.operations
