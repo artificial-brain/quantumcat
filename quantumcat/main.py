@@ -5,7 +5,7 @@ from quantumcat.utils import providers
 if __name__ == '__main__':
     circuit = QCircuit(3, 2)
     circuit.h_gate(0)
-    circuit.h_gate(1)
+    circuit.s_gate(1)
     #circuit.cx_gate(0, 1)
     #circuit.x_gate(2)
     circuit.measure(0, 0)

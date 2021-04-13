@@ -11,4 +11,5 @@ class OpType(Enum):
     ccx_gate = 5
     mct_gate = 6
     h_gate = 7
+    s_gate = 8
     measure = 100
