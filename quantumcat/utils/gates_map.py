@@ -5,6 +5,7 @@ from cirq import ops
 quantumcat_to_qiskit = {
     OpType.x_gate: standard_gates.x.XGate,
     OpType.y_gate: standard_gates.y.YGate,
+    OpType.h_gate: standard_gates.h.HGate,
     OpType.z_gate: standard_gates.z.ZGate,
     OpType.cx_gate: standard_gates.x.CXGate,
     OpType.measure: OpType.measure,
@@ -14,6 +15,7 @@ quantumcat_to_cirq = {
     OpType.x_gate: ops.pauli_gates.X,
     OpType.y_gate: ops.pauli_gates.Y,
     OpType.z_gate: ops.pauli_gates.Z,
+    OpType.h_gate: ops.H,
     OpType.cx_gate: ops.common_gates.CNOT,
     OpType.measure: OpType.measure,
 }

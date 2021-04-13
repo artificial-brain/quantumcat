@@ -30,6 +30,10 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.z_gate: [qubit]})
 
+    def h_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.h_gate: [qubit]})
+
     def cx_gate(self, control_qubit, target_qubit):
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
