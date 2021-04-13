@@ -18,7 +18,8 @@ setuptools.setup(
     author='Artificial Brain Development Team',
     author_email='setup@artificialbrain.in',
     license='Apache-2.0',
-    packages=setuptools.find_namespace_packages(include=['quantumcat.*']),
+    # packages=setuptools.find_namespace_packages(include=['quantumcat.*']),
+    packages=setuptools.find_namespace_packages(),
     install_requires=REQUIREMENTS,
     include_package_data=True,
 )
