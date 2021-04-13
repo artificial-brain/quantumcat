@@ -72,7 +72,7 @@ class QCircuit:
         if self.provider == providers.IBM_PROVIDER:
             converted_q_circuit = convert.to_qiskit(self, self.qubits, self.cbits)
         elif self.provider == providers.GOOGLE_PROVIDER:
-            converted_q_circuit = convert.to_cirq(self, self.qubits, self.cbits)
+            converted_q_circuit = convert.to_cirq(self, self.qubits)
         if self.provider == providers.MICROSOFT_PROVIDER:
             converted_q_circuit = convert.to_q_sharp(self, self.qubits, self.cbits)
         return converted_q_circuit
