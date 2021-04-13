@@ -41,6 +41,61 @@ class QCircuit:
         self.check_qubit_boundary(target_qubit)
         self.operations.append({OpType.cx_gate: [[control_qubit1], [control_qubit2], [target_qubit]]})
 
+    def rzz_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.rzz_gate: [qubit]})
+
+    def rzx_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.rzx_gate: [qubit]})
+
+    def ecr_gate(self):
+        pass
+
+    def s_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.s_gate: [qubit]})
+
+    def sd_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.sd_gate: [qubit]})
+
+    def swap_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append(({OpType.swap_gate: [qubit]}))
+
+    def iswap_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append(({OpType.iswap_gate: [qubit]}))
+
+    def sx_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.sx_gate: [qubit]})
+
+    def sxd_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.sxd_gate: [qubit]})
+
+    def t_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.t_gate: [qubit]})
+
+    def td_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.td_gate: [qubit]})
+
+    def u_gate(self, theta, phi, lam, qubit):
+        pass
+
+    def u1_gate(self, theta, qubit):
+        pass
+
+    def u2_gate(self, phi, lam, qubit):
+        pass
+
+    def u3_gate(self, theta, phi, lam, qubit):
+        pass
+
     def measure(self, qubit, cbit):
         self.check_qubit_boundary(qubit)
         self.check_cbit_boundary(cbit)
@@ -92,4 +147,3 @@ class QCircuit:
             self.provider = provider
             converted_q_circuit = self.convert_circuit()
             self.converted_q_circuit = converted_q_circuit
-
