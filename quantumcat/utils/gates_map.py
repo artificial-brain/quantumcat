@@ -8,6 +8,7 @@ quantumcat_to_qiskit = {
     OpType.z_gate: standard_gates.z.ZGate,
     OpType.h_gate: standard_gates.h.HGate,
     OpType.s_gate: standard_gates.s.SGate,
+    OpType.i_gate: standard_gates.i.IGate,
     OpType.cx_gate: standard_gates.x.CXGate,
     OpType.measure: OpType.measure,
 }
@@ -18,6 +19,7 @@ quantumcat_to_cirq = {
     OpType.z_gate: ops.pauli_gates.Z,
     OpType.h_gate: ops.H,
     OpType.s_gate: ops.S,
+    OpType.i_gate: ops.I,
     OpType.cx_gate: ops.common_gates.CNOT,
     OpType.measure: OpType.measure,
 }
