@@ -10,6 +10,7 @@ if __name__ == '__main__':
     circuit.i_gate(1)
     #circuit.cx_gate(0, 1)
     circuit.x_gate(2)
+    circuit.h_gate(2)
     circuit.i_gate(2)
     circuit.measure(0, 0)
     circuit.measure(1, 1)
