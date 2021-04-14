@@ -1,3 +1,18 @@
+# (C) Copyright Artificial Brain 2021.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+
 from quantumcat.circuit.op_type import OpType
 from quantumcat.exceptions import CircuitError
 from quantumcat.utils import ErrorMessages
@@ -29,6 +44,10 @@ class QCircuit:
     def z_gate(self, qubit):
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.z_gate: [qubit]})
+
+    def h_gate(self, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.h_gate: [qubit]})
 
     def cx_gate(self, control_qubit, target_qubit):
         self.check_qubit_boundary(control_qubit)
@@ -92,4 +111,11 @@ class QCircuit:
             self.provider = provider
             converted_q_circuit = self.convert_circuit()
             self.converted_q_circuit = converted_q_circuit
+
+    def superposition(self, qubit):
+        self.h_gate(qubit)
+
+    def entangle(self, qubit1, qubit2):
+        self.superposition(qubit1)
+        self.cx_gate(qubit1, qubit2)
 
