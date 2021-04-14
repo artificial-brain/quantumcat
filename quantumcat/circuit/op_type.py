@@ -14,7 +14,7 @@ class OpType(Enum):
     rzx_gate = 43
     ecr_gate = 44
     s_gate = 45
-    sd_gate = 46
+    sdg_gate = 46
     swap_gate = 47
     iswap_gate = 48
     sx_gate = 49

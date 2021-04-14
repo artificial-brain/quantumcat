@@ -56,7 +56,7 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.s_gate: [qubit]})
 
-    def sd_gate(self, qubit):
+    def sdg_gate(self, qubit):
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.sd_gate: [qubit]})
 
