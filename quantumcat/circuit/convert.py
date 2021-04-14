@@ -19,6 +19,12 @@ import cirq
 
 
 def to_qiskit(q_circuit, qubits, cbits):
+    """This function converts quantumcat circuit into qiskit circuit.
+    :param q_circuit: quantumcat circuit object that needs to be converted to qiskit circuit object
+    :param qubits: number of qubits to create qiskit circuit
+    :param cbits: number of classical bits for measurement
+    :return: qiskit quantumcircuit object
+    """
     operations = q_circuit.operations
     qiskit_qc = QuantumCircuit(qubits, cbits)
     for op in operations:
@@ -34,6 +40,11 @@ def to_qiskit(q_circuit, qubits, cbits):
 
 
 def to_cirq(q_circuit, qubits):
+    """This function converts quantumcat circuit into qiskit circuit.
+    :param q_circuit: quantumcat circuit object that needs to be converted to qiskit circuit object
+    :param qubits: number of qubits to create qiskit circuit
+    :return: qiskit quantumcircuit object
+    """
     operations = q_circuit.operations
     cirq_qc = cirq.Circuit()
     named_qubits = cirq.NamedQubit.range(qubits, prefix='q')
@@ -55,6 +66,12 @@ def to_q_sharp(q_circuit, qubits, cbits):
 
 
 def named_qubits_for_ops(named_qubits, qargs):
+    """This function creates NamedQubit array for cirq operations based on the number of qubits required for
+    that particular operation. Ex: x_gate -> 1 NamedQubit, cx_gate -> 2 NamedQubit
+    :param named_qubits: NamedQubit for the entire circuit
+    :param qargs: qubits of a operation
+    :return: NamedQubit array based on the qargs
+    """
     op_named_qubits = []
     if len(qargs) > 1:
         for i in range(len(qargs)):
