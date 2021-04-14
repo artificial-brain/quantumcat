@@ -10,10 +10,13 @@ from quantumcat.circuit import execute_circuit
 class QCircuit:
     """docstring for Circuit."""
 
-    def __init__(self, qubits, cbits, provider=providers.DEFAULT_PROVIDER):
+    def __init__(self, qubits, cbits, theta=0, phi=0, lam=0, provider=providers.DEFAULT_PROVIDER):
         super(QCircuit, self).__init__()
         self.qubits = qubits
         self.cbits = cbits
+        self.theta = theta
+        self.phi = phi
+        self.lam = lam
         self.operations = []
         self.converted_q_circuit = None
         self.provider = provider
@@ -49,8 +52,8 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.rzx_gate: [qubit]})
 
-    def ecr_gate(self):
-        pass
+    # def ecr_gate(self):
+    #     pass
 
     def s_gate(self, qubit):
         self.check_qubit_boundary(qubit)
@@ -85,16 +88,20 @@ class QCircuit:
         self.operations.append({OpType.td_gate: [qubit]})
 
     def u_gate(self, theta, phi, lam, qubit):
-        pass
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.u_gate: [[theta], [phi], [lam], [qubit]]})
 
     def u1_gate(self, theta, qubit):
-        pass
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.u1_gate: [[theta], [qubit]]})
 
     def u2_gate(self, phi, lam, qubit):
-        pass
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.u2_gate: [[phi], [lam], [qubit]]})
 
     def u3_gate(self, theta, phi, lam, qubit):
-        pass
+        self.check_qubit_boundary(qubit)
+        self.operations.append(({OpType.u3_gate: [[theta], [phi], [lam], [qubit]]}))
 
     def measure(self, qubit, cbit):
         self.check_qubit_boundary(qubit)
