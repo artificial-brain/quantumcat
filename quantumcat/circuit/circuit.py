@@ -60,6 +60,11 @@ class QCircuit:
         self.check_qubit_boundary(target_qubit)
         self.operations.append({OpType.cx_gate: [[control_qubit1], [control_qubit2], [target_qubit]]})
 
+    def mct_gate(self, control_qubits, target_qubit, ancilla_qubits=None, mode='noancilla'):
+        # self.check_qubit_boundary(control_qubit1)
+        self.check_qubit_boundary(target_qubit)
+        self.operations.append({OpType.mct_gate: [control_qubits, [target_qubit], ancilla_qubits, mode]})
+
     def measure(self, qubit, cbit):
         self.check_qubit_boundary(qubit)
         self.check_cbit_boundary(cbit)

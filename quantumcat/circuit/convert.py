@@ -33,6 +33,9 @@ def to_qiskit(q_circuit, qubits, cbits):
         qargs = operation[1]
         if qiskit_op == OpType.measure:
             qiskit_qc.measure(qargs[0], qargs[1])
+        elif qiskit_op == OpType.mct_gate:
+            qiskit_qc.mcx(control_qubits=qargs[0], target_qubit=qargs[1],
+                          ancilla_qubits=qargs[2], mode=qargs[3])
         else:
             qiskit_qc.append(qiskit_op(), qargs)
 
@@ -55,6 +58,9 @@ def to_cirq(q_circuit, qubits):
         if cirq_op == OpType.measure:
             qubit = named_qubits[qargs[0][0]]
             cirq_qc.append(cirq.ops.measure(qubit))
+        elif cirq_op == OpType.mct_gate:
+            mct_named_qubits = named_qubits_for_multi_controlled_op(named_qubits, qargs)
+            cirq_qc.append([cirq.ops.X(mct_named_qubits[1]).controlled_by(*mct_named_qubits[0])])
         else:
             cirq_qc.append([cirq_op(*named_qubits_for_ops(named_qubits, qargs))])
 
@@ -84,6 +90,24 @@ def named_qubits_for_ops(named_qubits, qargs):
                 op_named_qubits.append(named_qubits[j])
 
     return op_named_qubits
+
+
+def named_qubits_for_multi_controlled_op(named_qubits, qargs):
+    mct_named_qubits = []
+    for j in range(len(named_qubits)):
+        if named_qubits[j].name == 'q' + str(qargs[1][0]):
+            target_qubit = named_qubits[j]
+
+    control_qubits = []
+    for i in range(len(qargs[0])):
+        for j in range(len(named_qubits)):
+            if named_qubits[j].name == 'q' + str(qargs[0][i]):
+                control_qubits.append(named_qubits[j])
+
+    mct_named_qubits.append(control_qubits)
+    mct_named_qubits.append(target_qubit)
+
+    return mct_named_qubits
 
 
 
