@@ -14,18 +14,12 @@
 
 from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers
-from qiskit import QuantumCircuit
+from quantumcat.algorithms import GroversAlgorithm
 
 if __name__ == '__main__':
-    circuit = QCircuit(4, 4)
-    circuit.x_gate(0)
-    circuit.x_gate(1)
-    circuit.x_gate(2)
-    # circuit.cx_gate(0, 1)
-    circuit.mct_gate([0, 1, 2], 3)
-    # circuit.x_gate(0)
-    # circuit.cx_gate(0, 1)
-    # circuit.x_gate(1)
-    circuit.measure(3, 3)
-    circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
+    num_of_qubits = 10
+    circuit = QCircuit(num_of_qubits)
+    q_circuit = GroversAlgorithm(circuit, num_of_qubits).diffuser()
+
+    q_circuit.draw_circuit(provider=providers.IBM_PROVIDER)
+    # print(q_circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))

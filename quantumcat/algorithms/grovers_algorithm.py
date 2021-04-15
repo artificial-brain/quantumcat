@@ -17,13 +17,33 @@ from quantumcat.utils import providers
 class GroversAlgorithm:
     """docstring for Circuit."""
 
-    def __init__(self, oracle, q_circuit):
+    def __init__(self, q_circuit, num_of_qubits, oracle=None):
         super(GroversAlgorithm, self).__init__()
         self.oracle = oracle
-        self.qubits = q_circuit
+        self.q_circuit = q_circuit
+        self.num_of_qubits = num_of_qubits
 
     def diffuser(self):
-        pass
+        q_circuit = self.q_circuit
+        qubits = self.num_of_qubits
+
+        for qubit in range(qubits):
+            q_circuit.h_gate(qubit)
+
+        for qubit in range(qubits):
+            q_circuit.x_gate(qubit)
+
+        q_circuit.h_gate(qubits-1)
+        q_circuit.mct_gate(list(range(qubits-1)), qubits-1)  # multi-controlled-toffoli
+        q_circuit.h_gate(qubits-1)
+
+        for qubit in range(qubits):
+            q_circuit.x_gate(qubit)
+
+        for qubit in range(qubits):
+            q_circuit.h_gate(qubit)
+
+        return q_circuit
 
     def execute(self, provider=providers.DEFAULT_PROVIDER, num_of_iterations=None):
         pass

@@ -25,7 +25,7 @@ from quantumcat.circuit import execute_circuit
 class QCircuit:
     """docstring for Circuit."""
 
-    def __init__(self, qubits, cbits, provider=providers.DEFAULT_PROVIDER):
+    def __init__(self, qubits, cbits=1, provider=providers.DEFAULT_PROVIDER):
         super(QCircuit, self).__init__()
         self.qubits = qubits
         self.cbits = cbits
@@ -123,4 +123,7 @@ class QCircuit:
     def entangle(self, qubit1, qubit2):
         self.superposition(qubit1)
         self.cx_gate(qubit1, qubit2)
+
+    def get_num_of_qubits(self):
+        return self.qubits
 
