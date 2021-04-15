@@ -29,6 +29,7 @@ def to_qiskit(q_circuit, qubits, cbits):
     qiskit_qc = QuantumCircuit(qubits, cbits)
     for op in operations:
         operation = next(iter(op.items()))
+        print(operation)
         qiskit_op = gates_map.quantumcat_to_qiskit[operation[0]]
         qargs = operation[1]
         if qiskit_op == OpType.measure:

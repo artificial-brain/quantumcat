@@ -16,16 +16,17 @@ from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers
 from qiskit import QuantumCircuit
 
+
 if __name__ == '__main__':
-    qc = QuantumCircuit(2,2)
-    qc.x([0, 1])
-    print(qc.draw())
     circuit = QCircuit(3, 3)
-    # circuit.x_gate(0)
-    # circuit.cx_gate(0, 1)
+    circuit.x_gate(0)
+    circuit.x_gate(1)
+    circuit.ccx_gate(0, 1, 2)
     # circuit.x_gate(1)
-    circuit.entangle(0, 1)
+    # circuit.entangle(0, 1)
     circuit.measure(0, 0)
     circuit.measure(1, 1)
-    circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
+    circuit.measure(2, 2)
+    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
+    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
+
