@@ -54,6 +54,10 @@ class QCircuit:
         self.check_qubit_boundary(target_qubit)
         self.operations.append({OpType.cx_gate: [[control_qubit], [target_qubit]]})
 
+    def cz_gate(self, control_qubit, target_qubit):
+        self.check_qubit_boundary(control_qubit)
+        self.operations.append({OpType.cz_gate: [[control_qubit],[target_qubit]]})
+
     def ccx_gate(self, control_qubit1, control_qubit2, target_qubit):
         self.check_qubit_boundary(control_qubit1)
         self.check_qubit_boundary(control_qubit2)
@@ -124,6 +128,8 @@ class QCircuit:
         self.superposition(qubit1)
         self.cx_gate(qubit1, qubit2)
 
-    def get_num_of_qubits(self):
-        return self.qubits
+    def phase_kickback(self, qubit):
+        self.x_gate(qubit)
+        self.h_gate(qubit)
+
 

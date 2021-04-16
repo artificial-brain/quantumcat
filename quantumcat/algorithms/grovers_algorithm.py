@@ -23,6 +23,10 @@ class GroversAlgorithm:
         self.q_circuit = q_circuit
         self.num_of_qubits = num_of_qubits
 
+    def initialize(self):
+        for qubit in range(self.num_of_qubits):
+            self.q_circuit.h_gate(qubit)
+
     def diffuser(self):
         q_circuit = self.q_circuit
         qubits = self.num_of_qubits

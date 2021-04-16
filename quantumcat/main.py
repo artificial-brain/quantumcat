@@ -17,9 +17,19 @@ from quantumcat.utils import providers
 from quantumcat.algorithms import GroversAlgorithm
 
 if __name__ == '__main__':
-    num_of_qubits = 10
-    circuit = QCircuit(num_of_qubits)
-    q_circuit = GroversAlgorithm(circuit, num_of_qubits).diffuser()
+    num_of_qubits = 3
+    num_of_cbits = 3
+    circuit = QCircuit(num_of_qubits, num_of_cbits)
+    circuit.cz_gate(0, 2)
+    circuit.cz_gate(1, 2)
+    g_circuit = GroversAlgorithm(circuit, num_of_qubits)
+    g_circuit.initialize()
 
-    q_circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    # print(q_circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
+    g_circuit = g_circuit.diffuser()
+    g_circuit.measure(0, 0)
+    g_circuit.measure(1, 1)
+    g_circuit.measure(2, 2)
+    # circuit.phase_kickback(0)
+
+    g_circuit.draw_circuit(provider=providers.IBM_PROVIDER)
+    print(g_circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
