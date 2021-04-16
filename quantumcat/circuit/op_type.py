@@ -32,7 +32,7 @@ class OpType(Enum):
     rc3x_gate = 12
     rzz_gate = 42
     rzx_gate = 43
-    # ecr_gate = 44
+    ecr_gate = 44
     s_gate = 45
     sdg_gate = 46
     swap_gate = 47
