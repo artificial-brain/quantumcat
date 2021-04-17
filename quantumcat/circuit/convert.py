@@ -15,6 +15,7 @@
 from qiskit import QuantumCircuit
 from quantumcat.utils import gates_map
 from quantumcat.circuit.op_type import OpType
+from quantumcat.utils import constants
 import cirq
 
 
@@ -28,14 +29,17 @@ def to_qiskit(q_circuit, qubits, cbits):
     operations = q_circuit.operations
     qiskit_qc = QuantumCircuit(qubits, cbits)
     for op in operations:
+        params = []
         operation = next(iter(op.items()))
-        print(operation)
         qiskit_op = gates_map.quantumcat_to_qiskit[operation[0]]
         qargs = operation[1]
+        if constants.PARAMS in op:
+            params = (op[constants.PARAMS])
+
         if qiskit_op == OpType.measure:
             qiskit_qc.measure(qargs[0], qargs[1])
         else:
-            qiskit_qc.append(qiskit_op(), qargs)
+            qiskit_qc.append(qiskit_op(*params), qargs)
 
     return qiskit_qc
 
@@ -85,8 +89,3 @@ def named_qubits_for_ops(named_qubits, qargs):
                 op_named_qubits.append(named_qubits[j])
 
     return op_named_qubits
-
-
-
-
-
