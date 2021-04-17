@@ -159,6 +159,11 @@ class QCircuit:
         self.check_cbit_boundary(cbit)
         self.operations.append({OpType.measure: [[qubit], [cbit]]})
 
+    def u_gate(self, theta, phi, lam, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.u_gate: [[qubit]],
+                                constants.PARAMS: [theta, phi, lam]})
+
     def get_operations(self):
         return self.operations
 
