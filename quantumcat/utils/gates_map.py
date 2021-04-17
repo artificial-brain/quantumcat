@@ -37,6 +37,14 @@ quantumcat_to_qiskit = {
     OpType.u1_gate: standard_gates.u1.U1Gate,
     OpType.u2_gate: standard_gates.u2.U2Gate,
     OpType.u3_gate: standard_gates.u3.U3Gate,
+    OpType.cy_gate: standard_gates.y.CYGate,
+    OpType.cz_gate: standard_gates.z.CZGate,
+    OpType.i_gate: standard_gates.i.IGate,
+    OpType.rccx_gate: standard_gates.x.RCCXGate,
+    OpType.rc3x_gate: standard_gates.x.RC3XGate,
+    OpType.rxx_gate: standard_gates.rxx.RXXGate,
+    OpType.rx_gate: standard_gates.rx.RXGate,
+    OpType.r_gate: standard_gates.r.RGate,
     OpType.measure: OpType.measure,
 }
 
