@@ -11,24 +11,3 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-from quantumcat.circuit import QCircuit
-from quantumcat.utils import providers
-from qiskit import QuantumCircuit
-
-
-if __name__ == '__main__':
-    circuit = QCircuit(2, 2)
-    circuit.x_gate(0)
-    # circuit.x_gate(1)
-    # circuit.ccx_gate(0, 1, 2)
-    # circuit.rzx_gate(45, 0, 1)
-    circuit.u_gate(45, 40, 40, 0)
-    # circuit.x_gate(1)
-    # circuit.entangle(0, 1)
-    circuit.measure(0, 0)
-    # circuit.measure(1, 1)
-    # circuit.measure(2, 2)
-    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
-
