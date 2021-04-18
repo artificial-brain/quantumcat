@@ -54,12 +54,19 @@ def to_cirq(q_circuit, qubits):
     cirq_qc = cirq.Circuit()
     named_qubits = cirq.NamedQubit.range(qubits, prefix='q')
     for op in operations:
+        params = []
         operation = next(iter(op.items()))
         cirq_op = gates_map.quantumcat_to_cirq[operation[0]]
         qargs = operation[1]
+        if constants.PARAMS in op:
+            params = (op[constants.PARAMS])
+
         if cirq_op == OpType.measure:
             qubit = named_qubits[qargs[0][0]]
             cirq_qc.append(cirq.ops.measure(qubit))
+        # Find a better way to replace the following if
+        elif len(params) > 0:
+            cirq_qc.append([cirq_op(*params)(*named_qubits_for_ops(named_qubits, qargs))])
         else:
             cirq_qc.append([cirq_op(*named_qubits_for_ops(named_qubits, qargs))])
 
