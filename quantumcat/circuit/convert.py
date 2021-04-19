@@ -68,6 +68,7 @@ def to_cirq(q_circuit, qubits):
         elif len(params) > 0:
             cirq_qc.append([cirq_op(*params)(*named_qubits_for_ops(named_qubits, qargs))])
         else:
+            print(cirq_op)
             cirq_qc.append([cirq_op(*named_qubits_for_ops(named_qubits, qargs))])
 
     return cirq_qc

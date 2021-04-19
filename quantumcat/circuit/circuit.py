@@ -72,8 +72,11 @@ class QCircuit:
         self.operations.append({OpType.rzx_gate: [[qubit1], [qubit2]],
                                 constants.PARAMS: [theta]})
 
-    def ecr_gate(self):
-        pass
+    # Couldn't file class to map ecr gates in gates_map.py
+    # def ecr_gate(self, qubit1, qubit2):
+    #     self.check_qubit_boundary(qubit1)
+    #     self.check_qubit_boundary(qubit2)
+    #     self.operations.append({OpType.ecr_gate: [[qubit1], [qubit2]]})
 
     def s_gate(self, qubit):
         self.check_qubit_boundary(qubit)
@@ -111,22 +114,22 @@ class QCircuit:
 
     def u_gate(self, theta, phi, lam, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.u_gate: [[qubit]],
+        self.operations.append({OpType.u_gate: [qubit],
                                 constants.PARAMS: [theta, phi, lam]})
 
     def u1_gate(self, theta, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.u1_gate: [[qubit]],
+        self.operations.append({OpType.u1_gate: [qubit],
                                 constants.PARAMS: [theta]})
 
     def u2_gate(self, phi, lam, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.u2_gate: [[qubit]],
+        self.operations.append({OpType.u2_gate: [qubit],
                                 constants.PARAMS: [phi, lam]})
 
     def u3_gate(self, theta, phi, lam, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append(({OpType.u3_gate: [[qubit]],
+        self.operations.append(({OpType.u3_gate: [qubit],
                                  constants.PARAMS: [theta, phi, lam]}))
 
     def cy_gate(self, control_qubit, target_qubit):
@@ -158,11 +161,6 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.check_cbit_boundary(cbit)
         self.operations.append({OpType.measure: [[qubit], [cbit]]})
-
-    def u_gate(self, theta, phi, lam, qubit):
-        self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.u_gate: [qubit],
-                                constants.PARAMS: [theta, phi, lam]})
 
     def get_operations(self):
         return self.operations

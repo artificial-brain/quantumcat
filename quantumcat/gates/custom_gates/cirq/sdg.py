@@ -11,13 +11,20 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from quantumcat.gates.custom_gates.cirq.u_gate import UGate
-from quantumcat.gates.custom_gates.cirq.u1 import U1Gate
-from quantumcat.gates.custom_gates.cirq.u2 import U2Gate
-from quantumcat.gates.custom_gates.cirq.u3 import U3Gate
-from quantumcat.gates.custom_gates.cirq.rzz import RZZGate
-from quantumcat.gates.custom_gates.cirq.rzx import RZXGate
-from quantumcat.gates.custom_gates.cirq.sdg import SDG
-from quantumcat.gates.custom_gates.cirq.sx import SX
-from quantumcat.gates.custom_gates.cirq.sxd import SXD
-from quantumcat.gates.custom_gates.cirq.td import TDGate
+import cirq
+import numpy
+
+
+class SDG(cirq.Gate):
+    def __init__(self):
+        super(SDG, self).__init__()
+
+    def _num_qubits_(self):
+        return 1
+
+    def _unitary_(self):
+        return numpy.array([[1, 0],
+                            [0, -1j]])
+
+    def _circuit_diagram_info_(self, args):
+        return "SDG"
