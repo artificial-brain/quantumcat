@@ -139,31 +139,7 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.u_gate: [[qubit]],
                                 constants.PARAMS: [theta, phi, lam]})
-    def cy_gate(self,control_qubit,target_qubit):
-        self.check_qubit_boundary(control_qubit)
-        self.operations.append({OpType.cy_gate: [[control_qubit], [target_qubit]]})
-
-    def cz_gate(self,control_qubit,target_qubit):
-        self.check_qubit_boundary(control_qubit)
-        self.operations.append({OpType.cz_gate: [[control_qubit], [target_qubit]]})
-
-    def i_gate(self,qubit):
-        self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.i_gate:[qubit]})
-
-    def rccx_gate(self,control_qubit1, control_qubit2, target_qubit):
-        self.check_qubit_boundary(control_qubit1)
-        self.check_qubit_boundary(control_qubit2)
-        self.check_qubit_boundary(target_qubit)
-        self.operations.append({OpType.rccx_gate:[[control_qubit1], [control_qubit2], [target_qubit]]})
-
-    def rc3x_gate(self,control_qubit1,control_qubit2,control_qubit3,target_qubit):
-        self.check_qubit_boundary(control_qubit1)
-        self.check_qubit_boundary(control_qubit2)
-        self.check_qubit_boundary(control_qubit3)
-        self.check_qubit_boundary(target_qubit)
-        self.operations.append({OpType.rc3x_gate: [[control_qubit1], [control_qubit2], [control_qubit3], [target_qubit]]})
-
+    
     def rxx_gate(self, theta, qubit1, qubit2):
         self.check_qubit_boundary(qubit1)
         self.check_qubit_boundary(qubit2)
@@ -175,12 +151,17 @@ class QCircuit:
  
     def r_gate(self, theta,phi, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.rxx_gate: [qubit], constants.PARAMS: [[theta], [phi]]})
+        self.operations.append({OpType.r_gate: [qubit], constants.PARAMS: [[theta], [phi]]})
 
-    def rzz_gate(self, theta, qubit):
+    def p_gate(self, theta, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.rzz_gate: [qubit]})
-
+        self.operations.append({OpType.p_gate: [qubit], constants.PARAMS: [theta]})
+    
+    def mcp_gate(self,lam,control_qubits, target_qubit):
+        self.check_qubit_boundary(target_qubit)
+        for qubit in control_qubits:
+            self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.mcp_gate: [[control_qubits[:]],[target_qubit]], constants.PARAMS: [[lam], [len(control_qubits)]]})
 
     def get_operations(self):
         return self.operations
