@@ -19,7 +19,9 @@ from qiskit import QuantumCircuit
 
 if __name__ == '__main__':
     circuit = QCircuit(2, 2)
-    circuit.cz_gate(0, 1)
+    # circuit.cz_gate(0, 1)
+    circuit.x_gate(0)
+    circuit.u1_gate(90, 0)
     # circuit.x_gate(1)
     # circuit.ccx_gate(0, 1, 2)
     # circuit.rzx_gate(45, 0, 1)
@@ -29,6 +31,6 @@ if __name__ == '__main__':
     circuit.measure(0, 0)
     # circuit.measure(1, 1)
     # circuit.measure(2, 2)
-    circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
+    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
+    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
 

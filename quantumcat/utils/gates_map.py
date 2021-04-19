@@ -50,6 +50,7 @@ quantumcat_to_cirq = {
     OpType.ccx_gate: ops.three_qubit_gates.CCNOT,
     OpType.h_gate: ops.common_gates.H,
     OpType.u_gate: custom_gates.cirq.UGate,
+    OpType.u1_gate: custom_gates.cirq.U1Gate,
     OpType.cz_gate: ops.common_gates.CZ,
     OpType.measure: OpType.measure,
 }
