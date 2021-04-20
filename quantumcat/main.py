@@ -21,7 +21,7 @@ if __name__ == '__main__':
     circuit = QCircuit(2, 2)
     # circuit.cz_gate(0, 1)
     circuit.x_gate(0)
-    circuit.u1_gate(90, 0)
+    circuit.u3_gate(90, 45, 45, 0)
     # circuit.x_gate(1)
     # circuit.ccx_gate(0, 1, 2)
     # circuit.rzx_gate(45, 0, 1)

@@ -13,3 +13,5 @@
 #  limitations under the License.
 from quantumcat.gates.custom_gates.cirq.u_gate import UGate
 from quantumcat.gates.custom_gates.cirq.u1_gate import U1Gate
+from quantumcat.gates.custom_gates.cirq.u2_gate import U2Gate
+from quantumcat.gates.custom_gates.cirq.u3_gate import U3Gate
