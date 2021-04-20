@@ -37,19 +37,19 @@ class GroversAlgorithm:
         self.circuit = QCircuit(self.total_qubits,  self.num_of_qubits)
         self.provider = provider
 
-        for index in range(len(self.input_arr)):
-            if self.input_arr[index] == 1:
-                self.circuit.x_gate(index)
-
         # Initialise input qubits in superposition
         for qubit in range(self.num_of_qubits):
             self.circuit.h_gate(qubit)
+
+        for index in range(len(self.input_arr)):
+            if self.input_arr[index] == 1:
+                self.circuit.x_gate(self.num_of_qubits + index)
 
         # Initialise output qubit in the |-⟩ state.
         self.circuit.x_gate(self.total_qubits - 1)
         self.circuit.h_gate(self.total_qubits - 1)
 
-    def create_oracle(self):
+    def create_oracle_for_unknown(self):
         output_qubit = self.total_qubits - 1
         clause_qubits = []
 
@@ -59,15 +59,15 @@ class GroversAlgorithm:
             clause_qubits.append(clause_qubit)
 
         if self.flip_output:
-            for qubit in range(self.num_of_qubits):
-                self.circuit.x_gate(qubit)
+            for index in range(len(clause_qubits)):
+                self.circuit.x_gate(clause_qubits[index])
 
         # Flip 'output' bit if all clauses are satisfied
         self.circuit.mct_gate(clause_qubits, output_qubit)
 
         if self.flip_output:
-            for qubit in range(self.num_of_qubits):
-                self.circuit.x_gate(qubit)
+            for index in range(len(clause_qubits)):
+                self.circuit.x_gate(clause_qubits[index])
 
         for index in range(len(self.clause_list)):
             clause_qubit = self.num_of_qubits + index
@@ -76,6 +76,8 @@ class GroversAlgorithm:
     def XOR(self, qubits, output_qubit):
         for qubit in qubits:
             self.circuit.cx_gate(qubit, output_qubit)
+
+    # def create_oracle_for_known(self):
 
     def diffuser(self):
         q_circuit = self.circuit
@@ -101,7 +103,7 @@ class GroversAlgorithm:
         self.initialize(provider)
 
         for _ in range(self.num_of_iterations):
-            self.create_oracle()
+            self.create_oracle_for_unknown()
             self.diffuser()
 
         for i in range(self.num_of_qubits):
