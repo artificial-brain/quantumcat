@@ -15,10 +15,9 @@ import cirq
 import numpy
 
 
-class SX(cirq.Gate):
-    def __init__(self, theta):
-        super(SX, self).__init__()
-        self.theta = theta
+class SXGate(cirq.Gate):
+    def __init__(self):
+        super(SXGate, self).__init__()
 
     def _num_qubits_(self):
         return 1

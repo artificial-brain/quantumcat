@@ -86,10 +86,10 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.sdg_gate: [qubit]})
 
-    def swap_gate(self, qubit_a, qubit_b):
-        self.check_qubit_boundary(qubit_a)
-        self.check_qubit_boundary(qubit_b)
-        self.operations.append(({OpType.swap_gate: [[qubit_a], [qubit_b]]}))
+    def swap_gate(self, qubit1, qubit2):
+        self.check_qubit_boundary(qubit1)
+        self.check_qubit_boundary(qubit2)
+        self.operations.append(({OpType.swap_gate: [[qubit1], [qubit2]]}))
 
     def iswap_gate(self, qubit_a, qubit_b):
         self.check_qubit_boundary(qubit_a)
@@ -161,6 +161,11 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.check_cbit_boundary(cbit)
         self.operations.append({OpType.measure: [[qubit], [cbit]]})
+
+    def rxx_gate(self, theta, qubit1, qubit2):
+        self.check_qubit_boundary(qubit1)
+        self.check_qubit_boundary(qubit2)
+        self.operations.append({OpType.rxx_gate: [[qubit1], [qubit2]], constants.PARAMS: [theta]})
 
     def get_operations(self):
         return self.operations

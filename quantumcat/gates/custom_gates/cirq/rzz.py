@@ -23,13 +23,12 @@ class RZZGate(cirq.Gate):
     def _num_qubits_(self):
         return 2
 
-    def _unitary_(self):
+    def _unitary_(self, dtype=None):
         itheta2 = 1j * float(self.theta) / 2
         return numpy.array([[numpy.exp(-itheta2), 0, 0, 0],
                             [0, numpy.exp(itheta2), 0, 0],
                             [0, 0, numpy.exp(itheta2), 0],
-                            [0, 0, 0, numpy.exp(-itheta2)]])
-
+                            [0, 0, 0, numpy.exp(-itheta2)]], dtype=dtype)
 
     def circuit_diagram_info(self, args):
-        return 'RZZ' '#2'
+        return [f"RZZ({self.theta})"] * self.num_qubits()

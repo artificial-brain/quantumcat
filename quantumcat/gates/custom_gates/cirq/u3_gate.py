@@ -15,16 +15,25 @@ import cirq
 import numpy
 
 
-class SDGGate(cirq.Gate):
-    def __init__(self):
-        super(SDGGate, self).__init__()
+class U3Gate(cirq.Gate):
+    def __init__(self, theta, phi, lam):
+        super(U3Gate, self).__init__()
+        self.theta = theta
+        self.phi = phi
+        self.lam = lam
 
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
-        return numpy.array([[1, 0],
-                            [0, -1j]])
+    def _unitary_(self, dtype=None):
+        theta, phi, lam = self.theta, self.phi, self.lam
+        theta, phi, lam = float(theta), float(phi), float(lam)
+        cos = numpy.cos(theta / 2)
+        sin = numpy.sin(theta / 2)
+        return numpy.array([
+            [cos, -numpy.exp(1j * lam) * sin],
+            [numpy.exp(1j * phi) * sin, numpy.exp(1j * (phi + lam)) * cos]
+        ], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-        return "SDG"
+        return f"U3{self.theta, self.phi, self.lam}"

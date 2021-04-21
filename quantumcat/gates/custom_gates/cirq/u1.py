@@ -35,4 +35,4 @@ class U1Gate(cirq.Gate):
         ])
 
     def _circuit_diagram_info_(self, args):
-        return "U1"
+        return f"U1({self.theta})"

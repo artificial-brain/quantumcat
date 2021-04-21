@@ -15,9 +15,9 @@ import cirq
 import numpy
 
 
-class SXD(cirq.Gate):
+class SXDGate(cirq.Gate):
     def __init__(self):
-        super(SXD, self).__init__()
+        super(SXDGate, self).__init__()
 
     def _num_qubits_(self):
         return 1

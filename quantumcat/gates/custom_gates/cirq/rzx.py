@@ -23,14 +23,14 @@ class RZXGate(cirq.Gate):
     def _num_qubits_(self):
         return 2
 
-    def _unitary_(self):
+    def _unitary_(self, dtype=None):
         half_theta = float(self.theta) / 2
         cos = numpy.cos(half_theta)
         isin = 1j * numpy.sin(half_theta)
         return numpy.array([[cos, 0, -isin, 0],
                             [0, cos, 0, isin],
                             [-isin, 0, cos, 0],
-                            [0, isin, 0, cos]])
+                            [0, isin, 0, cos]], dtype=dtype)
 
     def circuit_diagram_info(self, args):
-        return cirq.CircuitDiagramInfo(wire_symbols=('RZX1', 'RZX2'))
+        return [f"RZX({self.theta})"] * self.num_qubits()

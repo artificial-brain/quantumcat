@@ -13,11 +13,14 @@
 #  limitations under the License.
 from quantumcat.gates.custom_gates.cirq.u_gate import UGate
 from quantumcat.gates.custom_gates.cirq.u1 import U1Gate
-from quantumcat.gates.custom_gates.cirq.u2 import U2Gate
-from quantumcat.gates.custom_gates.cirq.u3 import U3Gate
+# from quantumcat.gates.custom_gates.cirq.u1_gate import U1Gate
+from quantumcat.gates.custom_gates.cirq.u2_gate import U2Gate
+from quantumcat.gates.custom_gates.cirq.u3_gate import U3Gate
 from quantumcat.gates.custom_gates.cirq.rzz import RZZGate
 from quantumcat.gates.custom_gates.cirq.rzx import RZXGate
-from quantumcat.gates.custom_gates.cirq.sdg import SDG
-from quantumcat.gates.custom_gates.cirq.sx import SX
-from quantumcat.gates.custom_gates.cirq.sxd import SXD
+from quantumcat.gates.custom_gates.cirq.sdg import SDGGate
+from quantumcat.gates.custom_gates.cirq.sx import SXGate
+from quantumcat.gates.custom_gates.cirq.sxd import SXDGate
 from quantumcat.gates.custom_gates.cirq.td import TDGate
+from quantumcat.gates.custom_gates.cirq.i_gate import IGate
+from quantumcat.gates.custom_gates.cirq.rxx_gate import RXXGate

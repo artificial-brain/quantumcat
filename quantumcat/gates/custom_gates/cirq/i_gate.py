@@ -15,16 +15,17 @@ import cirq
 import numpy
 
 
-class SDGGate(cirq.Gate):
-    def __init__(self):
-        super(SDGGate, self).__init__()
+class IGate(cirq.Gate):
+    def __init__(self, label=None):
+        """Create new Identity gate."""
+        super().__init__()
 
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
-        return numpy.array([[1, 0],
-                            [0, -1j]])
+    def _unitary_(self, dtype=None):
+       return numpy.array([[1, 0],
+                            [0, 1]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-        return "SDG"
+        return "I"

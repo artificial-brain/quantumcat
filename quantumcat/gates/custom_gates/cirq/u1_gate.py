@@ -15,16 +15,17 @@ import cirq
 import numpy
 
 
-class SDGGate(cirq.Gate):
-    def __init__(self):
-        super(SDGGate, self).__init__()
+class U1Gate(cirq.Gate):
+    def __init__(self, theta):
+        super(U1Gate, self).__init__()
+        self.theta = theta
 
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
-        return numpy.array([[1, 0],
-                            [0, -1j]])
+    def _unitary_(self, dtype=None):
+        lam = float(self.theta)
+        return numpy.array([[1, 0], [0, numpy.exp(1j * lam)]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-        return "SDG"
+        return f"U1({self.theta})"
