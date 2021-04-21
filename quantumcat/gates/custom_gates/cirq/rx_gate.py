@@ -16,24 +16,20 @@ import numpy
 import math
 
 
-class RGate(cirq.Gate):
-    def __init__(self, theta, phi):
-        super(RGate, self).__init__()
+class RXGate(cirq.Gate):
+    def __init__(self, theta):
+        super(RXGate, self).__init__()
         self.theta = theta
-        self.phi=phi
 
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
-        theta, phi = float(self.theta), float(self.phi)
-        cos = math.cos(theta / 2)
-        sin = math.sin(theta / 2)
-        exp_m = numpy.exp(-1j * phi)
-        exp_p = numpy.exp(1j * phi)
-        return numpy.array([[cos, -1j * exp_m * sin],
-                            [-1j * exp_p * sin, cos]])
+    def _unitary_(self, dtype=None):
+        cos = math.cos(self.theta / 2)
+        sin = math.sin(self.theta / 2)
+        return numpy.array([[cos, -1j * sin],
+                            [-1j * sin, cos]], dtype=dtype)
 
 
     def _circuit_diagram_info_(self, args):
-        return f"R{self.theta, self.phi}"
+        return f"RX({self.theta})"

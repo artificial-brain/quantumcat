@@ -13,23 +13,20 @@
 #  limitations under the License.
 import cirq
 import numpy
-import math
 
 
-class RXGate(cirq.Gate):
+class PGate(cirq.Gate):
     def __init__(self, theta):
-        super(RXGate, self).__init__()
+        super(PGate, self).__init__()
         self.theta = theta
 
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
-        cos = math.cos(self.theta / 2)
-        sin = math.sin(self.theta / 2)
-        return numpy.array([[cos, -1j * sin],
-                            [-1j * sin, cos]])
+    def _unitary_(self, dtype=None):
+        lam = float(self.theta)
+        return numpy.array([[1, 0], [0, numpy.exp(1j * lam)]], dtype=dtype)
 
 
     def _circuit_diagram_info_(self, args):
-        return f"RX({self.theta})"
+        return f"P({self.theta})"

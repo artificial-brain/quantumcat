@@ -22,7 +22,7 @@ class RC3XGate(cirq.Gate):
     def _num_qubits_(self):
         return 4
 
-    def _unitary_(self):
+    def _unitary_(self, dtype=None):
         return numpy.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -38,8 +38,8 @@ class RC3XGate(cirq.Gate):
                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-                            [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0]])
+                            [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0]], dtype=dtype)
 
 
     def _circuit_diagram_info_(self, args):
-        return ["RC3X_c1","RC3x_c2","RCX_cx3","RC3X_t"]
+        return ["RC3XGate"] * self.num_qubits()

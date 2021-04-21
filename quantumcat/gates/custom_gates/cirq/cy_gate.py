@@ -15,18 +15,19 @@ import cirq
 import numpy
 
 
-class PGate(cirq.Gate):
-    def __init__(self, theta):
-        super(PGate, self).__init__()
-        self.theta = theta
+class CYGate(cirq.Gate):
+    
+    def __init__(self):
+        super(CYGate, self).__init__()
 
     def _num_qubits_(self):
-        return 1
+        return 2
 
-    def _unitary_(self):
-        lam = float(self.theta)
-        return numpy.array([[1, 0], [0, numpy.exp(1j * lam)]])
-
+    def _unitary_(self, dtype=None):
+        return numpy.array([[1, 0, 0, 0],
+                            [0, 0, 0, -1j],
+                            [0, 0, 1, 0],
+                            [0, 1j, 0, 0]], dtype)
 
     def _circuit_diagram_info_(self, args):
-        return f"P({self.theta})"
+       return ["CYGate"] * self.num_qubits()
