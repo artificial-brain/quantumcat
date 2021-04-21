@@ -49,5 +49,4 @@ class OpType(Enum):
     rx_gate=14
     r_gate=15
     p_gate=16
-    rzz_gate = 42
     measure = 100

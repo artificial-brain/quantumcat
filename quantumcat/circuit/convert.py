@@ -15,7 +15,8 @@
 from qiskit import QuantumCircuit
 from quantumcat.utils import gates_map
 from quantumcat.circuit.op_type import OpType
-from quantumcat.utils import constants
+from quantumcat.utils import constants,helper
+import inspect
 import cirq
 
 
@@ -53,9 +54,11 @@ def to_cirq(q_circuit, qubits):
     operations = q_circuit.operations
     cirq_qc = cirq.Circuit()
     named_qubits = cirq.NamedQubit.range(qubits, prefix='q')
+    print(operations)
     for op in operations:
         params = []
         operation = next(iter(op.items()))
+        print(operation)
         cirq_op = gates_map.quantumcat_to_cirq[operation[0]]
         qargs = operation[1]
         if constants.PARAMS in op:
@@ -65,8 +68,8 @@ def to_cirq(q_circuit, qubits):
             qubit = named_qubits[qargs[0][0]]
             cirq_qc.append(cirq.ops.measure(qubit))
         # Find a better way to replace the following if
-        elif len(params) > 0:
-            cirq_qc.append([cirq_op(*params)(*named_qubits_for_ops(named_qubits, qargs))])
+        elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
+            cirq_qc.append([cirq_op(*params).on(*named_qubits_for_ops(named_qubits, qargs))])
         else:
             cirq_qc.append([cirq_op(*named_qubits_for_ops(named_qubits, qargs))])
 

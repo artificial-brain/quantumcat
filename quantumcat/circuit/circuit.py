@@ -110,6 +110,7 @@ class QCircuit:
         self.operations.append({OpType.cy_gate: [[control_qubit],[target_qubit]]})
 
     def cz_gate(self,control_qubit,target_qubit):
+        print('From cz_gate',control_qubit)
         self.check_qubit_boundary(control_qubit)
         self.operations.append({OpType.cz_gate: [[control_qubit],[target_qubit]]})
 
@@ -135,6 +136,7 @@ class QCircuit:
         self.check_cbit_boundary(cbit)
         self.operations.append({OpType.measure: [[qubit], [cbit]]})
 
+
     def u_gate(self, theta, phi, lam, qubit):
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.u_gate: [[qubit]],
@@ -147,11 +149,11 @@ class QCircuit:
 
     def rx_gate(self, theta, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.rxx_gate: [qubit], constants.PARAMS: [theta]})
+        self.operations.append({OpType.rx_gate: [qubit], constants.PARAMS: [theta]})
  
     def r_gate(self, theta,phi, qubit):
         self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.r_gate: [qubit], constants.PARAMS: [[theta], [phi]]})
+        self.operations.append({OpType.r_gate: [qubit], constants.PARAMS: [theta, phi]})
 
     def p_gate(self, theta, qubit):
         self.check_qubit_boundary(qubit)

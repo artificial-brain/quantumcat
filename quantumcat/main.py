@@ -18,19 +18,17 @@ from qiskit import QuantumCircuit
 
 
 if __name__ == '__main__':
-    circuit = QCircuit(2, 2)
-    # circuit.x_gate(0)
-    # circuit.x_gate(1)
-    circuit.cz_gate(0,1)
-    #circuit.rzx_gate(45, 0, 1)
+    circuit = QCircuit(4, 4)
+    print("here")
+    #circuit.rxx_gate(45,0, 1)
+    circuit.p_gate(45,0)
     #circuit.u_gate(45, 40, 40, 0)
-    # circuit.x_gate(1)
+    circuit.cy_gate(0,1)
     # circuit.entangle(0, 1)
     circuit.measure(0, 0)
     circuit.measure(1, 1)
     # circuit.measure(2, 2)
-    circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=1024))
     circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
+    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
     #print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=1024))
 

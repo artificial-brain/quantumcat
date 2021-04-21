@@ -15,6 +15,7 @@
 from quantumcat.circuit.op_type import OpType
 from qiskit.circuit.library import standard_gates
 from cirq import ops
+from quantumcat.gates import custom_gates
 
 quantumcat_to_qiskit = {
     OpType.x_gate: standard_gates.x.XGate,
@@ -45,6 +46,7 @@ quantumcat_to_qiskit = {
     OpType.rxx_gate: standard_gates.rxx.RXXGate,
     OpType.rx_gate: standard_gates.rx.RXGate,
     OpType.r_gate: standard_gates.r.RGate,
+    OpType.p_gate: standard_gates.p.PhaseGate,
     OpType.measure: OpType.measure,
 }
 
@@ -56,5 +58,13 @@ quantumcat_to_cirq = {
     OpType.ccx_gate: ops.three_qubit_gates.CCNOT,
     OpType.h_gate: ops.common_gates.H,
     OpType.cz_gate: ops.common_gates.CZ,
+    OpType.i_gate: ops.identity.I,
+    OpType.rxx_gate: custom_gates.cirq.RXXGate,
+    OpType.r_gate: custom_gates.cirq.RGate,
+    OpType.rx_gate: custom_gates.cirq.RXGate,
+    OpType.rccx_gate: custom_gates.cirq.RCCXGate,
+    OpType.rc3x_gate: custom_gates.cirq.RC3XGate,
+    OpType.cy_gate: custom_gates.cirq.CYGate,
+    OpType.p_gate: custom_gates.cirq.PGate,
     OpType.measure: OpType.measure,
 }
