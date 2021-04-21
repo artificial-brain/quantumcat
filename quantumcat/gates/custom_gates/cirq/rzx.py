@@ -21,7 +21,7 @@ class RZXGate(cirq.Gate):
         self.theta = theta
 
     def _num_qubits_(self):
-        return 1
+        return 2
 
     def _unitary_(self):
         half_theta = float(self.theta) / 2
@@ -32,6 +32,5 @@ class RZXGate(cirq.Gate):
                             [-isin, 0, cos, 0],
                             [0, isin, 0, cos]])
 
-
-    def _circuit_diagram_info_(self, args):
-        return "RZX"
+    def circuit_diagram_info(self, args):
+        return cirq.CircuitDiagramInfo(wire_symbols=('RZX1', 'RZX2'))

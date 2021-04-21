@@ -31,5 +31,5 @@ class RZZGate(cirq.Gate):
                             [0, 0, 0, numpy.exp(-itheta2)]])
 
 
-    def _circuit_diagram_info_(self, args):
-        return "RZZ"
+    def circuit_diagram_info(self, args):
+        return 'RZZ' '#2'
