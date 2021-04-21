@@ -35,4 +35,3 @@ if __name__ == '__main__':
     # circuit.measure(2, 2)
     circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
     print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
-

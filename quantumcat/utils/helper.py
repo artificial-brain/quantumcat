@@ -12,12 +12,15 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from quantumcat.gates.custom_gates.cirq import UGate, U1Gate, U2Gate, U3Gate, SXGate, IGate, RXXGate
+from quantumcat.gates.custom_gates.cirq import UGate, U1Gate, U2Gate, U3Gate, SXGate, IGate, RXXGate,
+                                               RXGate, RCCXGate, RC3XGate, RGate, CYGate, PGate
 
 
 def is_custom_class(obj):
     if isinstance(obj, UGate) or isinstance(obj, U1Gate) or isinstance(obj, U2Gate) or isinstance(obj, U3Gate) or \
-            isinstance(obj, SXGate) or isinstance(obj, IGate) or isinstance(obj, RXXGate):
+            isinstance(obj, SXGate) or isinstance(obj, IGate) or isinstance(obj, RXXGate) or \
+            or isinstance(obj, RXGate) or isinstance(obj, RCCXGate) or isinstance(obj, RC3XGate) or \
+            isinstance(obj, RGate) or isinstance(obj, CYGate) or isinstance(obj, PGate):
         return True
     else:
         return False
