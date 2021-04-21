@@ -15,9 +15,9 @@
 from qiskit import QuantumCircuit
 from quantumcat.utils import gates_map
 from quantumcat.circuit.op_type import OpType
-from quantumcat.utils import constants,helper
-import inspect
+from quantumcat.utils import constants, helper
 import cirq
+import inspect
 
 
 def to_qiskit(q_circuit, qubits, cbits):
@@ -98,3 +98,4 @@ def named_qubits_for_ops(named_qubits, qargs):
                 op_named_qubits.append(named_qubits[j])
 
     return op_named_qubits
+
