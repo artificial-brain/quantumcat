@@ -30,5 +30,5 @@ class RZZGate(cirq.Gate):
                             [0, 0, numpy.exp(itheta2), 0],
                             [0, 0, 0, numpy.exp(-itheta2)]], dtype=dtype)
 
-    def circuit_diagram_info(self, args):
+    def _circuit_diagram_info_(self, args):
         return [f"RZZ({self.theta})"] * self.num_qubits()

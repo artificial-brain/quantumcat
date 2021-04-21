@@ -32,5 +32,5 @@ class RZXGate(cirq.Gate):
                             [-isin, 0, cos, 0],
                             [0, isin, 0, cos]], dtype=dtype)
 
-    def circuit_diagram_info(self, args):
+    def _circuit_diagram_info_(self, args):
         return [f"RZX({self.theta})"] * self.num_qubits()
