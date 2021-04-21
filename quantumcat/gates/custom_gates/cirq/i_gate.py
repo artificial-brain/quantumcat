@@ -11,10 +11,21 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from quantumcat.gates.custom_gates.cirq.u_gate import UGate
-from quantumcat.gates.custom_gates.cirq.u1_gate import U1Gate
-from quantumcat.gates.custom_gates.cirq.u2_gate import U2Gate
-from quantumcat.gates.custom_gates.cirq.u3_gate import U3Gate
-from quantumcat.gates.custom_gates.cirq.rxx_gate import RXXGate
-from quantumcat.gates.custom_gates.cirq.i_gate import IGate
-from quantumcat.gates.custom_gates.cirq.sx_gate import SXGate
+import cirq
+import numpy
+
+
+class IGate(cirq.Gate):
+    def __init__(self, label=None):
+        """Create new Identity gate."""
+        super().__init__()
+
+    def _num_qubits_(self):
+        return 1
+
+    def _unitary_(self, dtype=None):
+       return numpy.array([[1, 0],
+                            [0, 1]], dtype=dtype)
+
+    def _circuit_diagram_info_(self, args):
+        return "I"

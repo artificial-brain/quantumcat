@@ -154,11 +154,6 @@ class QCircuit:
         self.check_qubit_boundary(target_qubit)
         self.operations.append({OpType.rc3x_gate: [[control_qubit1], [control_qubit2], [control_qubit3], [target_qubit]]})
 
-    def measure(self, qubit, cbit):
-        self.check_qubit_boundary(qubit)
-        self.check_cbit_boundary(cbit)
-        self.operations.append({OpType.measure: [[qubit], [cbit]]})
-
     def u_gate(self, theta, phi, lam, qubit):
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.u_gate: [qubit],
@@ -168,6 +163,16 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.u1_gate: [qubit],
                                 constants.PARAMS: [theta]})
+
+    def rxx_gate(self, theta, qubit1, qubit2):
+        self.check_qubit_boundary(qubit1)
+        self.check_qubit_boundary(qubit2)
+        self.operations.append({OpType.rxx_gate: [[qubit1], [qubit2]], constants.PARAMS: [theta]})
+
+    def measure(self, qubit, cbit):
+        self.check_qubit_boundary(qubit)
+        self.check_cbit_boundary(cbit)
+        self.operations.append({OpType.measure: [[qubit], [cbit]]})
 
     def get_operations(self):
         return self.operations

@@ -11,10 +11,13 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from quantumcat.gates.custom_gates.cirq.u_gate import UGate
-from quantumcat.gates.custom_gates.cirq.u1_gate import U1Gate
-from quantumcat.gates.custom_gates.cirq.u2_gate import U2Gate
-from quantumcat.gates.custom_gates.cirq.u3_gate import U3Gate
-from quantumcat.gates.custom_gates.cirq.rxx_gate import RXXGate
-from quantumcat.gates.custom_gates.cirq.i_gate import IGate
-from quantumcat.gates.custom_gates.cirq.sx_gate import SXGate
+
+from quantumcat.gates.custom_gates.cirq import UGate, U1Gate, U2Gate, U3Gate, SXGate, IGate, RXXGate
+
+
+def is_custom_class(obj):
+    if isinstance(obj, UGate) or isinstance(obj, U1Gate) or isinstance(obj, U2Gate) or isinstance(obj, U3Gate) or \
+            isinstance(obj, SXGate) or isinstance(obj, IGate) or isinstance(obj, RXXGate):
+        return True
+    else:
+        return False

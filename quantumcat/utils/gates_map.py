@@ -39,6 +39,8 @@ quantumcat_to_qiskit = {
     OpType.u2_gate: standard_gates.u2.U2Gate,
     OpType.u3_gate: standard_gates.u3.U3Gate,
     OpType.cz_gate: standard_gates.z.CZGate,
+    OpType.i_gate: standard_gates.i.IGate,
+    OpType.rxx_gate: standard_gates.rxx.RXXGate,
     OpType.measure: OpType.measure,
 }
 
@@ -50,13 +52,15 @@ quantumcat_to_cirq = {
     OpType.ccx_gate: ops.three_qubit_gates.CCNOT,
     OpType.h_gate: ops.common_gates.H,
     OpType.cz_gate: ops.common_gates.CZ,
+    OpType.i_gate: ops.IdentityGate,
+
     #  OpType.rzz_gate: custom_gates.cirq.RZZGate,
     # OpType.rzx_gate: custom_gates.cirq.RZXGate,
     # OpType.s_gate: ops.common_gates.S,
     # OpType.sdg_gate: custom_gates.cirq.SDG,
     # OpType.swap_gate: ops.swap_gates.SWAP,
     # OpType.iswap_gate: ops.swap_gates.ISWAP,
-    # OpType.sx_gate: custom_gates.cirq.SX,
+    OpType.sx_gate: custom_gates.cirq.SXGate,
     # OpType.sxd_gate: custom_gates.cirq.SXD,
     # OpType.t_gate: ops.common_gates.T,
     # OpType.td_gate: custom_gates.cirq.TDGate,
@@ -64,5 +68,6 @@ quantumcat_to_cirq = {
     OpType.u1_gate: custom_gates.cirq.U1Gate,
     OpType.u2_gate: custom_gates.cirq.U2Gate,
     OpType.u3_gate: custom_gates.cirq.U3Gate,
+    OpType.rxx_gate: custom_gates.cirq.RXXGate,
     OpType.measure: OpType.measure,
 }
