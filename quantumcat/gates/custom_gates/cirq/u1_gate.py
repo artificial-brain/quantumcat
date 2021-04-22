@@ -28,4 +28,4 @@ class U1Gate(cirq.Gate):
         return numpy.array([[1, 0], [0, numpy.exp(1j * lam)]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-        return "U1"
+        return f"U1({self.theta})"

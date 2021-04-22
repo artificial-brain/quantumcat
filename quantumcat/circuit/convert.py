@@ -71,6 +71,7 @@ def to_cirq(q_circuit, qubits):
         elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
             cirq_qc.append([cirq_op(*params).on(*named_qubits_for_ops(named_qubits, qargs))])
         else:
+            print(cirq_op)
             cirq_qc.append([cirq_op(*named_qubits_for_ops(named_qubits, qargs))])
 
     return cirq_qc

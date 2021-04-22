@@ -15,29 +15,24 @@ import cirq
 import numpy
 
 
-class U2Gate(cirq.Gate):
-    def __init__(self, phi, lam):
-        super(U2Gate, self).__init__()
-        self.phi = phi
-        self.lam = lam
+class U1Gate(cirq.Gate):
+    def __init__(self, theta):
+        super(U1Gate, self).__init__()
+        self.theta = theta
 
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self, dtype=None):
-        isqrt2 = 1 / numpy.sqrt(2)
-        phi, lam = self.phi, self.lam
-        phi, lam = float(phi), float(lam)
+    def _unitary_(self):
         return numpy.array([
             [
-                isqrt2,
-                -numpy.exp(1j * lam) * isqrt2
+                1,
+                0
             ],
             [
-                numpy.exp(1j * phi) * isqrt2,
-                numpy.exp(1j * (phi + lam)) * isqrt2
+                0, numpy.exp(1j * self.theta)
             ]
-        ], dtype=dtype)
+        ])
 
     def _circuit_diagram_info_(self, args):
-        return f"U2{self.phi, self.lam}"
+        return f"U1({self.theta})"
