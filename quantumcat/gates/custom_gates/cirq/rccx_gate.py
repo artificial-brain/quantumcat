@@ -15,17 +15,23 @@ import cirq
 import numpy
 
 
-class IGate(cirq.Gate):
-    def __init__(self, label=None):
-        """Create new Identity gate."""
-        super().__init__()
+class RCCXGate(cirq.Gate):
+    def __init__(self):
+        super(RCCXGate, self).__init__()
 
     def _num_qubits_(self):
-        return 1
+        return 3
 
     def _unitary_(self, dtype=None):
-       return numpy.array([[1, 0],
-                            [0, 1]], dtype=dtype)
+        return numpy.array([[1, 0, 0, 0, 0, 0, 0, 0],
+                            [0, 1, 0, 0, 0, 0, 0, 0],
+                            [0, 0, 1, 0, 0, 0, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0, -1j],
+                            [0, 0, 0, 0, 1, 0, 0, 0],
+                            [0, 0, 0, 0, 0, -1, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 1, 0],
+                            [0, 0, 0, 1j, 0, 0, 0, 0]], dtype=dtype)
+
 
     def _circuit_diagram_info_(self, args):
-        return "I"
+        return ["RCXX"] * self.num_qubits()

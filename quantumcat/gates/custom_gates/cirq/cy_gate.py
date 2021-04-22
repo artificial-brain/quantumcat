@@ -11,5 +11,23 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+import cirq
+import numpy
 
-from quantumcat.gates.custom_gates import cirq
+
+class CYGate(cirq.Gate):
+    
+    def __init__(self):
+        super(CYGate, self).__init__()
+
+    def _num_qubits_(self):
+        return 2
+
+    def _unitary_(self, dtype=None):
+        return numpy.array([[1, 0, 0, 0],
+                            [0, 0, 0, -1j],
+                            [0, 0, 1, 0],
+                            [0, 1j, 0, 0]], dtype)
+
+    def _circuit_diagram_info_(self, args):
+       return ["CYGate"] * self.num_qubits()
