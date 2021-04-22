@@ -27,15 +27,9 @@ class UGate(cirq.Gate):
 
     def _unitary_(self, dtype=None):
         return numpy.array([
-            [
-                numpy.cos(self.theta / 2),
-                -numpy.exp(1j * self.lam) * numpy.sin(self.theta / 2)
-            ],
-            [
-                numpy.exp(1j * self.phi) * numpy.sin(self.theta / 2),
-                numpy.exp(1j * (self.phi + self.lam)) * numpy.cos(self.theta / 2)
-            ]
-        ], dtype=None)
+            [numpy.cos(self.theta / 2), -numpy.exp(1j * self.lam) * numpy.sin(self.theta / 2)],
+            [numpy.exp(1j * self.phi) * numpy.sin(self.theta / 2), numpy.exp(1j * (self.phi + self.lam))
+                * numpy.cos(self.theta / 2)]], dtype=None)
 
     def _circuit_diagram_info_(self, args):
         return f"U{self.theta, self.phi, self.lam}"

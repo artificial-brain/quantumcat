@@ -15,16 +15,16 @@ import cirq
 import numpy
 
 
-class SXGate(cirq.Gate):
+class SDGGate(cirq.Gate):
     def __init__(self):
-        super(SXGate, self).__init__()
+        super(SDGGate, self).__init__()
 
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
-        return numpy.array([[1 + 1j, 1 - 1j],
-                            [1 - 1j, 1 + 1j]]) / 2
+    def _unitary_(self, dtype=None):
+        return numpy.array([[1, 0],
+                            [0, -1j]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-        return "SX"
+        return "SDG"

@@ -22,9 +22,9 @@ class TDGate(cirq.Gate):
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
+    def _unitary_(self, dtype=None):
         return numpy.array([[1, 0],
-                            [0, (1 - 1j) / numpy.sqrt(2)]])
+                            [0, (1 - 1j) / numpy.sqrt(2)]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
         return "TD"

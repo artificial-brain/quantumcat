@@ -11,22 +11,21 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
 from quantumcat.gates.custom_gates.cirq.u_gate import UGate
-from quantumcat.gates.custom_gates.cirq.u1 import U1Gate
+from quantumcat.gates.custom_gates.cirq.u1_gate import U1Gate
 from quantumcat.gates.custom_gates.cirq.u2_gate import U2Gate
 from quantumcat.gates.custom_gates.cirq.u3_gate import U3Gate
-from quantumcat.gates.custom_gates.cirq.sdg import SDGGate
-from quantumcat.gates.custom_gates.cirq.sx import SXGate
-from quantumcat.gates.custom_gates.cirq.sxd import SXDGate
-from quantumcat.gates.custom_gates.cirq.td import TDGate
-from quantumcat.gates.custom_gates.cirq.i_gate import IGate
+from quantumcat.gates.custom_gates.cirq.sdg_gate import SDGGate
+from quantumcat.gates.custom_gates.cirq.sxd_gate import SXDGate
+from quantumcat.gates.custom_gates.cirq.td_gate import TDGate
 from quantumcat.gates.custom_gates.cirq.rxx_gate import RXXGate
 from quantumcat.gates.custom_gates.cirq.r_gate import RGate
 from quantumcat.gates.custom_gates.cirq.rx_gate import RXGate
 from quantumcat.gates.custom_gates.cirq.rccx_gate import RCCXGate
 from quantumcat.gates.custom_gates.cirq.rc3x_gate import RC3XGate
-from quantumcat.gates.custom_gates.cirq.rzz import RZZGate
-from quantumcat.gates.custom_gates.cirq.rzx import RZXGate
+from quantumcat.gates.custom_gates.cirq.rzz_gate import RZZGate
+from quantumcat.gates.custom_gates.cirq.rzx_gate import RZXGate
 from quantumcat.gates.custom_gates.cirq.sx_gate import SXGate
 from quantumcat.gates.custom_gates.cirq.cy_gate import CYGate
 from quantumcat.gates.custom_gates.cirq.p_gate import PGate
