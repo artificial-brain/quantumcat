@@ -24,10 +24,13 @@ if __name__ == '__main__':
 
     input_arr = [0, 0, 0, 1, 0, 1, 1, 1, 0]
 
-    grovers_algorithm = GroversAlgorithm(clause_list=clause_list_light_board, input_arr=input_arr,
-                                         flip_output=True, solution_known='N')
-    results = grovers_algorithm.execute(repetitions=8000, provider=providers.IBM_PROVIDER)
+    grovers_algorithm_unknown_solution = GroversAlgorithm(clause_list=clause_list_light_board, input_arr=input_arr,
+                                                          flip_output=True, solution_known='N')
 
-    # grovers_algorithm.draw_grovers_circuit()
+    grovers_algorithm_known_solution = GroversAlgorithm(solution_known='Y', search_keyword=101)
+
+    results = grovers_algorithm_known_solution.execute(repetitions=10, provider=providers.GOOGLE_PROVIDER)
+
+    grovers_algorithm_known_solution.draw_grovers_circuit()
 
     print(results)

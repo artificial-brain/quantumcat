@@ -19,13 +19,14 @@ import numpy as np
 class GroversAlgorithm:
     """docstring for Circuit."""
 
-    def __init__(self, clause_list, input_arr=[], solution_known='N', flip_output=False, num_of_iterations=None):
+    def __init__(self, clause_list=[], input_arr=[], search_keyword=None, solution_known='N', flip_output=False, num_of_iterations=None):
         super(GroversAlgorithm, self).__init__()
         self.clause_list = clause_list
         self.input_arr = input_arr
+        self.search_keyword = search_keyword
         self.solution_known = solution_known
         self.flip_output = flip_output
-        self.num_of_qubits = len(self.clause_list)
+        self.num_of_qubits = len(self.clause_list) if self.solution_known == 'N' else len(str(search_keyword))
         self.total_qubits = 0
         self.circuit = None
         self.provider = None
@@ -33,7 +34,7 @@ class GroversAlgorithm:
             self.num_of_iterations = self.get_num_of_iterations()
 
     def initialize(self, provider):
-        self.total_qubits = (2 * self.num_of_qubits) + 1
+        self.total_qubits = (2 * self.num_of_qubits) + 1 if self.solution_known == 'N' else (self.num_of_qubits + 1)
         self.circuit = QCircuit(self.total_qubits,  self.num_of_qubits)
         self.provider = provider
 
@@ -49,7 +50,7 @@ class GroversAlgorithm:
         self.circuit.x_gate(self.total_qubits - 1)
         self.circuit.h_gate(self.total_qubits - 1)
 
-    def create_oracle_for_unknown(self):
+    def oracle_for_unknown_solution(self):
         output_qubit = self.total_qubits - 1
         clause_qubits = []
 
@@ -73,11 +74,24 @@ class GroversAlgorithm:
             clause_qubit = self.num_of_qubits + index
             self.XOR(self.clause_list[index], clause_qubit)
 
+    def oracle_for_known_solution(self):
+        output_qubit = self.total_qubits - 1
+        input_qubits = []
+        keyword = self.search_keyword
+        for index in range(len(str(keyword))):
+            if not int(str(keyword)[index]):
+                self.circuit.x_gate(index)
+            input_qubits.append(index)
+
+        self.circuit.mct_gate(input_qubits, output_qubit)
+
+        for index in range(len(str(keyword))):
+            if not int(str(keyword)[index]):
+                self.circuit.x_gate(index)
+
     def XOR(self, qubits, output_qubit):
         for qubit in qubits:
             self.circuit.cx_gate(qubit, output_qubit)
-
-    # def create_oracle_for_known(self):
 
     def diffuser(self):
         q_circuit = self.circuit
@@ -103,9 +117,13 @@ class GroversAlgorithm:
         self.initialize(provider)
 
         for _ in range(self.num_of_iterations):
-            self.create_oracle_for_unknown()
-            self.diffuser()
+            if self.solution_known == 'N':
+                self.oracle_for_unknown_solution()
+            else:
+                self.oracle_for_known_solution()
 
+
+        self.diffuser()
         for i in range(self.num_of_qubits):
             self.circuit.measure(i, i)
 
