@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: quantumcat
+Version: 0.1
+Summary: A cross platform high-level quantum computing library
+Home-page: UNKNOWN
+Author: Artificial Brain Development Team
+Author-email: setup@artificialbrain.in
+License: Apache-2.0
+Description: # Quantum Cat
+        
+        A cross platform high-level quantum computing library so that you could concentrate on building Quantum applications faster.
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
