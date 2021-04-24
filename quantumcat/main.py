@@ -29,8 +29,8 @@ if __name__ == '__main__':
 
     grovers_algorithm_known_solution = GroversAlgorithm(solution_known='Y', search_keyword=101)
 
-    results = grovers_algorithm_known_solution.execute(repetitions=10, provider=providers.GOOGLE_PROVIDER)
+    results = grovers_algorithm_unknown_solution.execute(repetitions=1024, provider=providers.IBM_PROVIDER)
 
-    grovers_algorithm_known_solution.draw_grovers_circuit()
+    # grovers_algorithm_unknown_solution.draw_grovers_circuit()
 
     print(results)

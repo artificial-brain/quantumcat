@@ -121,9 +121,8 @@ class GroversAlgorithm:
                 self.oracle_for_unknown_solution()
             else:
                 self.oracle_for_known_solution()
+            self.diffuser()
 
-
-        self.diffuser()
         for i in range(self.num_of_qubits):
             self.circuit.measure(i, i)
 
