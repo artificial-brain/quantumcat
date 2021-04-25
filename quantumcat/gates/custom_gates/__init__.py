@@ -12,7 +12,4 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-DEVICE = 'device'
-SIMULATOR = 'simulator'
-QASM_SIMULATOR = 'qasm_simulator'
-PARAMS = 'params'
+from quantumcat.gates.custom_gates import cirq

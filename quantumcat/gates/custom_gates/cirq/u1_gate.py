@@ -11,8 +11,21 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+import cirq
+import numpy
 
-DEVICE = 'device'
-SIMULATOR = 'simulator'
-QASM_SIMULATOR = 'qasm_simulator'
-PARAMS = 'params'
+
+class U1Gate(cirq.Gate):
+    def __init__(self, theta):
+        super(U1Gate, self).__init__()
+        self.theta = theta
+
+    def _num_qubits_(self):
+        return 1
+
+    def _unitary_(self, dtype=None):
+        lam = float(self.theta)
+        return numpy.array([[1, 0], [0, numpy.exp(1j * lam)]], dtype=dtype)
+
+    def _circuit_diagram_info_(self, args):
+        return f"U1({self.theta})"
