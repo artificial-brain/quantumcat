@@ -41,6 +41,7 @@ def to_qiskit(q_circuit, qubits, cbits):
             qiskit_qc.measure(qargs[0], qargs[1])
         else:
             qiskit_qc.append(qiskit_op(*params), qargs)
+            #print("qargs "+qargs)
 
     return qiskit_qc
 

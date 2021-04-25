@@ -47,6 +47,11 @@ quantumcat_to_qiskit = {
     OpType.rx_gate: standard_gates.rx.RXGate,
     OpType.r_gate: standard_gates.r.RGate,
     OpType.p_gate: standard_gates.p.PhaseGate,
+    OpType.mcp_gate: standard_gates.p.MCPhaseGate,
+    OpType.mcx_gate: standard_gates.x.MCXGate,
+    OpType.mcxgc_gate: standard_gates.x.MCXGrayCode,
+    OpType.mcxrec_gate: standard_gates.x.MCXRecursive,
+    OpType.mcxvchain_gate: standard_gates.x.MCXVChain,
     OpType.measure: OpType.measure,
 }
 
