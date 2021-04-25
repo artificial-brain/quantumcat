@@ -26,9 +26,14 @@ if __name__ == '__main__':
     #circuit.cy_gate(0,1)
     # circuit.entangle(0, 1)
     circuit.measure(0, 0)
-    circuit.measure(1, 1)
+    # circuit.measure(1, 1)
     # circuit.measure(2, 2)
+<<<<<<< HEAD
     circuit.draw_circuit(provider=providers.IBM_PROVIDER)
     print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
     #print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=1024))
 
+=======
+    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
+    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
+>>>>>>> f4b04a2aba2895a5dc56860b7d11306740f39d19
