@@ -14,10 +14,10 @@
 
 from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers
-from qiskit import QuantumCircuit
+from quantumcat.algorithms import GroversAlgorithm
 
 
-if __name__ == '__main__':
+def create_circuit_demo():
     circuit = QCircuit(2, 2)
     # circuit.u_gate(45, 40, 40, 0)
     # circuit.u1_gate(45, 0)
@@ -35,3 +35,26 @@ if __name__ == '__main__':
     # circuit.measure(2, 2)
     circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
     print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
+
+def grovers_demo():
+    clause_list_sudoku = [[0, 1], [0, 2], [1, 3], [2, 3]]
+    clause_list_light_board = [[0, 1, 3], [1, 0, 2, 4], [2, 1, 5], [3, 0, 4, 6],
+                               [4, 1, 3, 5, 7], [5, 2, 4, 8], [6, 3, 7], [7, 4, 6, 8],
+                               [8, 5, 7]]
+
+    input_arr = [0, 0, 0, 1, 0, 1, 1, 1, 0]
+
+    grovers_algorithm_unknown_solution = GroversAlgorithm(clause_list=clause_list_light_board, input_arr=input_arr,
+                                                          flip_output=True, solution_known='N')
+
+    grovers_algorithm_known_solution = GroversAlgorithm(solution_known='Y', search_keyword=101)
+
+    results = grovers_algorithm_unknown_solution.execute(repetitions=1024, provider=providers.IBM_PROVIDER)
+
+    # grovers_algorithm_unknown_solution.draw_grovers_circuit()
+
+    print(results)
+
+
+if __name__ == '__main__':
+    create_circuit_demo()

@@ -25,7 +25,7 @@ from quantumcat.circuit import execute_circuit
 class QCircuit:
     """docstring for Circuit."""
 
-    def __init__(self, qubits, cbits, provider=providers.DEFAULT_PROVIDER):
+    def __init__(self, qubits, cbits=1, provider=providers.DEFAULT_PROVIDER):
         super(QCircuit, self).__init__()
         self.qubits = qubits
         self.cbits = cbits
@@ -53,6 +53,10 @@ class QCircuit:
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
         self.operations.append({OpType.cx_gate: [[control_qubit], [target_qubit]]})
+
+    def cz_gate(self, control_qubit, target_qubit):
+        self.check_qubit_boundary(control_qubit)
+        self.operations.append({OpType.cz_gate: [[control_qubit],[target_qubit]]})
 
     def ccx_gate(self, control_qubit1, control_qubit2, target_qubit):
         self.check_qubit_boundary(control_qubit1)
@@ -180,6 +184,11 @@ class QCircuit:
             self.check_qubit_boundary(qubit)
         self.operations.append({OpType.mcp_gate: [[control_qubits[:]],[target_qubit]], constants.PARAMS: [[lam], [len(control_qubits)]]})
 
+    def mct_gate(self, control_qubits, target_qubit, ancilla_qubits=None, mode='noancilla'):
+        # self.check_qubit_boundary(control_qubit1)
+        self.check_qubit_boundary(target_qubit)
+        self.operations.append({OpType.mct_gate: [control_qubits, [target_qubit], ancilla_qubits, mode]})
+
     def measure(self, qubit, cbit):
         self.check_qubit_boundary(qubit)
         self.check_cbit_boundary(cbit)
@@ -238,3 +247,7 @@ class QCircuit:
     def entangle(self, qubit1, qubit2):
         self.superposition(qubit1)
         self.cx_gate(qubit1, qubit2)
+
+    def phase_kickback(self, qubit):
+        self.x_gate(qubit)
+        self.h_gate(qubit)
