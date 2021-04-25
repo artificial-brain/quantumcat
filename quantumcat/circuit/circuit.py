@@ -54,10 +54,6 @@ class QCircuit:
         self.check_qubit_boundary(target_qubit)
         self.operations.append({OpType.cx_gate: [[control_qubit], [target_qubit]]})
 
-    def cz_gate(self, control_qubit, target_qubit):
-        self.check_qubit_boundary(control_qubit)
-        self.operations.append({OpType.cz_gate: [[control_qubit],[target_qubit]]})
-
     def ccx_gate(self, control_qubit1, control_qubit2, target_qubit):
         self.check_qubit_boundary(control_qubit1)
         self.check_qubit_boundary(control_qubit2)
@@ -170,7 +166,7 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.rx_gate: [qubit], constants.PARAMS: [theta]})
  
-    def r_gate(self, theta,phi, qubit):
+    def r_gate(self, theta, phi, qubit):
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.r_gate: [qubit], constants.PARAMS: [theta, phi]})
 
@@ -178,11 +174,11 @@ class QCircuit:
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.p_gate: [qubit], constants.PARAMS: [theta]})
     
-    def mcp_gate(self,lam,control_qubits, target_qubit):
+    def mcp_gate(self, lam, control_qubits, target_qubit):
         self.check_qubit_boundary(target_qubit)
         for qubit in control_qubits:
             self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.mcp_gate: [[control_qubits[:]],[target_qubit]], constants.PARAMS: [[lam], [len(control_qubits)]]})
+        self.operations.append({OpType.mcp_gate: [[control_qubits[:]], [target_qubit]], constants.PARAMS: [[lam], [len(control_qubits)]]})
 
     def mct_gate(self, control_qubits, target_qubit, ancilla_qubits=None, mode='noancilla'):
         # self.check_qubit_boundary(control_qubit1)
@@ -223,6 +219,8 @@ class QCircuit:
             converted_q_circuit = convert.to_cirq(self, self.qubits)
         if self.provider == providers.MICROSOFT_PROVIDER:
             converted_q_circuit = convert.to_q_sharp(self, self.qubits, self.cbits)
+        if self.provider == providers.AMAZON_PROVIDER:
+            converted_q_circuit = convert.to_braket(self, self.qubits, self.cbits)
         return converted_q_circuit
 
     def execute(self, provider=providers.DEFAULT_PROVIDER, backend=constants.SIMULATOR,
@@ -234,6 +232,9 @@ class QCircuit:
         elif self.provider == providers.GOOGLE_PROVIDER:
             return execute_circuit.on_cirq(self.converted_q_circuit, backend,
                                            simulator_name, repetitions, api)
+        elif self.provider == providers.AMAZON_PROVIDER:
+            return execute_circuit.on_braket(self.convert_circuit, backend,
+                                             simulator_name, repetitions, api)
 
     def check_and_convert(self, provider):
         if self.converted_q_circuit is None or self.provider != provider:

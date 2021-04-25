@@ -18,6 +18,7 @@ from quantumcat.circuit.op_type import OpType
 from quantumcat.utils import constants, helper
 import cirq
 import inspect
+from braket.circuits import Circuit
 
 
 def to_qiskit(q_circuit, qubits, cbits):
@@ -82,8 +83,45 @@ def to_cirq(q_circuit, qubits):
 
     return cirq_qc
 
+
 def to_q_sharp(q_circuit, qubits, cbits):
     pass
+
+# main task is to implement this!
+# def to_braket(q_circuit, qubits, cbits):
+#     """This function converts quantumcat circuit into qiskit circuit.
+#     :param q_circuit: quantumcat circuit object that needs to be converted to qiskit circuit object
+#     :param qubits: number of qubits to create qiskit circuit
+#     :return: qiskit quantumcircuit object
+#     """
+#     operations = q_circuit.operations
+#     braket_qc = Circuit()
+#     named_qubits = cirq.NamedQubit.range(qubits, prefix='q')
+#     print(operations)
+#     for op in operations:
+#         params = []
+#         operation = next(iter(op.items()))
+#         print(operation)
+#         cirq_op = gates_map.quantumcat_to_cirq[operation[0]]
+#         qargs = operation[1]
+#         if constants.PARAMS in op:
+#             params = (op[constants.PARAMS])
+# 
+#         if cirq_op == OpType.measure:
+#             qubit = named_qubits[qargs[0][0]]
+#             cirq_qc.append(cirq.ops.measure(qubit))
+#         elif cirq_op == OpType.mct_gate:
+#             mct_named_qubits = named_qubits_for_multi_controlled_op(named_qubits, qargs)
+#             cirq_qc.append([cirq.ops.X(mct_named_qubits[1]).controlled_by(*mct_named_qubits[0])])
+#           # Find a better way to replace the following if
+#         elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
+#             cirq_qc.append([cirq_op(*params).on(*named_qubits_for_ops(named_qubits, qargs))])
+#         else:
+#             print(cirq_op)
+#             cirq_qc.append([cirq_op(*named_qubits_for_ops(named_qubits, qargs))])
+# 
+#     return cirq_qc
+#     pass
 
 
 def named_qubits_for_ops(named_qubits, qargs):
@@ -105,6 +143,7 @@ def named_qubits_for_ops(named_qubits, qargs):
                 op_named_qubits.append(named_qubits[j])
 
     return op_named_qubits
+
 
 def named_qubits_for_multi_controlled_op(named_qubits, qargs):
     mct_named_qubits = []
