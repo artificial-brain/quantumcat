@@ -17,6 +17,8 @@ from quantumcat.utils import gates_map
 from quantumcat.circuit.op_type import OpType
 from quantumcat.utils import constants, helper
 import cirq
+from braket.circuits import Circuit, Instruction
+from braket.circuits.result_type import ResultType
 import inspect
 
 
@@ -57,11 +59,9 @@ def to_cirq(q_circuit, qubits):
     operations = q_circuit.operations
     cirq_qc = cirq.Circuit()
     named_qubits = cirq.NamedQubit.range(qubits, prefix='q')
-    print(operations)
     for op in operations:
         params = []
         operation = next(iter(op.items()))
-        print(operation)
         cirq_op = gates_map.quantumcat_to_cirq[operation[0]]
         qargs = operation[1]
         if constants.PARAMS in op:
@@ -77,14 +77,33 @@ def to_cirq(q_circuit, qubits):
         elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
             cirq_qc.append([cirq_op(*params).on(*named_qubits_for_ops(named_qubits, qargs))])
         else:
-            print(cirq_op)
             cirq_qc.append([cirq_op(*named_qubits_for_ops(named_qubits, qargs))])
 
     return cirq_qc
 
+
 def to_q_sharp(q_circuit, qubits, cbits):
     pass
 
+
+def to_braket(q_circuit, qubits, cbits):
+    operations = q_circuit.operations
+    braket_qc = Circuit()
+    for op in operations:
+        params = []
+        instructor = []
+        operation = next(iter(op.items()))
+        braket_op = gates_map.quantumcat_to_braket[operation[0]]
+        qargs = operation[1]
+        if constants.PARAMS in op:
+            params = (op[constants.PARAMS])
+
+        if braket_op == OpType.measure:
+            braket_qc.add(ResultType.Probability(target=[qargs[0]]))
+        else:
+            braket_qc.add([Instruction(braket_op(), qargs)])
+
+    return braket_qc
 
 def named_qubits_for_ops(named_qubits, qargs):
     """This function creates NamedQubit array for cirq operations based on the number of qubits required for

@@ -214,6 +214,8 @@ class QCircuit:
             print(self.converted_q_circuit)
         elif self.provider == providers.MICROSOFT_PROVIDER:
             pass
+        elif self.provider == providers.AMAZON_PROVIDER:
+            print(self.converted_q_circuit)
 
     def convert_circuit(self):
         converted_q_circuit = None
@@ -221,8 +223,10 @@ class QCircuit:
             converted_q_circuit = convert.to_qiskit(self, self.qubits, self.cbits)
         elif self.provider == providers.GOOGLE_PROVIDER:
             converted_q_circuit = convert.to_cirq(self, self.qubits)
-        if self.provider == providers.MICROSOFT_PROVIDER:
+        elif self.provider == providers.MICROSOFT_PROVIDER:
             converted_q_circuit = convert.to_q_sharp(self, self.qubits, self.cbits)
+        elif self.provider == providers.AMAZON_PROVIDER:
+            converted_q_circuit = convert.to_braket(self, self.qubits, self.cbits)
         return converted_q_circuit
 
     def execute(self, provider=providers.DEFAULT_PROVIDER, backend=constants.SIMULATOR,
@@ -234,6 +238,10 @@ class QCircuit:
         elif self.provider == providers.GOOGLE_PROVIDER:
             return execute_circuit.on_cirq(self.converted_q_circuit, backend,
                                            simulator_name, repetitions, api)
+        elif self.provider == providers.AMAZON_PROVIDER:
+            return execute_circuit.on_bracket(self.converted_q_circuit, backend,
+                                           simulator_name, repetitions, api).measurement_counts
+
 
     def check_and_convert(self, provider):
         if self.converted_q_circuit is None or self.provider != provider:

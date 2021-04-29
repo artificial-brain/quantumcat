@@ -18,23 +18,14 @@ from quantumcat.algorithms import GroversAlgorithm
 
 
 def create_circuit_demo():
-    circuit = QCircuit(2, 2)
-    # circuit.u_gate(45, 40, 40, 0)
-    # circuit.u1_gate(45, 0)
-    # circuit.u2_gate(40, 2, 0)
-    # circuit.u3_gate(45, 30, 1, 0)
-    circuit.rzz_gate(12, 0, 1)
-    circuit.rzx_gate(30, 0, 1)
-    circuit.sx_gate(1)
-    circuit.sxd_gate(0)
-    circuit.td_gate(1)
-    circuit.s_gate(0)
-    circuit.sdg_gate(0)
+    circuit = QCircuit(3, 3)
+    circuit.x_gate(0)
+    circuit.cx_gate(0, 1)
+    circuit.ccx_gate(0, 1, 2)
+    # No need to call measure if provider is Amazon Braket
     circuit.measure(0, 0)
-    # circuit.measure(1, 1)
-    # circuit.measure(2, 2)
-    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
+    circuit.draw_circuit(provider=providers.AMAZON_PROVIDER)
+    print(circuit.execute(provider=providers.AMAZON_PROVIDER, repetitions=10))
 
 def grovers_demo():
     clause_list_sudoku = [[0, 1], [0, 2], [1, 3], [2, 3]]

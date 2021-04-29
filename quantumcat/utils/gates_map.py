@@ -15,7 +15,9 @@
 from quantumcat.circuit.op_type import OpType
 from qiskit.circuit.library import standard_gates
 from cirq import ops
+from braket.circuits import gates as amazon_gates
 from quantumcat.gates import custom_gates
+
 
 quantumcat_to_qiskit = {
     OpType.x_gate: standard_gates.x.XGate,
@@ -85,5 +87,12 @@ quantumcat_to_cirq = {
     OpType.rc3x_gate: custom_gates.cirq.RC3XGate,
     OpType.cz_gate: ops.common_gates.CZ,
     OpType.mct_gate: OpType.mct_gate,
+    OpType.measure: OpType.measure,
+}
+
+quantumcat_to_braket = {
+    OpType.x_gate: amazon_gates.X,
+    OpType.cx_gate: amazon_gates.CNot,
+    OpType.ccx_gate: amazon_gates.CCNot,
     OpType.measure: OpType.measure,
 }
