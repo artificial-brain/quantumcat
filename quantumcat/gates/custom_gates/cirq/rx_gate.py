@@ -24,11 +24,11 @@ class RXGate(cirq.Gate):
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
+    def _unitary_(self, dtype=None):
         cos = math.cos(self.theta / 2)
         sin = math.sin(self.theta / 2)
         return numpy.array([[cos, -1j * sin],
-                            [-1j * sin, cos]])
+                            [-1j * sin, cos]], dtype=dtype))
 
 
     def _circuit_diagram_info_(self, args):

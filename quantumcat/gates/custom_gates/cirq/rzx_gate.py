@@ -15,21 +15,22 @@ import cirq
 import numpy
 
 
-class UGate(cirq.Gate):
-    def __init__(self, theta, phi, lam):
-        super(UGate, self).__init__()
+class RZXGate(cirq.Gate):
+    def __init__(self, theta):
+        super(RZXGate, self).__init__()
         self.theta = theta
-        self.phi = phi
-        self.lam = lam
 
     def _num_qubits_(self):
-        return 1
+        return 2
 
     def _unitary_(self, dtype=None):
-        return numpy.array([
-            [numpy.cos(self.theta / 2), -numpy.exp(1j * self.lam) * numpy.sin(self.theta / 2)],
-            [numpy.exp(1j * self.phi) * numpy.sin(self.theta / 2), numpy.exp(1j * (self.phi + self.lam))
-                * numpy.cos(self.theta / 2)]], dtype=None)
+        half_theta = float(self.theta) / 2
+        cos = numpy.cos(half_theta)
+        isin = 1j * numpy.sin(half_theta)
+        return numpy.array([[cos, 0, -isin, 0],
+                            [0, cos, 0, isin],
+                            [-isin, 0, cos, 0],
+                            [0, isin, 0, cos]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-        return f"U{self.theta, self.phi, self.lam}"
+        return [f"RZX({self.theta})"] * self.num_qubits()

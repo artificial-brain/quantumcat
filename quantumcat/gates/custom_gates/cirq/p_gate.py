@@ -23,9 +23,9 @@ class PGate(cirq.Gate):
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
+    def _unitary_(self, dtype=None):
         lam = float(self.theta)
-        return numpy.array([[1, 0], [0, numpy.exp(1j * lam)]])
+        return numpy.array([[1, 0], [0, numpy.exp(1j * lam)]], dtype=dtype)
 
 
     def _circuit_diagram_info_(self, args):

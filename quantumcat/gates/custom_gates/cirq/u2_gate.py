@@ -28,16 +28,8 @@ class U2Gate(cirq.Gate):
         isqrt2 = 1 / numpy.sqrt(2)
         phi, lam = self.phi, self.lam
         phi, lam = float(phi), float(lam)
-        return numpy.array([
-            [
-                isqrt2,
-                -numpy.exp(1j * lam) * isqrt2
-            ],
-            [
-                numpy.exp(1j * phi) * isqrt2,
-                numpy.exp(1j * (phi + lam)) * isqrt2
-            ]
-        ], dtype=dtype)
+        return numpy.array([[isqrt2, -numpy.exp(1j * lam) * isqrt2],
+            [numpy.exp(1j * phi) * isqrt2, numpy.exp(1j * (phi + lam)) * isqrt2]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-        return "U2"
+        return f"U2{self.phi, self.lam}"

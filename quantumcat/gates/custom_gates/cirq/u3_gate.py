@@ -36,4 +36,4 @@ class U3Gate(cirq.Gate):
         ], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-        return "U3"
+        return f"U3{self.theta, self.phi, self.lam}"
