@@ -2,15 +2,17 @@ import cirq
 import numpy
 
 
-class C3XGate(cirq.Gate):
+class C3SXGate(cirq.Gate):
 
     def __init__(self):
-        super(C3XGate, self).__init__()
+        super(C3SXGate, self).__init__()
 
     def _num_qubits_(self):
         return 4
 
     def _unitary_(self, dtype=None):
+        exp1 = (1+1j)/2
+        exp2 = (1-1j)/2
         mat = numpy.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,10 +27,10 @@ class C3XGate(cirq.Gate):
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]],
+                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, exp1, exp2],
+                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, exp2, exp1]],
                           dtype=dtype)
         return mat
 
     def _circuit_diagram_info_(self, args):
-        return ["C3XGate"] * self.num_qubits()
+        return ["C3SXGate"] * self.num_qubits()

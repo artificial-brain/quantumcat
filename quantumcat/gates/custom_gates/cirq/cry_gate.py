@@ -15,7 +15,7 @@ class CRYGate(cirq.Gate):
         theta2 = float(self.theta) / 2
         cos = numpy.cos(theta2)
         sin = numpy.sin(theta2)
-        return numpy.array([[1, 0, 0, 0], [0, cos, 0, -sin], [0, 0, 1, 0], [0, sin, 0, cos]],
+        return numpy.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, cos, -sin], [0, 0, sin, cos]],
                            dtype=dtype)
 
     def _circuit_diagram_info_(self, args):

@@ -25,9 +25,9 @@ class CYGate(cirq.Gate):
 
     def _unitary_(self, dtype=None):
         return numpy.array([[1, 0, 0, 0],
+                            [0, 1, 0, 0],
                             [0, 0, 0, -1j],
-                            [0, 0, 1, 0],
-                            [0, 1j, 0, 0]], dtype)
+                            [0, 0, 1j, 0]], dtype)
 
     def _circuit_diagram_info_(self, args):
        return ["CYGate"] * self.num_qubits()

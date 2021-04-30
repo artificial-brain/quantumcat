@@ -21,7 +21,7 @@ class CUGate(cirq.Gate):
         exp2 = numpy.exp(1j*(self.gam+self.lam))
         exp3 = numpy.exp(1j*(self.gam+self.phi))
         exp4 = numpy.exp(1j*(self.gam+self.phi+self.lam))
-        return numpy.array([[1, 0, 0, 0], [0, exp1*cos, 0, -exp2*sin], [0, 0, 1, 0], [0, exp3*sin, 0, exp4*cos]],
+        return numpy.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, exp1*cos, -exp2*sin], [0, 0, exp3*sin, exp4*cos]],
                            dtype=dtype)
     
     def _circuit_diagram_info_(self, args):

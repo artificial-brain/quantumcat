@@ -22,8 +22,6 @@ from quantumcat.gates.custom_gates.cirq.td_gate import TDGate
 from quantumcat.gates.custom_gates.cirq.rxx_gate import RXXGate
 from quantumcat.gates.custom_gates.cirq.r_gate import RGate
 from quantumcat.gates.custom_gates.cirq.rx_gate import RXGate
-from quantumcat.gates.custom_gates.cirq.rccx_gate import RCCXGate
-from quantumcat.gates.custom_gates.cirq.rc3x_gate import RC3XGate
 from quantumcat.gates.custom_gates.cirq.rzz_gate import RZZGate
 from quantumcat.gates.custom_gates.cirq.rzx_gate import RZXGate
 from quantumcat.gates.custom_gates.cirq.sx_gate import SXGate
@@ -38,6 +36,7 @@ from quantumcat.gates.custom_gates.cirq.crz_gate import CRZGate
 from quantumcat.gates.custom_gates.cirq.dcx_gate import DCXGate
 from quantumcat.gates.custom_gates.cirq.c3x_gate import C3XGate
 from quantumcat.gates.custom_gates.cirq.c4x_gate import C4XGate
+from quantumcat.gates.custom_gates.cirq.c3sx_gate import C3SXGate
 from quantumcat.gates.custom_gates.cirq.cphase_gate import CPhaseGate
 from quantumcat.gates.custom_gates.cirq.csx_gate import CSXGate
 from quantumcat.gates.custom_gates.cirq.ch_gate import CHGate
