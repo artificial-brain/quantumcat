@@ -59,7 +59,7 @@ def to_cirq(q_circuit, qubits):
     for op in operations:
         params = []
         operation = next(iter(op.items()))
-        print(operation)
+       # print(operation)
         cirq_op = gates_map.quantumcat_to_cirq[operation[0]]
         qargs = operation[1]
         if constants.PARAMS in op:

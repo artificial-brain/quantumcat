@@ -16,13 +16,23 @@ from quantumcat.utils import constants
 from qiskit import Aer
 from qiskit import execute, QuantumCircuit
 import cirq
+from quantastica.qiskit_forest import ForestBackend
 
 
 def on_qiskit(q_circuit, backend, simulator_name, repetitions, api):
     if backend == constants.SIMULATOR:
         if simulator_name is None:
             simulator_name = constants.QASM_SIMULATOR
-        results = execute(q_circuit, Aer.get_backend(simulator_name), shots=repetitions).result()
+        provider = Aer.get_backend(simulator_name)
+        results = execute(q_circuit, provider , shots=repetitions).result()
+        return results
+
+def on_rigetti(q_circuit, backend, simulator_name, repetitions, api):
+    if backend == constants.SIMULATOR:
+        if simulator_name is None:
+            simulator_name = constants.QASM_SIMULATOR
+        provider = ForestBackend.get_backend(simulator_name)
+        results = execute(q_circuit, provider , shots=repetitions).result()
         return results
 
 

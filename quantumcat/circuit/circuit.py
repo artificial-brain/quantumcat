@@ -255,6 +255,9 @@ class QCircuit:
         if self.provider == providers.IBM_PROVIDER:
             return execute_circuit.on_qiskit(self.converted_q_circuit, backend,
                                              simulator_name, repetitions, api).get_counts()
+        elif self.provider == providers.RIGETTI_PROVIDER:
+            return execute_circuit.on_rigetti(self.converted_q_circuit, backend,
+                                             simulator_name, repetitions, api).get_counts()
         elif self.provider == providers.GOOGLE_PROVIDER:
             return execute_circuit.on_cirq(self.converted_q_circuit, backend,
                                            simulator_name, repetitions, api)
