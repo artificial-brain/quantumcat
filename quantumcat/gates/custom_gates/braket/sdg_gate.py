@@ -11,6 +11,25 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+from typing import Any
 
-from quantumcat.gates.custom_gates import cirq
-from quantumcat.gates.custom_gates import braket
+import numpy
+from braket.circuits import *
+
+
+class SDGGate(Gate):
+    """SDG Gate"""
+
+    def to_ir(self, target: QubitSet) -> Any:
+        pass
+
+    def to_matrix(self, *args, **kwargs) -> numpy.ndarray:
+        pass
+
+    @circuit.subroutine(register=True)
+    def sdg(self):
+        return numpy.array([[1, 0],
+                            [0, -1j]])
+
+
+Gate.register_gate(SDGGate)

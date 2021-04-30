@@ -14,7 +14,7 @@
 
 from quantumcat.utils import constants
 from qiskit import Aer
-from qiskit import execute, QuantumCircuit
+from qiskit import execute
 import cirq
 from braket.devices import LocalSimulator
 
@@ -36,7 +36,5 @@ def on_cirq(q_circuit, backend, simulator_name, repetitions, api):
 
 def on_braket(q_circuit, backend, simulator_name, repetitions, api):
     if backend == constants.SIMULATOR:
-        simulator = LocalSimulator("default")
-        results = simulator.run(q_circuit, repetitions=repetitions)
+        results = LocalSimulator().run(q_circuit, shots=repetitions).result()
         return results
-

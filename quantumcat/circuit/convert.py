@@ -18,7 +18,8 @@ from quantumcat.circuit.op_type import OpType
 from quantumcat.utils import constants, helper
 import cirq
 import inspect
-from braket.circuits import Circuit
+from braket.circuits import Circuit, Instruction
+from braket.circuits.result_type import ResultType
 
 
 def to_qiskit(q_circuit, qubits, cbits):
@@ -30,11 +31,16 @@ def to_qiskit(q_circuit, qubits, cbits):
     """
     operations = q_circuit.operations
     qiskit_qc = QuantumCircuit(qubits, cbits)
+    print(operations)
     for op in operations:
+        print(op)
         params = []
         operation = next(iter(op.items()))
         qiskit_op = gates_map.quantumcat_to_qiskit[operation[0]]
+        print(operation[0])
+        print(qiskit_op)
         qargs = operation[1]
+        print(qargs)
         if constants.PARAMS in op:
             params = (op[constants.PARAMS])
 
@@ -44,6 +50,7 @@ def to_qiskit(q_circuit, qubits, cbits):
             qiskit_qc.mcx(control_qubits=qargs[0], target_qubit=qargs[1],
                           ancilla_qubits=qargs[2], mode=qargs[3])
         else:
+            print("this one")
             qiskit_qc.append(qiskit_op(*params), qargs)
 
     return qiskit_qc
@@ -74,7 +81,7 @@ def to_cirq(q_circuit, qubits):
         elif cirq_op == OpType.mct_gate:
             mct_named_qubits = named_qubits_for_multi_controlled_op(named_qubits, qargs)
             cirq_qc.append([cirq.ops.X(mct_named_qubits[1]).controlled_by(*mct_named_qubits[0])])
-          # Find a better way to replace the following if
+        # Find a better way to replace the following if
         elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
             cirq_qc.append([cirq_op(*params).on(*named_qubits_for_ops(named_qubits, qargs))])
         else:
@@ -87,41 +94,31 @@ def to_cirq(q_circuit, qubits):
 def to_q_sharp(q_circuit, qubits, cbits):
     pass
 
-# main task is to implement this!
-# def to_braket(q_circuit, qubits, cbits):
-#     """This function converts quantumcat circuit into qiskit circuit.
-#     :param q_circuit: quantumcat circuit object that needs to be converted to qiskit circuit object
-#     :param qubits: number of qubits to create qiskit circuit
-#     :return: qiskit quantumcircuit object
-#     """
-#     operations = q_circuit.operations
-#     braket_qc = Circuit()
-#     named_qubits = cirq.NamedQubit.range(qubits, prefix='q')
-#     print(operations)
-#     for op in operations:
-#         params = []
-#         operation = next(iter(op.items()))
-#         print(operation)
-#         cirq_op = gates_map.quantumcat_to_cirq[operation[0]]
-#         qargs = operation[1]
-#         if constants.PARAMS in op:
-#             params = (op[constants.PARAMS])
-# 
-#         if cirq_op == OpType.measure:
-#             qubit = named_qubits[qargs[0][0]]
-#             cirq_qc.append(cirq.ops.measure(qubit))
-#         elif cirq_op == OpType.mct_gate:
-#             mct_named_qubits = named_qubits_for_multi_controlled_op(named_qubits, qargs)
-#             cirq_qc.append([cirq.ops.X(mct_named_qubits[1]).controlled_by(*mct_named_qubits[0])])
-#           # Find a better way to replace the following if
-#         elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
-#             cirq_qc.append([cirq_op(*params).on(*named_qubits_for_ops(named_qubits, qargs))])
-#         else:
-#             print(cirq_op)
-#             cirq_qc.append([cirq_op(*named_qubits_for_ops(named_qubits, qargs))])
-# 
-#     return cirq_qc
-#     pass
+
+def to_braket(q_circuit, qubits, cbits):
+    operations = q_circuit.operations
+    braket_qc = Circuit()
+    for op in operations:
+        params = []
+        instructor = []
+        operation = next(iter(op.items()))
+        braket_op = gates_map.quantumcat_to_braket[operation[0]]
+        qargs = operation[1]
+        print(braket_op)
+        print(qargs)
+        if constants.PARAMS in op:
+            params = (op[constants.PARAMS])
+
+        if braket_op == OpType.measure:
+            braket_qc.add(ResultType.Probability(target=[qargs[0]]))
+        elif braket_op == OpType.mct_gate:
+            pass
+            # mct_named_qubits = named_qubits_for_multi_controlled_op(,)
+            # braket_qc.append([braket.ops.X(mct_named_qubits[1]).controlled_by(*mct_named_qubits[0])])
+        else:
+            braket_qc.add([Instruction(braket_op(), qargs)])
+
+    return braket_qc
 
 
 def named_qubits_for_ops(named_qubits, qargs):
@@ -161,4 +158,3 @@ def named_qubits_for_multi_controlled_op(named_qubits, qargs):
     mct_named_qubits.append(target_qubit)
 
     return mct_named_qubits
-

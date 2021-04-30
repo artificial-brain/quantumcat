@@ -11,6 +11,11 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-from quantumcat.gates.custom_gates import cirq
-from quantumcat.gates.custom_gates import braket
+from quantumcat.gates.custom_gates.braket.u3_gate import U3Gate
+from quantumcat.gates.custom_gates.braket.sdg_gate import SDGGate
+from quantumcat.gates.custom_gates.braket.sxd_gate import SXDGate
+from quantumcat.gates.custom_gates.braket.td_gate import TDGate
+from quantumcat.gates.custom_gates.braket.sx_gate import SXGate
+from quantumcat.gates.custom_gates.braket.u_gate import UGate
+from quantumcat.gates.custom_gates.braket.u2_gate import U2Gate
+from quantumcat.gates.custom_gates.braket.u1_gate import U1Gate
