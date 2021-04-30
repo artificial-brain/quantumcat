@@ -15,24 +15,23 @@ import cirq
 import numpy
 
 
-class RXXGate(cirq.Gate):
-    def __init__(self, theta):
-        super(RXXGate, self).__init__()
-        self.theta = theta
+class RCCXGate(cirq.Gate):
+    def __init__(self):
+        super(RCCXGate, self).__init__()
 
     def _num_qubits_(self):
-        return 2
+        return 3
 
     def _unitary_(self):
-        theta2 = float(self.theta) / 2
-        cos = numpy.cos(theta2)
-        isin = 1j * numpy.sin(theta2)
-        return numpy.array([
-            [cos, 0, 0, -isin],
-            [0, cos, -isin, 0],
-            [0, -isin, cos, 0],
-            [-isin, 0, 0, cos]])
+        return numpy.array([[1, 0, 0, 0, 0, 0, 0, 0],
+                            [0, 1, 0, 0, 0, 0, 0, 0],
+                            [0, 0, 1, 0, 0, 0, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0, -1j],
+                            [0, 0, 0, 0, 1, 0, 0, 0],
+                            [0, 0, 0, 0, 0, -1, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0, 1],
+                            [0, 0, 0, 1j, 0, 0, 1, 0]])
 
 
     def _circuit_diagram_info_(self, args):
-        return [f"RXX({self.theta})"] * self.num_qubits()
+        return ["RCXX_c1","RCCX_c2","RCCX_t"]

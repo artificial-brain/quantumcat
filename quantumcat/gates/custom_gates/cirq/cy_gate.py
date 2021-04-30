@@ -25,9 +25,9 @@ class CYGate(cirq.Gate):
 
     def _unitary_(self,dtype=None):
         mat = numpy.array([[1, 0, 0, 0],
+                            [0, 1, 0, 0],
                             [0, 0, 0, -1j],
-                            [0, 0, 1, 0],
-                            [0, 1j, 0, 0]])
+                            [0, 0, 1j, 0]])
         return mat
 
 
