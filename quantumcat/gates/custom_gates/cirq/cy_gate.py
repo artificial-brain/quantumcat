@@ -23,11 +23,13 @@ class CYGate(cirq.Gate):
     def _num_qubits_(self):
         return 2
 
-    def _unitary_(self, dtype=None):
-        return numpy.array([[1, 0, 0, 0],
+    def _unitary_(self,dtype=None):
+        mat = numpy.array([[1, 0, 0, 0],
+                            [0, 1, 0, 0],
                             [0, 0, 0, -1j],
-                            [0, 0, 1, 0],
-                            [0, 1j, 0, 0]], dtype)
+                            [0, 0, 1j, 0]])
+        return mat
+
 
     def _circuit_diagram_info_(self, args):
-       return ["CYGate"] * self.num_qubits()
+        return ["CY_c","CY_t"]

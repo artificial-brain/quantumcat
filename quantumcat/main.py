@@ -33,8 +33,9 @@ def create_circuit_demo():
     circuit.measure(0, 0)
     # circuit.measure(1, 1)
     # circuit.measure(2, 2)
-    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
+    circuit.draw_circuit(provider=providers.IBM_PROVIDER)
+    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
+
 
 def grovers_demo():
     clause_list_sudoku = [[0, 1], [0, 2], [1, 3], [2, 3]]

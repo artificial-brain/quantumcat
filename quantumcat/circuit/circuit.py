@@ -177,12 +177,38 @@ class QCircuit:
     def p_gate(self, theta, qubit):
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.p_gate: [qubit], constants.PARAMS: [theta]})
-    
-    def mcp_gate(self,lam,control_qubits, target_qubit):
+
+    def mcx_gate(self, control_qubits, target_qubit, ancilla_qubits=[], mode='nonancilla'):
         self.check_qubit_boundary(target_qubit)
         for qubit in control_qubits:
-            self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.mcp_gate: [[control_qubits[:]],[target_qubit]], constants.PARAMS: [[lam], [len(control_qubits)]]})
+           self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.mcx_gate: control_qubits[:] + [target_qubit] + ancilla_qubits[:], constants.PARAMS: [len(control_qubits)]})
+
+    def mcxgc_gate(self, control_qubits, target_qubit):
+        self.check_qubit_boundary(target_qubit)
+        for qubit in control_qubits:
+           self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.mcxgc_gate: control_qubits[:] + [target_qubit], constants.PARAMS: [len(control_qubits)]})
+
+
+    def mcxvchain_gate(self, control_qubits, target_qubit, dirty_ancilla):
+        self.check_qubit_boundary(target_qubit)
+        for qubit in control_qubits:
+           self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.mcxvchain_gate: control_qubits[:] + [target_qubit], constants.PARAMS: [len(control_qubits), dirty_ancilla]})
+    
+
+    def mcxrec_gate(self, control_qubits, target_qubit):
+        self.check_qubit_boundary(target_qubit)
+        for qubit in control_qubits:
+           self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.mcxrec_gate: control_qubits[:] + [target_qubit] , constants.PARAMS: [len(control_qubits)]})
+    
+    def mcp_gate(self,lam,control_qubits,target_qubit):
+        self.check_qubit_boundary(target_qubit)
+        for qubit in control_qubits:
+           self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.mcp_gate: control_qubits[:]+[target_qubit], constants.PARAMS: [lam, len(control_qubits)]})
 
     def mct_gate(self, control_qubits, target_qubit, ancilla_qubits=None, mode='noancilla'):
         # self.check_qubit_boundary(control_qubit1)

@@ -44,6 +44,7 @@ def to_qiskit(q_circuit, qubits, cbits):
                           ancilla_qubits=qargs[2], mode=qargs[3])
         else:
             qiskit_qc.append(qiskit_op(*params), qargs)
+            #print("qargs "+qargs)
 
     return qiskit_qc
 
