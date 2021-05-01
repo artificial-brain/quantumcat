@@ -13,31 +13,28 @@
 #  limitations under the License.
 from typing import Any
 
-import numpy
+import numpy as np
 from braket.circuits import *
 
 
-class UGate(Gate):
-    """U Gate"""
-
-    def __init__(self, theta, phi, lam):
-        super(UGate, self).__init__(qubit_count=1, ascii_symbols=["U"])
-        self.theta = theta
-        self.phi = phi
-        self.lam = lam
+class DCXGate(Gate):
+    """DCX Gate"""
+    def __init__(self):
+        super(DCXGate, self).__init__(qubit_count=2, ascii_symbols=["D", "Cx"])
 
     def to_ir(self, target: QubitSet) -> Any:
         pass
 
-    def to_matrix(self, *args, **kwargs) -> numpy.ndarray:
+    def to_matrix(self, *args, **kwargs) -> np.ndarray:
         pass
 
     @circuit.subroutine(register=True)
-    def u(self, theta, phi, lam):
-        return numpy.array([
-            [numpy.cos(self.theta / 2), -numpy.exp(1j * self.lam) * numpy.sin(self.theta / 2)],
-            [numpy.exp(1j * self.phi) * numpy.sin(self.theta / 2), numpy.exp(1j * (self.phi + self.lam))
-                * numpy.cos(self.theta / 2)]], dtype=None)
+    def dcx(self):
+        return np.array([[1, 0, 0, 0],
+                         [0, 0, 0, 1],
+                         [0, 1, 0, 0],
+                         [0, 0, 1, 0]])
 
 
-Gate.register_gate(UGate)
+
+Gate.register_gate(DCXGate)

@@ -48,8 +48,9 @@ class OpType(Enum):
     c3x_gate = 28
     c3sx_gate = 29
     c4x_gate = 30
-    ry_gate = 40
-    ryy_gate = 41
+    ry_gate = 39
+    ryy_gate = 40
+    rz_gate = 41
     rzz_gate = 42
     rzx_gate = 43
     ecr_gate = 44

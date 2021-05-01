@@ -65,9 +65,10 @@ class QCircuit:
         self.operations.append({OpType.ry_gate: [qubit],
                                 constants.PARAMS: [theta]})
 
-    def ryy_gate(self, theta, qubit):
-        self.check_qubit_boundary(qubit)
-        self.operations.append({OpType.ryy_gate: [qubit],
+    def ryy_gate(self, theta, qubit1, qubit2):
+        self.check_qubit_boundary(qubit1)
+        self.check_qubit_boundary(qubit2)
+        self.operations.append({OpType.ryy_gate: [[qubit1], [qubit2]],
                                 constants.PARAMS: [theta]})
 
     def rzz_gate(self, theta, qubit1, qubit2):
@@ -82,11 +83,10 @@ class QCircuit:
         self.operations.append({OpType.rzx_gate: [[qubit1], [qubit2]],
                                 constants.PARAMS: [theta]})
 
-    # Couldn't file class to map ecr gates in gates_map.py
-    # def ecr_gate(self, qubit1, qubit2):
-    #     self.check_qubit_boundary(qubit1)
-    #     self.check_qubit_boundary(qubit2)
-    #     self.operations.append({OpType.ecr_gate: [[qubit1], [qubit2]]})
+    def rz_gate(self, phi, qubit):
+        self.check_qubit_boundary(qubit)
+        self.operations.append({OpType.rz_gate: [qubit],
+                                constants.PARAMS: [phi]})
 
     def s_gate(self, qubit):
         self.check_qubit_boundary(qubit)

@@ -13,31 +13,31 @@
 #  limitations under the License.
 from typing import Any
 
-import numpy
+import numpy as np
 from braket.circuits import *
 
 
-class UGate(Gate):
-    """U Gate"""
-
-    def __init__(self, theta, phi, lam):
-        super(UGate, self).__init__(qubit_count=1, ascii_symbols=["U"])
+class CRXGate(Gate):
+    """CRX Gate"""
+    def __init__(self, theta):
+        super(CRXGate, self).__init__(qubit_count=2, ascii_symbols=["C", "Rx"])
         self.theta = theta
-        self.phi = phi
-        self.lam = lam
 
     def to_ir(self, target: QubitSet) -> Any:
         pass
 
-    def to_matrix(self, *args, **kwargs) -> numpy.ndarray:
+    def to_matrix(self, *args, **kwargs) -> np.ndarray:
         pass
 
     @circuit.subroutine(register=True)
-    def u(self, theta, phi, lam):
-        return numpy.array([
-            [numpy.cos(self.theta / 2), -numpy.exp(1j * self.lam) * numpy.sin(self.theta / 2)],
-            [numpy.exp(1j * self.phi) * numpy.sin(self.theta / 2), numpy.exp(1j * (self.phi + self.lam))
-                * numpy.cos(self.theta / 2)]], dtype=None)
+    def crx(self):
+        half_theta = float(self.theta) / 2
+        cos = np.cos(half_theta)
+        isin = 1j * np.sin(half_theta)
+        return np.array([[1, 0, 0, 0],
+                                [0, cos, 0, -isin],
+                                [0, 0, 1, 0],
+                                [0, -isin, 0, cos]])
 
 
-Gate.register_gate(UGate)
+Gate.register_gate(CRXGate)

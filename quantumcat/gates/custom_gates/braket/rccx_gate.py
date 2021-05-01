@@ -15,16 +15,14 @@ from typing import Any
 
 import numpy
 from braket.circuits import *
+import math
 
 
-class UGate(Gate):
-    """U Gate"""
+class RCCXGate(Gate):
+    """RCCX Gate"""
 
-    def __init__(self, theta, phi, lam):
-        super(UGate, self).__init__(qubit_count=1, ascii_symbols=["U"])
-        self.theta = theta
-        self.phi = phi
-        self.lam = lam
+    def __init__(self):
+        super(RCCXGate, self).__init__(qubit_count=3, ascii_symbols=["C", "C", "X"])
 
     def to_ir(self, target: QubitSet) -> Any:
         pass
@@ -33,11 +31,15 @@ class UGate(Gate):
         pass
 
     @circuit.subroutine(register=True)
-    def u(self, theta, phi, lam):
-        return numpy.array([
-            [numpy.cos(self.theta / 2), -numpy.exp(1j * self.lam) * numpy.sin(self.theta / 2)],
-            [numpy.exp(1j * self.phi) * numpy.sin(self.theta / 2), numpy.exp(1j * (self.phi + self.lam))
-                * numpy.cos(self.theta / 2)]], dtype=None)
+    def rccx(self):
+        return numpy.array([[1, 0, 0, 0, 0, 0, 0, 0],
+                            [0, 1, 0, 0, 0, 0, 0, 0],
+                            [0, 0, 1, 0, 0, 0, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0, -1j],
+                            [0, 0, 0, 0, 1, 0, 0, 0],
+                            [0, 0, 0, 0, 0, -1, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 1, 0],
+                            [0, 0, 0, 1j, 0, 0, 0, 0]])
 
 
-Gate.register_gate(UGate)
+Gate.register_gate(RCCXGate)

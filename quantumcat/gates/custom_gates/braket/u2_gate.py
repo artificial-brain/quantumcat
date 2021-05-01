@@ -21,7 +21,7 @@ class U2Gate(Gate):
     """U2 Gate"""
 
     def __init__(self, phi, lam):
-        super(U2Gate, self).__init__()
+        super(U2Gate, self).__init__(qubit_count=1, ascii_symbols=["U2"])
         self.phi = phi
         self.lam = lam
 
@@ -32,7 +32,7 @@ class U2Gate(Gate):
         pass
 
     @circuit.subroutine(register=True)
-    def u2(self, alpha, theta, phi):
+    def u2(self):
         isqrt2 = 1 / numpy.sqrt(2)
         phi, lam = self.phi, self.lam
         phi, lam = float(phi), float(lam)

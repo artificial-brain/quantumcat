@@ -15,16 +15,16 @@ from typing import Any
 
 import numpy
 from braket.circuits import *
+import math
 
 
-class UGate(Gate):
-    """U Gate"""
+class RGate(Gate):
+    """UR Gate"""
 
-    def __init__(self, theta, phi, lam):
-        super(UGate, self).__init__(qubit_count=1, ascii_symbols=["U"])
-        self.theta = theta
-        self.phi = phi
-        self.lam = lam
+    def __init__(self, theta, phi):
+        super(RGate, self).__init__(qubit_count=1, ascii_symbols=["R"])
+        self.theta = float(theta)
+        self.phi = float(phi)
 
     def to_ir(self, target: QubitSet) -> Any:
         pass
@@ -33,11 +33,13 @@ class UGate(Gate):
         pass
 
     @circuit.subroutine(register=True)
-    def u(self, theta, phi, lam):
-        return numpy.array([
-            [numpy.cos(self.theta / 2), -numpy.exp(1j * self.lam) * numpy.sin(self.theta / 2)],
-            [numpy.exp(1j * self.phi) * numpy.sin(self.theta / 2), numpy.exp(1j * (self.phi + self.lam))
-                * numpy.cos(self.theta / 2)]], dtype=None)
+    def r(self):
+        cos = math.cos(self.theta / 2)
+        sin = math.sin(self.theta / 2)
+        exp_m = numpy.exp(-1j * self.phi)
+        exp_p = numpy.exp(1j * self.phi)
+        return numpy.array([[cos, -1j * exp_m * sin],
+                            [-1j * exp_p * sin, cos]])
 
 
-Gate.register_gate(UGate)
+Gate.register_gate(RGate)
