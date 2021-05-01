@@ -19,6 +19,7 @@ from quantumcat.algorithms import GroversAlgorithm
 
 def create_circuit_demo():
     circuit = QCircuit(2, 2)
+    circuit.x_gate(0)
     circuit.rzz_gate(12, 0, 1)
     circuit.rzx_gate(30, 0, 1)
     circuit.sx_gate(1)
@@ -26,11 +27,14 @@ def create_circuit_demo():
     circuit.td_gate(1)
     circuit.s_gate(0)
     circuit.sdg_gate(0)
+    circuit.rxx_gate(60, 0, 1)
+    circuit.r_gate(30, 10, 1)
     circuit.measure(0, 0)
-    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
+    circuit.measure(1, 1)
+    circuit.draw_circuit(provider=providers.IBM_PROVIDER)
+    print(circuit.execute(provider=providers.RIGETTI_PROVIDER, repetitions=1024))
 
-
+"""
 def grovers_demo():
     clause_list_sudoku = [[0, 1], [0, 2], [1, 3], [2, 3]]
     clause_list_light_board = [[0, 1, 3], [1, 0, 2, 4], [2, 1, 5], [3, 0, 4, 6],
@@ -49,7 +53,7 @@ def grovers_demo():
     # grovers_algorithm_unknown_solution.draw_grovers_circuit()
 
     print(results)
-
+"""
 
 if __name__ == '__main__':
     create_circuit_demo()

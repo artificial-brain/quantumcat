@@ -245,6 +245,8 @@ class QCircuit:
         converted_q_circuit = None
         if self.provider == providers.IBM_PROVIDER:
             converted_q_circuit = convert.to_qiskit(self, self.qubits, self.cbits)
+        elif self.provider == providers.RIGETTI_PROVIDER:
+            converted_q_circuit = convert.to_qiskit(self, self.qubits, self.cbits)
         elif self.provider == providers.GOOGLE_PROVIDER:
             converted_q_circuit = convert.to_cirq(self, self.qubits)
         if self.provider == providers.MICROSOFT_PROVIDER:
@@ -256,6 +258,9 @@ class QCircuit:
         self.check_and_convert(provider)
         if self.provider == providers.IBM_PROVIDER:
             return execute_circuit.on_qiskit(self.converted_q_circuit, backend,
+                                             simulator_name, repetitions, api).get_counts()
+        elif self.provider == providers.RIGETTI_PROVIDER:
+            return execute_circuit.on_rigetti(self.converted_q_circuit, backend,
                                              simulator_name, repetitions, api).get_counts()
         elif self.provider == providers.GOOGLE_PROVIDER:
             return execute_circuit.on_cirq(self.converted_q_circuit, backend,
