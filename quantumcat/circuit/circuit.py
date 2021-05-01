@@ -206,14 +206,12 @@ class QCircuit:
            self.check_qubit_boundary(qubit)
         self.operations.append({OpType.mcxgc_gate: control_qubits[:] + [target_qubit], constants.PARAMS: [len(control_qubits)]})
 
-
     def mcxvchain_gate(self, control_qubits, target_qubit, dirty_ancilla):
         self.check_qubit_boundary(target_qubit)
         for qubit in control_qubits:
            self.check_qubit_boundary(qubit)
         self.operations.append({OpType.mcxvchain_gate: control_qubits[:] + [target_qubit], constants.PARAMS: [len(control_qubits), dirty_ancilla]})
     
-
     def mcxrec_gate(self, control_qubits, target_qubit):
         self.check_qubit_boundary(target_qubit)
         for qubit in control_qubits:
@@ -274,9 +272,6 @@ class QCircuit:
         self.check_and_convert(provider)
         if self.provider == providers.IBM_PROVIDER:
             return execute_circuit.on_qiskit(self.converted_q_circuit, backend,
-                                             simulator_name, repetitions, api).get_counts()
-        elif self.provider == providers.RIGETTI_PROVIDER:
-            return execute_circuit.on_rigetti(self.converted_q_circuit, backend,
                                              simulator_name, repetitions, api).get_counts()
         elif self.provider == providers.GOOGLE_PROVIDER:
             return execute_circuit.on_cirq(self.converted_q_circuit, backend,

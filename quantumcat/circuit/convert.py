@@ -83,6 +83,7 @@ def to_cirq(q_circuit, qubits):
 
     return cirq_qc
 
+
 def to_q_sharp(q_circuit, qubits, cbits):
     pass
 
