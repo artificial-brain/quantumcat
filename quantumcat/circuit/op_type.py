@@ -34,6 +34,11 @@ class OpType(Enum):
     rx_gate=14
     r_gate=15
     p_gate=16
+    mcp_gate=17
+    mcx_gate=18
+    mcxgc_gate=19
+    mcxrec_gate=20
+    mcxvchain_gate=21
     rzz_gate = 42
     rzx_gate = 43
     ecr_gate = 44
