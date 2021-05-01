@@ -23,7 +23,7 @@ class RYYGate(cirq.Gate):
     def _num_qubits_(self):
         return 2
 
-    def _unitary_(self):
+    def _unitary_(self, dtype=None):
         theta = float(self.phi)
         cos = np.cos(self.phi / 2)
         isin = 1j * np.sin(self.phi / 2)
@@ -31,9 +31,8 @@ class RYYGate(cirq.Gate):
             [cos, 0, 0, isin],
             [0, cos, -isin, 0],
             [0, -isin, cos, 0],
-            [isin, 0, 0, cos]
-        ])
+            [isin, 0, 0, cos]], dtype=dtype)
 
 
     def _circuit_diagram_info_(self, args):
-        return [f"RZX({self.phi})"] * self.num_qubits()
+        return [f"RYY({self.phi})"] * self.num_qubits()

@@ -23,10 +23,10 @@ class RZGate(cirq.Gate):
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self):
+    def _unitary_(self, dtype=None):
         ilam2 = 0.5j * float(self.phi)
         return np.array([[np.exp(-ilam2), 0],
-                         [0, np.exp(ilam2)]])
+                         [0, np.exp(ilam2)]], dtype=dtype)
 
 
     def _circuit_diagram_info_(self, args):
