@@ -28,7 +28,7 @@ class U2Gate(Gate):
     def to_ir(self, target: QubitSet) -> Any:
         pass
 
-    def to_matrix(self, *args, **kwargs) -> np.ndarray:
+    def to_matrix(self, *args, **kwargs) -> numpy.ndarray:
         pass
 
     @circuit.subroutine(register=True)
@@ -37,7 +37,7 @@ class U2Gate(Gate):
         phi, lam = self.phi, self.lam
         phi, lam = float(phi), float(lam)
         return numpy.array([[isqrt2, -numpy.exp(1j * lam) * isqrt2],
-            [numpy.exp(1j * phi) * isqrt2, numpy.exp(1j * (phi + lam)) * isqrt2]], dtype=dtype)
+            [numpy.exp(1j * phi) * isqrt2, numpy.exp(1j * (phi + lam)) * isqrt2]])
 
 
 Gate.register_gate(U2Gate)

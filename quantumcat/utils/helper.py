@@ -14,8 +14,8 @@
 
 from quantumcat.gates.custom_gates.cirq import UGate, U1Gate, U2Gate, U3Gate, SXGate, RXXGate, RXGate, \
                                                RCCXGate, RC3XGate, RGate, CYGate, PGate, SXDGate, SDGGate, \
-                                               SXGate, TDGate
-from quantumcat.gates.custom_gates.braket import SDGGate, SXDGate, TDGate, SXGate, UGate, U1Gate, U2Gate, U3Gate
+                                               SXGate, TDGate, RYGate, RYYGate
+from quantumcat.gates.custom_gates.braket import UGate, U2Gate, U3Gate
 
 
 def is_custom_class(obj):
@@ -26,7 +26,8 @@ def is_custom_class(obj):
             isinstance(obj, RGate) or isinstance(obj, CYGate) or isinstance(obj, PGate) or \
             isinstance(obj, U3Gate) or isinstance(obj, SDGGate) or isinstance(obj, SXDGate) or \
             isinstance(obj, TDGate) or isinstance(obj, SXGate) or isinstance(obj, UGate) or \
-            isinstance(obj, U2Gate) or isinstance(obj, U1Gate):
+            isinstance(obj, U2Gate) or isinstance(obj, U1Gate) or isinstance(obj, RYGate) or \
+            isinstance(obj, RYYGate):
         return True
     else:
         return False

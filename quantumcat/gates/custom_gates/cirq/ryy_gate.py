@@ -11,28 +11,29 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from typing import Any
-
-import numpy
-from braket.circuits import *
+import cirq
+import numpy as np
 
 
-class SXGate(Gate):
-    """SX Gate"""
+class RYYGate(cirq.Gate):
+    def __init__(self, phi):
+        super(RYYGate, self).__init__()
+        self.phi = phi
 
-    def to_ir(self, target: QubitSet) -> Any:
-        pass
+    def _num_qubits_(self):
+        return 1
 
-    def to_matrix(self, *args, **kwargs) -> numpy.ndarray:
-        pass
+    def _unitary_(self):
+        theta = float(self.phi)
+        cos = np.cos(theta / 2)
+        isin = 1j * np.sin(theta / 2)
+        return np.array([
+            [cos, 0, 0, isin],
+            [0, cos, -isin, 0],
+            [0, -isin, cos, 0],
+            [isin, 0, 0, cos]
+        ])
 
-    @circuit.subroutine(register=True)
-    def sx(self):
-        return numpy.array([[1 + 1j, 1 - 1j],
-                            [1 - 1j, 1 + 1j]]) / 2
 
     def _circuit_diagram_info_(self, args):
-        return "SX"
-
-
-Gate.register_gate(SXGate)
+        return "RYY"

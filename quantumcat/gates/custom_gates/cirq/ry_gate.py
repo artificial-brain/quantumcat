@@ -11,25 +11,25 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from typing import Any
-
+import cirq
 import numpy
-from braket.circuits import *
+import math
 
 
-class SDGGate(Gate):
-    """SDG Gate"""
+class RYGate(cirq.Gate):
+    def __init__(self, theta):
+        super(RYGate, self).__init__()
+        self.theta = theta
 
-    def to_ir(self, target: QubitSet) -> Any:
-        pass
+    def _num_qubits_(self):
+        return 1
 
-    def to_matrix(self, *args, **kwargs) -> numpy.ndarray:
-        pass
-
-    @circuit.subroutine(register=True)
-    def sdg(self):
-        return numpy.array([[1, 0],
-                            [0, -1j]])
+    def _unitary_(self):
+        cos = math.cos(self.theta / 2)
+        sin = math.sin(self.theta / 2)
+        return numpy.array([[cos, -sin],
+                            [sin, cos]])
 
 
-Gate.register_gate(SDGGate)
+    def _circuit_diagram_info_(self, args):
+        return "RY"
