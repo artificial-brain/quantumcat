@@ -37,6 +37,7 @@ A cross platform high-level quantum computing library so that you could concentr
 ## Platforms Supported
 * IBM Qiskit
 * Google Cirq
+* Rigetti
 ## Gates Supported
 [Click here to view gates supported](https://sheet.zoho.com/sheet/published/nvlfe4b782cabaa524276ab9a44e270d800b2?mode=html)
 ## Properties
