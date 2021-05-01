@@ -28,10 +28,10 @@ class OpType(Enum):
     cy_gate = 8
     cz_gate = 9
     i_gate = 10
-    rxx_gate=13
-    rx_gate=14
-    r_gate=15
-    p_gate=16
+    rxx_gate = 13
+    rx_gate = 14
+    r_gate = 15
+    p_gate = 16
     dcx_gate = 17
     ch_gate = 18
     csx_gate = 19
