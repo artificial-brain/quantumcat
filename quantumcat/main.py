@@ -31,8 +31,8 @@ def create_circuit_demo():
     circuit.r_gate(30, 10, 1)
     circuit.measure(0, 0)
     circuit.measure(1, 1)
-    circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=1024))
+    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
+    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
 
 
 def grovers_demo():

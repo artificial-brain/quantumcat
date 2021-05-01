@@ -259,8 +259,6 @@ class QCircuit:
         converted_q_circuit = None
         if self.provider == providers.IBM_PROVIDER:
             converted_q_circuit = convert.to_qiskit(self, self.qubits, self.cbits)
-        elif self.provider == providers.RIGETTI_PROVIDER:
-            converted_q_circuit = convert.to_qiskit(self, self.qubits, self.cbits)
         elif self.provider == providers.GOOGLE_PROVIDER:
             converted_q_circuit = convert.to_cirq(self, self.qubits)
         if self.provider == providers.MICROSOFT_PROVIDER:

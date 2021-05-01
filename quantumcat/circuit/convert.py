@@ -44,7 +44,6 @@ def to_qiskit(q_circuit, qubits, cbits):
                           ancilla_qubits=qargs[2], mode=qargs[3])
         else:
             qiskit_qc.append(qiskit_op(*params), qargs)
-            #print("qargs "+qargs)
 
     return qiskit_qc
 
@@ -58,11 +57,9 @@ def to_cirq(q_circuit, qubits):
     operations = q_circuit.operations
     cirq_qc = cirq.Circuit()
     named_qubits = cirq.NamedQubit.range(qubits, prefix='q')
-    print(operations)
     for op in operations:
         params = []
         operation = next(iter(op.items()))
-        print(operation)
         cirq_op = gates_map.quantumcat_to_cirq[operation[0]]
         qargs = operation[1]
         if constants.PARAMS in op:
@@ -78,7 +75,6 @@ def to_cirq(q_circuit, qubits):
         elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
             cirq_qc.append([cirq_op(*params).on(*named_qubits_for_ops(named_qubits, qargs))])
         else:
-            print(cirq_op)
             cirq_qc.append([cirq_op(*named_qubits_for_ops(named_qubits, qargs))])
 
     return cirq_qc
