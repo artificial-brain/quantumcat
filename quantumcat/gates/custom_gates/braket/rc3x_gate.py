@@ -11,26 +11,22 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from typing import Any
 
 import numpy
-from braket.circuits import *
+import braket.ir.jaqcd as ir
+from braket.circuits import Instruction, Gate, QubitSet, QubitInput, circuit
 
 
 class RC3XGate(Gate):
-    """UR Gate"""
+    """RC3X Gate"""
 
     def __init__(self):
-        super(RC3XGate, self).__init__(qubit_count=4, ascii_symbols=["C", "C", "C", "X"])
+        super(RC3XGate, self).__init__(qubit_count=4, ascii_symbols=["RC", "C", "C", "X"])
 
-    def to_ir(self, target: QubitSet) -> Any:
-        pass
+    def to_ir(self, target: QubitSet):
+        return ir.RC3XGate.construct(controls=[target[0], target[1], target[2]], target=target[3])
 
     def to_matrix(self, *args, **kwargs) -> numpy.ndarray:
-        pass
-
-    @circuit.subroutine(register=True)
-    def rc3x(self):
         return numpy.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -47,6 +43,11 @@ class RC3XGate(Gate):
                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
                             [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0]])
+
+    @staticmethod
+    @circuit.subroutine(register=True)
+    def rc3x(control1: QubitInput, control2: QubitInput, control3: QubitInput, target: QubitInput) -> Instruction:
+        return Instruction(Gate.RC3XGate(), target=[control1, control2, control3, target])
 
 
 Gate.register_gate(RC3XGate)

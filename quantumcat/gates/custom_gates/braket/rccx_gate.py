@@ -11,27 +11,22 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from typing import Any
 
 import numpy
-from braket.circuits import *
-import math
+import braket.ir.jaqcd as ir
+from braket.circuits import Instruction, Gate, QubitSet, QubitInput, circuit
 
 
 class RCCXGate(Gate):
     """RCCX Gate"""
 
     def __init__(self):
-        super(RCCXGate, self).__init__(qubit_count=3, ascii_symbols=["C", "C", "X"])
+        super().__init__(qubit_count=3, ascii_symbols=["RC", "C", "X"])
 
-    def to_ir(self, target: QubitSet) -> Any:
-        pass
+    def to_ir(self, target: QubitSet):
+        return ir.RCCXGate.construct(controls=[target[0], target[1]], target=target[2])
 
     def to_matrix(self, *args, **kwargs) -> numpy.ndarray:
-        pass
-
-    @circuit.subroutine(register=True)
-    def rccx(self):
         return numpy.array([[1, 0, 0, 0, 0, 0, 0, 0],
                             [0, 1, 0, 0, 0, 0, 0, 0],
                             [0, 0, 1, 0, 0, 0, 0, 0],
@@ -40,6 +35,11 @@ class RCCXGate(Gate):
                             [0, 0, 0, 0, 0, -1, 0, 0],
                             [0, 0, 0, 0, 0, 0, 1, 0],
                             [0, 0, 0, 1j, 0, 0, 0, 0]])
+
+    @staticmethod
+    @circuit.subroutine(register=True)
+    def rccx(control1: QubitInput, control2: QubitInput, target: QubitInput) -> Instruction:
+        return Instruction(Gate.RCCXGate(), target=[control1, control2, target])
 
 
 Gate.register_gate(RCCXGate)

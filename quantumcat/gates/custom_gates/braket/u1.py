@@ -12,21 +12,30 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from braket.circuits import *
-import numpy
+import numpy as np
+import braket.ir.jaqcd as ir
+from braket.circuits import Instruction, Gate, QubitSet, QubitInput, circuit, AngledGate
 
 
-class U1Gate(Gate):
+class U1Gate(AngledGate):
     """U1 Gate"""
 
-    def __init__(self, theta):
-        super(U1Gate, self).__init__(qubit_count=1, ascii_symbols=["U1"])
-        self.theta = theta
+    def __init__(self, angle: float):
+        super().__init__(
+            angle=angle,
+            qubit_count=1, ascii_symbols=["U1({:.3g})".format(angle)])
 
+    def to_ir(self, target: QubitSet):
+        return ir.XY.construct(target=target[0], angle=self.angle)
+
+    def to_matrix(self) -> np.ndarray:
+        lam = float(self.angle)
+        return np.array([[1, 0], [0, np.exp(1j * lam)]])
+
+    @staticmethod
     @circuit.subroutine(register=True)
-    def _unitary_(self, dtype=None):
-        lam = float(self.theta)
-        return numpy.array([[1, 0], [0, numpy.exp(1j * lam)]], dtype=dtype)
+    def u1(target: QubitInput, angle: float) -> Instruction:
+        return Instruction(Gate.U1Gate(angle), target=target)
 
 
 Gate.register_gate(U1Gate)

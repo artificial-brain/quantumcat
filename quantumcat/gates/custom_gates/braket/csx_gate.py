@@ -11,29 +11,31 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from typing import Any
+
 
 import numpy as np
-from braket.circuits import *
+import braket.ir.jaqcd as ir
+from braket.circuits import Instruction, Gate, QubitSet, QubitInput, circuit
 
 
 class CSXGate(Gate):
     """CSX Gate"""
     def __init__(self):
-        super(CSXGate, self).__init__(qubit_count=2, ascii_symbols=["C", "Sx"])
+        super().__init__(qubit_count=2, ascii_symbols=["C", "Sx"])
 
-    def to_ir(self, target: QubitSet) -> Any:
-        pass
+    def to_ir(self, target: QubitSet):
+        return ir.CSXGate.construct(control=target[0], target=target[1])
 
     def to_matrix(self, *args, **kwargs) -> np.ndarray:
-        pass
-
-    @circuit.subroutine(register=True)
-    def ch(self):
         return np.array([[1, 0, 0, 0],
                         [0, (1 + 1j) / 2, 0, (1 - 1j) / 2],
                         [0, 0, 1, 0],
                         [0, (1 - 1j) / 2, 0, (1 + 1j) / 2]])
+
+    @staticmethod
+    @circuit.subroutine(register=True)
+    def ch(control: QubitInput, target: QubitInput) -> Instruction:
+        return Instruction(Gate.CSXGate(), target=[control, target])
 
 
 Gate.register_gate(CSXGate)

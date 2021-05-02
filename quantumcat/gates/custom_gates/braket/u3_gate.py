@@ -11,51 +11,40 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from typing import Any
 
 import numpy as np
-from braket.circuits import *
+import braket.ir.jaqcd as ir
+from braket.circuits import Instruction, Gate, QubitSet, QubitInput, circuit, AngledGate
 
 
-class U3Gate(Gate):
+class U3Gate(AngledGate):
     """U3 Gate"""
 
-    def __init__(self, theta, phi, lam):
-        super().__init__(qubit_count=1, ascii_symbols=["U3"])
+    def __init__(self, angle: float, theta, phi, lam):
+        super().__init__(
+            angle=angle,
+            qubit_count=1,
+            ascii_symbols=["U3({:.3g})".format(angle)])
         self.theta = theta
         self.phi = phi
         self.lam = lam
 
-    def to_ir(self, target: QubitSet) -> Any:
-        pass
+    def to_ir(self, target: QubitSet):
+        return ir.U3Gate.construct(target=target[0], angle=self.angle)
 
     def to_matrix(self, *args, **kwargs) -> np.ndarray:
-        pass
+        theta, phi, lam = float(self.theta), float(self.phi), float(self.lam)
+        cos = np.cos(theta / 2)
+        sin = np.sin(theta / 2)
+        return np.array([
+            [cos, -np.exp(1j * lam) * sin],
+            [np.exp(1j * phi) * sin, np.exp(1j * (phi + lam)) * cos]
+        ])
 
+    @staticmethod
     @circuit.subroutine(register=True)
-    def u3(self, target):
-        """
-        Function to return the matrix for a general single qubit rotation,
-        given by exp(-i sigma*n/2*alpha), where alpha is the rotation angle,
-        n defines the rotation axis via n=(sin(theta)cos(phi), sin(theta)sin(phi), cos(theta)),
-        and sigma is the vector of Pauli matrices
-        """
-
-        u11 = np.cos(self.theta/2)-1j*np.sin(self.theta/2)*np.cos(self.phi)
-        u12 = -1j*(np.exp(-1j*self.lam))*np.sin(self.phi)*np.sin(self.theta/2)
-        u21 = -1j*(np.exp(1j*self.lam))*np.sin(self.phi)*np.sin(self.theta/2)
-        u22 = np.cos(self.theta/2)+1j*np.sin(self.theta/2)*np.cos(self.phi)
-
-
-        # define unitary as numpy matrix
-        u = np.array([[u11, u12], [u21, u22]])
-        # print('Unitary:', u)
-
-        # define custom Braket gate
-        circ = Circuit()
-        circ.unitary(matrix=u, targets=target)
-
-        return circ
+    def u3(target: QubitInput, angle: float) -> Instruction:
+        return Instruction(Gate.U3Gate(angle), target=target[0])
 
 
 Gate.register_gate(U3Gate)
