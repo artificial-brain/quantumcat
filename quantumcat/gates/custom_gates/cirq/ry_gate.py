@@ -11,9 +11,25 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+import cirq
+import numpy
+import math
 
-IBM_PROVIDER = 'IBM'
-GOOGLE_PROVIDER = 'GOOGLE'
-MICROSOFT_PROVIDER = 'MICROSOFT'
-DEFAULT_PROVIDER = 'IBM'
-RIGETTI_PROVIDER = 'RIGETTI'
+
+class RYGate(cirq.Gate):
+    def __init__(self, theta):
+        super(RYGate, self).__init__()
+        self.theta = theta
+
+    def _num_qubits_(self):
+        return 1
+
+    def _unitary_(self, dtype=None):
+        cos = math.cos(self.theta / 2)
+        sin = math.sin(self.theta / 2)
+        return numpy.array([[cos, -sin],
+                            [sin, cos]], dtype=dtype)
+
+
+    def _circuit_diagram_info_(self, args):
+        return "RY"
