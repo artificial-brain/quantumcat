@@ -21,7 +21,7 @@ def create_circuit_demo():
     circuit = QCircuit(5, 5)
     for i in range(3):
         circuit.x_gate(i)
-    circuit.c3x_gate(0,1,2,4)
+    circuit.c3sx_gate(0,1,2,4)
     circuit.measure(0,0)
     circuit.measure(1,1)
     circuit.measure(2,2)

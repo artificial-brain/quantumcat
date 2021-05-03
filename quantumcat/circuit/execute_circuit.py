@@ -15,7 +15,6 @@
 from quantumcat.utils import constants
 from qiskit import Aer
 from qiskit import execute, QuantumCircuit
-from quantastica.qiskit_forest import ForestBackend
 import cirq
 
 
