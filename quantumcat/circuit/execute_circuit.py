@@ -25,14 +25,6 @@ def on_qiskit(q_circuit, backend, simulator_name, repetitions, api):
         results = execute(q_circuit, Aer.get_backend(simulator_name), shots=repetitions).result()
         return results
 
-def on_rigetti(q_circuit, backend, simulator_name, repetitions, api):
-    if backend == constants.SIMULATOR:
-        if simulator_name is None:
-            simulator_name = constants.QASM_SIMULATOR
-        provider = ForestBackend.get_backend(simulator_name)
-        results = execute(q_circuit, backend=provider , shots=repetitions).result()
-        return results
-
 
 def on_cirq(q_circuit, backend, simulator_name, repetitions, api):
     if backend == constants.SIMULATOR:
