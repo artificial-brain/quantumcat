@@ -30,7 +30,7 @@
 
 
 ## Introduction
-A high-level cross-platform quantum computing library so that the quantum community could concentrate on building quantum applications without much effort.
+A high-level cross-platform open-source quantum computing library so that the quantum community could concentrate on building quantum applications without much effort.
 ## Purpose
 The purpose of this library is to help developers create cross-platform quantum applications in few lines of code without having knowledge of gates and circuits.
 ## Current Problems
