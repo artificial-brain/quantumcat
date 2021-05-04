@@ -33,4 +33,4 @@ class C3SXGate(cirq.Gate):
         return mat
 
     def _circuit_diagram_info_(self, args):
-        return ["C3SXGate"] * self.num_qubits()
+        return ["C3SX_c1", "C3SX_c2", "C3SX_c3", "C3SX_t"]

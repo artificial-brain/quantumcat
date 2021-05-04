@@ -49,4 +49,4 @@ class C4XGate(cirq.Gate):
     
     
     def _circuit_diagram_info_(self, args):
-        return ["C4XGate"] * self.num_qubits()
+        return ["C4X_c1", "C4X_c2", "C4X_c3", "C4X_c4", "C4X_t"]

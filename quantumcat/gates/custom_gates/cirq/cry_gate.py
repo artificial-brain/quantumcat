@@ -19,4 +19,4 @@ class CRYGate(cirq.Gate):
                            dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-       return ["CRYGate"] * self.num_qubits()
+        return ["CRY_c", "CRY_t"]

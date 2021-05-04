@@ -23,4 +23,4 @@ class CU3Gate(cirq.Gate):
                            dtype=dtype)
     
     def _circuit_diagram_info_(self, args):
-        return ["CU3Gate"] * self.num_qubits()
+        return ["CU3_c", "CU3_t"]

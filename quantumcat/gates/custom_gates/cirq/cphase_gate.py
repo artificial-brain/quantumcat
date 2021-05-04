@@ -17,4 +17,4 @@ class CPhaseGate(cirq.Gate):
                            dtype=dtype)
     
     def _circuit_diagram_info_(self, args):
-        return ["CPhaseGate"] * self.num_qubits()
+        return ["CPhase_c", "CPhase_t"]

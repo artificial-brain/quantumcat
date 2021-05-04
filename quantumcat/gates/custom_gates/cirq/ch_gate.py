@@ -16,4 +16,4 @@ class CHGate(cirq.Gate):
                            dtype=dtype)
     
     def _circuit_diagram_info_(self, args):
-        return ["CHGate"] * self.num_qubits()
+        return ["CH_c", "CH_t"]

@@ -30,4 +30,4 @@ class CYGate(cirq.Gate):
                             [0, 0, 1j, 0]], dtype)
 
     def _circuit_diagram_info_(self, args):
-       return ["CYGate"] * self.num_qubits()
+       return ["CY_c", "CY_t"]

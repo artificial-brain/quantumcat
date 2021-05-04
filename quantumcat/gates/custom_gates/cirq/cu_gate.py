@@ -25,4 +25,4 @@ class CUGate(cirq.Gate):
                            dtype=dtype)
     
     def _circuit_diagram_info_(self, args):
-        return ["CUGate"] * self.num_qubits()
+        return ["CU_c", "CU_t"]

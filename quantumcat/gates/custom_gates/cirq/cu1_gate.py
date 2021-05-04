@@ -16,4 +16,4 @@ class CU1Gate(cirq.Gate):
         return numpy.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, exp1]], dtype=dtype)
     
     def _circuit_diagram_info_(self, args):
-        return ["CU1Gate"] * self.num_qubits()
+        return ["CU1_c", "CU1_t"]

@@ -19,4 +19,4 @@ class CRXGate(cirq.Gate):
                            dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
-        return ["CRXGate"] * self.num_qubits()
+        return ["CRX_c", "CRX_t"]
