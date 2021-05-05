@@ -15,8 +15,10 @@ class CRXGate(cirq.Gate):
         theta2 = float(self.theta) / 2
         cos = numpy.cos(theta2)
         isin = 1j * numpy.sin(theta2)
-        return numpy.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, cos, -isin], [0, 0, -isin, cos]],
-                           dtype=dtype)
+        return numpy.array([[1, 0, 0, 0],
+                            [0, 1, 0, 0],
+                            [0, 0, cos, -isin],
+                            [0, 0, -isin, cos]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
         return ["CRX_c", "CRX_t"]

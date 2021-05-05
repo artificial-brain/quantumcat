@@ -19,8 +19,10 @@ class CU3Gate(cirq.Gate):
         exp1 = numpy.exp(1j*self.lam)
         exp2 = numpy.exp(1j*self.phi)
         exp3 = numpy.exp(1j*(self.phi+self.lam))
-        return numpy.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, cos, -1*exp1*sin], [0, 0, exp2*sin, exp3*cos]],
-                           dtype=dtype)
+        return numpy.array([[1, 0, 0, 0],
+                            [0, 1, 0, 0],
+                            [0, 0, cos, -1*exp1*sin],
+                            [0, 0, exp2*sin, exp3*cos]], dtype=dtype)
     
     def _circuit_diagram_info_(self, args):
         return ["CU3_c", "CU3_t"]

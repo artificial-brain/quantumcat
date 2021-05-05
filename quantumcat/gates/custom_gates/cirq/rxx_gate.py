@@ -27,11 +27,10 @@ class RXXGate(cirq.Gate):
         theta2 = float(self.theta) / 2
         cos = numpy.cos(theta2)
         isin = 1j * numpy.sin(theta2)
-        return numpy.array([
-            [cos, 0, 0, -isin],
-            [0, cos, -isin, 0],
-            [0, -isin, cos, 0],
-            [-isin, 0, 0, cos]], dtype=dtype)
+        return numpy.array([[cos, 0, 0, -isin],
+                            [0, cos, -isin, 0],
+                            [0, -isin, cos, 0],
+                            [-isin, 0, 0, cos]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
         return [f"RXX({self.theta})"] * self.num_qubits()
