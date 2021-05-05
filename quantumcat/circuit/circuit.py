@@ -381,3 +381,37 @@ class QCircuit:
     def phase_kickback(self, qubit):
         self.x_gate(qubit)
         self.h_gate(qubit)
+
+    def not_gate(self, qubit):
+        self.x_gate(qubit)
+
+    def or_gate(self, qubits, target_qubit):
+        for i in qubits:
+            self.x_gate(i)
+        self.mct_gate(qubits, target_qubit)
+        self.x_gate(target_qubit)
+        for i in qubits:
+            self.x_gate(i)
+
+    def and_gate(self, qubits, target_qubit):
+        self.mct_gate(qubits, target_qubit)
+
+    def nor_gate(self, qubits, target_qubit):
+        for i in qubits:
+            self.x_gate(i)
+        self.mct_gate(qubits, target_qubit)
+        for i in qubits:
+            self.x_gate(i)
+
+    def nand_gate(self, qubits, target_qubit):
+        self.mct_gate(qubits, target_qubit)
+        self.x_gate(target_qubit)
+
+    def xor_gate(self, qubits, target_qubit):
+        for i in qubits:
+            self.cx_gate(i, target_qubit)
+
+    def xnor_gate(self, qubits, target_qubit):
+        for i in qubits:
+            self.cx_gate(i, target_qubit)
+        self.x_gate(target_qubit)
