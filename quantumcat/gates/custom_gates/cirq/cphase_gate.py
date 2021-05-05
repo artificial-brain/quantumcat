@@ -13,8 +13,10 @@ class CPhaseGate(cirq.Gate):
 
     def _unitary_(self, dtype=None):
         exp1 = numpy.exp(1j*self.lam)
-        return numpy.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, exp1]],
-                           dtype=dtype)
+        return numpy.array([[1, 0, 0, 0],
+                            [0, 1, 0, 0],
+                            [0, 0, 1, 0],
+                            [0, 0, 0, exp1]], dtype=dtype)
     
     def _circuit_diagram_info_(self, args):
         return ["CPhase_c", "CPhase_t"]

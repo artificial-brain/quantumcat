@@ -28,8 +28,7 @@ class C3SXGate(cirq.Gate):
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, exp1, exp2],
-                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, exp2, exp1]],
-                          dtype=dtype)
+                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, exp2, exp1]], dtype=dtype)
         return mat
 
     def _circuit_diagram_info_(self, args):

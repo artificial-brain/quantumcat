@@ -27,7 +27,7 @@ class CYGate(cirq.Gate):
         return numpy.array([[1, 0, 0, 0],
                             [0, 1, 0, 0],
                             [0, 0, 0, -1j],
-                            [0, 0, 1j, 0]], dtype)
+                            [0, 0, 1j, 0]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
        return ["CY_c", "CY_t"]
