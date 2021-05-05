@@ -7,7 +7,7 @@
 - [1. Introduction](#introduction)
   * [1.1 Purpose](#purpose)
   * [1.2 Current Problems](#current-problems)
-  * [1.2 Solutions](#solutions)
+  * [1.2 Goal](#goal)
 - [2. Platforms Supported](#platforms-supported)
 - [3. Gates Supported](#gates-supported)
 - [4. Properties](#properties)
@@ -30,13 +30,41 @@
 
 
 ## Introduction
-A cross platform high-level quantum computing library so that you could concentrate on building Quantum applications faster.
+A high-level cross-platform open-source quantum computing library so that the quantum community could concentrate on building quantum applications without much effort.
 ## Purpose
+The purpose of this library is to help developers create cross-platform quantum applications in few lines of code without having knowledge of gates and circuits.
 ## Current Problems
-## Solutions
+* Basic Knowledge of quantum gates and circuits required: \
+Presently, It is very tough to create quantum applications given the fact that many available libraries are low-level libraries i.e. developers have to understand low-level concepts such as gates and circuits before they can actually start working on quantum applications. This is not natural to many developers who are accustomed to high-level concepts rather than worrying about gates and circuits.
+
+* Platform dependent code: \
+To execute code on platforms such as IBM, Google, and so on, Developers need to write code separately for each platform independently putting lots of efforts.
+## Goal
+Developers can create quantum applications in few lines of code. Few examples (In progress): 
+* Quantum application for predicting stock price
+```python
+from quantumcat.applications import Finance
+from quantumcat.utils import operations
+
+input = {'script_name': 'GOOGL'}
+finance = Finance(input=input, operation=operations.stock_price_prediction)
+results = finance.execute(provider=providers.Google, api='feasdgr2354gdsfgd01438')  # OR provider=providers.IBM_PROVIDER, For IBM Qiskit
+
+print(results)
+```
+* Quantum machine learning application for image classification
+```python
+from quantumcat.applications import Classifier
+
+input_dataset = load_data('/path')
+classifier = Classifier(input=input_dataset)
+results = classifier.predict(provider=providers.Google, api='feasdgr2354gdsfgd01438')  # OR provider=providers.IBM_PROVIDER, For IBM Qiskit
+
+```
 ## Platforms Supported
 * IBM Qiskit
 * Google Cirq
+* Amazon Braket (In progress)
 ## Gates Supported
 [Click here to view gates supported](https://sheet.zoho.com/sheet/published/nvlfe4b782cabaa524276ab9a44e270d800b2?mode=html)
 ## Properties
@@ -118,6 +146,6 @@ q0=1
 q1=0
 q2=1
 ```
-## Applications
-### Finance
-In Progress
+## Applications (In progress)
+### Finance 
+### Image Classification
