@@ -18,21 +18,19 @@ from quantumcat.algorithms import GroversAlgorithm
 
 
 def create_circuit_demo():
-    circuit = QCircuit(2, 2)
-    circuit.x_gate(0)
-    circuit.rzz_gate(12, 0, 1)
-    circuit.rzx_gate(30, 0, 1)
-    circuit.sx_gate(1)
-    circuit.sxd_gate(0)
-    circuit.td_gate(1)
-    circuit.s_gate(0)
-    circuit.sdg_gate(0)
-    circuit.rxx_gate(60, 0, 1)
-    circuit.r_gate(30, 10, 1)
-    circuit.measure(0, 0)
-    circuit.measure(1, 1)
+    circuit = QCircuit(5, 5)
+    circuit.u1_gate(30,0)
+    circuit.i_gate(1)
+    circuit.s_gate(2)
+    circuit.swap_gate(3,4)
+    circuit.iswap_gate(1,4)
+    circuit.measure(0,0)
+    circuit.measure(1,1)
+    circuit.measure(2,2)
+    circuit.measure(3,3)
+    circuit.measure(4,4)
     circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
+    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=100))
 
 
 def grovers_demo():
