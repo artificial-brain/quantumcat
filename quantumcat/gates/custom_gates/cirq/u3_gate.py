@@ -30,10 +30,8 @@ class U3Gate(cirq.Gate):
         theta, phi, lam = float(theta), float(phi), float(lam)
         cos = numpy.cos(theta / 2)
         sin = numpy.sin(theta / 2)
-        return numpy.array([
-            [cos, -numpy.exp(1j * lam) * sin],
-            [numpy.exp(1j * phi) * sin, numpy.exp(1j * (phi + lam)) * cos]
-        ], dtype=dtype)
+        return numpy.array([[cos, -numpy.exp(1j * lam) * sin],
+                            [numpy.exp(1j * phi) * sin, numpy.exp(1j * (phi + lam)) * cos]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
         return f"U3{self.theta, self.phi, self.lam}"

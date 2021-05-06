@@ -31,5 +31,3 @@ def on_cirq(q_circuit, backend, simulator_name, repetitions, api):
         simulator = cirq.Simulator()
         results = simulator.run(q_circuit, repetitions=repetitions)
         return results
-
-

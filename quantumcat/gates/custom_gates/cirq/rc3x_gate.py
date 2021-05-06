@@ -42,4 +42,4 @@ class RC3XGate(cirq.Gate):
 
 
     def _circuit_diagram_info_(self, args):
-        return ["RC3X_c1","RC3x_c2","RCX_cx3","RC3X_t"]
+        return ["RC3X_c1", "RC3X_c2", "RC3X_c3", "RC3X_t"]
