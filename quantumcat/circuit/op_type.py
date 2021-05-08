@@ -72,3 +72,4 @@ class OpType(Enum):
     u2_gate = 52
     u3_gate = 53
     measure = 100
+    measure_all = 101

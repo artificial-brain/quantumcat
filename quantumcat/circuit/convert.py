@@ -12,7 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, ClassicalRegister
 from quantumcat.utils import gates_map
 from quantumcat.circuit.op_type import OpType
 from quantumcat.utils import constants, helper
@@ -20,7 +20,7 @@ import cirq
 import inspect
 
 
-def to_qiskit(q_circuit, qubits, cbits):
+def to_qiskit(q_circuit, qubits):
     """This function converts quantumcat circuit into qiskit circuit.
     :param q_circuit: quantumcat circuit object that needs to be converted to qiskit circuit object
     :param qubits: number of qubits to create qiskit circuit
@@ -28,7 +28,7 @@ def to_qiskit(q_circuit, qubits, cbits):
     :return: qiskit quantumcircuit object
     """
     operations = q_circuit.operations
-    qiskit_qc = QuantumCircuit(qubits, cbits)
+    qiskit_qc = QuantumCircuit(qubits)
     for op in operations:
         params = []
         operation = next(iter(op.items()))
@@ -38,7 +38,12 @@ def to_qiskit(q_circuit, qubits, cbits):
             params = (op[constants.PARAMS])
 
         if qiskit_op == OpType.measure:
-            qiskit_qc.measure(qargs[0], qargs[1])
+            cbit = ClassicalRegister(1, 'c_' + str(qargs[0]))
+            if cbit not in qiskit_qc.cregs:
+                qiskit_qc.add_register(cbit)
+            qiskit_qc.measure(qargs, cbit)
+        elif qiskit_op == OpType.measure_all:
+            qiskit_qc.measure_all()
         elif qiskit_op == OpType.mct_gate:
             qiskit_qc.mcx(control_qubits=qargs[0], target_qubit=qargs[1],
                           ancilla_qubits=qargs[2], mode=qargs[3])
@@ -66,8 +71,10 @@ def to_cirq(q_circuit, qubits):
             params = (op[constants.PARAMS])
 
         if cirq_op == OpType.measure:
-            qubit = named_qubits[qargs[0][0]]
+            qubit = named_qubits[qargs[0]]
             cirq_qc.append(cirq.ops.measure(qubit))
+        elif cirq_op == OpType.measure_all:
+            cirq_qc.append(cirq.ops.measure(*named_qubits))
         elif cirq_op == OpType.mct_gate:
             mct_named_qubits = named_qubits_for_multi_controlled_op(named_qubits, qargs)
             cirq_qc.append([cirq.ops.X(mct_named_qubits[1]).controlled_by(*mct_named_qubits[0])])

@@ -25,10 +25,9 @@ from quantumcat.circuit import execute_circuit
 class QCircuit:
     """docstring for Circuit."""
 
-    def __init__(self, qubits, cbits=1, provider=providers.DEFAULT_PROVIDER):
+    def __init__(self, qubits, provider=providers.DEFAULT_PROVIDER):
         super(QCircuit, self).__init__()
         self.qubits = qubits
-        self.cbits = cbits
         self.operations = []
         self.converted_q_circuit = None
         self.provider = provider
@@ -371,10 +370,12 @@ class QCircuit:
         self.operations.append({OpType.mct_gate: [control_qubits, [target_qubit], ancilla_qubits, mode]})
         return self
 
-    def measure(self, qubit, cbit):
+    def measure(self, qubit):
         self.check_qubit_boundary(qubit)
-        self.check_cbit_boundary(cbit)
-        self.operations.append({OpType.measure: [[qubit], [cbit]]})
+        self.operations.append({OpType.measure: [qubit]})
+
+    def measure_all(self):
+        self.operations.append({OpType.measure_all: OpType.measure_all})
 
     def get_operations(self):
         return self.operations
@@ -382,10 +383,6 @@ class QCircuit:
     def check_qubit_boundary(self, qubit):
         if qubit > (self.qubits - 1):
             raise CircuitError(ErrorMessages.qubit_out_of_bound)
-
-    def check_cbit_boundary(self, cbit):
-        if cbit > (self.cbits - 1):
-            raise CircuitError(ErrorMessages.cbit_out_of_bound)
 
     def draw_circuit(self, provider=providers.DEFAULT_PROVIDER):
         self.check_and_convert(provider)
@@ -400,11 +397,11 @@ class QCircuit:
     def convert_circuit(self):
         converted_q_circuit = None
         if self.provider == providers.IBM_PROVIDER:
-            converted_q_circuit = convert.to_qiskit(self, self.qubits, self.cbits)
+            converted_q_circuit = convert.to_qiskit(self, self.qubits)
         elif self.provider == providers.GOOGLE_PROVIDER:
             converted_q_circuit = convert.to_cirq(self, self.qubits)
         if self.provider == providers.MICROSOFT_PROVIDER:
-            converted_q_circuit = convert.to_q_sharp(self, self.qubits, self.cbits)
+            converted_q_circuit = convert.to_q_sharp(self, self.qubits)
         return converted_q_circuit
 
     def execute(self, provider=providers.DEFAULT_PROVIDER, backend=constants.SIMULATOR,
