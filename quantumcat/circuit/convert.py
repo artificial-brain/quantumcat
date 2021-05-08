@@ -120,4 +120,3 @@ def named_qubits_for_multi_controlled_op(named_qubits, qargs):
     mct_named_qubits.append(target_qubit)
 
     return mct_named_qubits
-
