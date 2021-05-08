@@ -19,16 +19,12 @@ from quantumcat.algorithms import GroversAlgorithm
 
 def create_circuit_demo():
     circuit = QCircuit(5, 5)
-    circuit.u1_gate(30,0)
-    circuit.i_gate(1)
-    circuit.s_gate(2)
-    circuit.swap_gate(3,4)
-    circuit.iswap_gate(1,4)
-    circuit.measure(0,0)
-    circuit.measure(1,1)
-    circuit.measure(2,2)
-    circuit.measure(3,3)
-    circuit.measure(4,4)
+    circuit.u1_gate(30, 0).i_gate(1).s_gate(2).swap_gate(3, 4).iswap_gate(1, 4)
+    circuit.measure(0, 0)
+    circuit.measure(1, 1)
+    circuit.measure(2, 2)
+    circuit.measure(3, 3)
+    circuit.measure(4, 4)
     circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
     print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=100))
 
