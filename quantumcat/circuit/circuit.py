@@ -327,6 +327,10 @@ class QCircuit:
     def get_operations(self):
         return self.operations
 
+    def check_qubit_sufficiency(self, qubit):
+        if len(qubit)==1:
+            raise CircuitError(ErrorMessages.qubit_not_sufficient)
+
     def check_qubit_boundary(self, qubit):
         if qubit > (self.qubits - 1):
             raise CircuitError(ErrorMessages.qubit_out_of_bound)
@@ -385,33 +389,39 @@ class QCircuit:
     def not_gate(self, qubit):
         self.x_gate(qubit)
 
-    def or_gate(self, qubits, target_qubit):
-        for i in qubits:
+    def or_gate(self, control_qubits, target_qubit):
+        self.check_qubit_sufficiency(control_qubits)
+        for i in control_qubits:
             self.x_gate(i)
-        self.mct_gate(qubits, target_qubit)
+        self.mct_gate(control_qubits, target_qubit)
         self.x_gate(target_qubit)
-        for i in qubits:
+        for i in control_qubits:
             self.x_gate(i)
 
-    def and_gate(self, qubits, target_qubit):
-        self.mct_gate(qubits, target_qubit)
+    def and_gate(self, control_qubits, target_qubit):
+        self.check_qubit_sufficiency(control_qubits)
+        self.mct_gate(control_qubits, target_qubit)
 
-    def nor_gate(self, qubits, target_qubit):
-        for i in qubits:
+    def nor_gate(self, control_qubits, target_qubit):
+        self.check_qubit_sufficiency(control_qubits)
+        for i in control_qubits:
             self.x_gate(i)
-        self.mct_gate(qubits, target_qubit)
-        for i in qubits:
+        self.mct_gate(control_qubits, target_qubit)
+        for i in control_qubits:
             self.x_gate(i)
 
-    def nand_gate(self, qubits, target_qubit):
-        self.mct_gate(qubits, target_qubit)
+    def nand_gate(self, control_qubits, target_qubit):
+        self.check_qubit_sufficiency(control_qubits)
+        self.mct_gate(control_qubits, target_qubit)
         self.x_gate(target_qubit)
 
-    def xor_gate(self, qubits, target_qubit):
-        for i in qubits:
-            self.cx_gate(i, target_qubit)
+    def xor_gate(self, control_qubits, target_qubit):
+        self.check_qubit_sufficiency(control_qubits)
+        for i in control_qubits:
+             self.cx_gate(i, target_qubit)
 
-    def xnor_gate(self, qubits, target_qubit):
-        for i in qubits:
+    def xnor_gate(self, control_qubits, target_qubit):
+        self.check_qubit_sufficiency(control_qubits)
+        for i in control_qubits:
             self.cx_gate(i, target_qubit)
         self.x_gate(target_qubit)
