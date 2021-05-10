@@ -21,7 +21,7 @@ def create_circuit_demo():
     circuit = QCircuit(5, 5)
     circuit.x_gate(0)
     circuit.x_gate(1)
-    circuit.x_gate(2)
+    circuit.x_gate(2).x_gate(2)
     circuit.nand_gate([2,4],1)
     circuit.u1_gate(30,0)
     circuit.i_gate(1)
