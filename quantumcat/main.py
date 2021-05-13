@@ -13,20 +13,20 @@
 #  limitations under the License.
 
 from quantumcat.circuit import QCircuit
-from quantumcat.utils import providers
+from quantumcat.utils import providers, constants
 from quantumcat.algorithms import GroversAlgorithm
 
 
 def create_circuit_demo():
-    circuit = QCircuit(5, 5)
-    circuit.u1_gate(30, 0).i_gate(1).s_gate(2).swap_gate(3, 4).iswap_gate(1, 4)
-    circuit.measure(0, 0)
-    circuit.measure(1, 1)
-    circuit.measure(2, 2)
-    circuit.measure(3, 3)
-    circuit.measure(4, 4)
-    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=100))
+    circuit = QCircuit(2)
+    circuit.x_gate(0)
+    circuit.measure_all()
+    # circuit.measure(0)
+    # circuit.measure(1)
+    # # circuit.measure(2)
+    # circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
+    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
+                          simulator_name=constants.STATEVECTOR_SIMULATOR))
 
 
 def grovers_demo():
@@ -42,7 +42,7 @@ def grovers_demo():
 
     grovers_algorithm_known_solution = GroversAlgorithm(solution_known='Y', search_keyword=101)
 
-    results = grovers_algorithm_unknown_solution.execute(repetitions=1024, provider=providers.IBM_PROVIDER)
+    results = grovers_algorithm_unknown_solution.execute(repetitions=10, provider=providers.IBM_PROVIDER)
 
     # grovers_algorithm_unknown_solution.draw_grovers_circuit()
 
