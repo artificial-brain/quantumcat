@@ -72,6 +72,7 @@ quantumcat_to_qiskit = {
     OpType.cu3_gate: standard_gates.u3.CU3Gate,
     OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
+    OpType.measure_all: OpType.measure_all,
 }
 
 quantumcat_to_cirq = {
@@ -123,4 +124,5 @@ quantumcat_to_cirq = {
     OpType.cswap_gate: ops.three_qubit_gates.CSWAP,
     OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
+    OpType.measure_all: OpType.measure_all,
 }
