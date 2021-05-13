@@ -18,14 +18,14 @@ from quantumcat.algorithms import GroversAlgorithm
 
 
 def create_circuit_demo():
-    circuit = QCircuit(3)
+    circuit = QCircuit(2)
     circuit.x_gate(0)
     circuit.measure_all()
     # circuit.measure(0)
     # circuit.measure(1)
-    # circuit.measure(2)
-    circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
+    # # circuit.measure(2)
+    # circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
+    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
 
 
 def grovers_demo():
@@ -41,7 +41,7 @@ def grovers_demo():
 
     grovers_algorithm_known_solution = GroversAlgorithm(solution_known='Y', search_keyword=101)
 
-    results = grovers_algorithm_unknown_solution.execute(repetitions=1024, provider=providers.IBM_PROVIDER)
+    results = grovers_algorithm_unknown_solution.execute(repetitions=10, provider=providers.IBM_PROVIDER)
 
     # grovers_algorithm_unknown_solution.draw_grovers_circuit()
 

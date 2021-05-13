@@ -412,7 +412,7 @@ class QCircuit:
                                              simulator_name, repetitions, api).get_counts()
         elif self.provider == providers.GOOGLE_PROVIDER:
             return execute_circuit.on_cirq(self.converted_q_circuit, backend,
-                                           simulator_name, repetitions, api)
+                                           simulator_name, repetitions, api, self.get_operations())
 
     def check_and_convert(self, provider):
         if self.converted_q_circuit is None or self.provider != provider:

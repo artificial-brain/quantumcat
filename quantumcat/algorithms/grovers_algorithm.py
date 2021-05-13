@@ -124,7 +124,7 @@ class GroversAlgorithm:
             self.diffuser()
 
         for i in range(self.num_of_qubits):
-            self.circuit.measure(i, i)
+            self.circuit.measure(i)
 
         return self.circuit.execute(provider=provider, repetitions=repetitions)
 

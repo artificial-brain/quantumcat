@@ -12,7 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from quantumcat.utils import constants
+from quantumcat.utils import constants, helper
 from qiskit import Aer
 from qiskit import execute, QuantumCircuit
 import cirq
@@ -26,8 +26,11 @@ def on_qiskit(q_circuit, backend, simulator_name, repetitions, api):
         return results
 
 
-def on_cirq(q_circuit, backend, simulator_name, repetitions, api):
+def on_cirq(q_circuit, backend, simulator_name, repetitions, api, operations):
     if backend == constants.SIMULATOR:
         simulator = cirq.Simulator()
         results = simulator.run(q_circuit, repetitions=repetitions)
-        return results
+        qubits_index = helper.measure_qubits_index(operations)
+        frequencies = results.multi_measurement_histogram(keys=qubits_index, fold_func=helper.bitstring) \
+            if len(qubits_index) > 0 else results.histogram(key='result', fold_func=helper.bitstring)
+        return dict(frequencies)
