@@ -404,14 +404,14 @@ class QCircuit:
             converted_q_circuit = convert.to_q_sharp(self, self.qubits)
         return converted_q_circuit
 
-    def execute(self, provider=providers.DEFAULT_PROVIDER, backend=constants.SIMULATOR,
-                simulator_name=None, repetitions=1000, api=None):
+    def execute(self, provider=providers.DEFAULT_PROVIDER,
+                simulator_name=constants.DEFAULT_SIMULATOR, repetitions=1000, api=None):
         self.check_and_convert(provider)
         if self.provider == providers.IBM_PROVIDER:
-            return execute_circuit.on_qiskit(self.converted_q_circuit, backend,
-                                             simulator_name, repetitions, api).get_counts()
+            return execute_circuit.on_qiskit(self.converted_q_circuit,
+                                             simulator_name, repetitions, api)
         elif self.provider == providers.GOOGLE_PROVIDER:
-            return execute_circuit.on_cirq(self.converted_q_circuit, backend,
+            return execute_circuit.on_cirq(self.converted_q_circuit,
                                            simulator_name, repetitions, api, self.get_operations())
 
     def check_and_convert(self, provider):

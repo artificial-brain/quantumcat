@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 from quantumcat.circuit import QCircuit
-from quantumcat.utils import providers
+from quantumcat.utils import providers, constants
 from quantumcat.algorithms import GroversAlgorithm
 
 
@@ -25,7 +25,8 @@ def create_circuit_demo():
     # circuit.measure(1)
     # # circuit.measure(2)
     # circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
+    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
+                          simulator_name=constants.STATEVECTOR_SIMULATOR))
 
 
 def grovers_demo():
