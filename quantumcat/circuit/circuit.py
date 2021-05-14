@@ -377,10 +377,6 @@ class QCircuit:
     def measure_all(self):
         self.operations.append({OpType.measure_all: OpType.measure_all})
 
-    def measure_all(self):
-        for i in range(self.qubits):
-            self.measure(i, i)
-
     def get_operations(self):
         return self.operations
 
