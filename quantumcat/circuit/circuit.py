@@ -376,6 +376,10 @@ class QCircuit:
         self.check_cbit_boundary(cbit)
         self.operations.append({OpType.measure: [[qubit], [cbit]]})
 
+    def measure_all(self):
+        for i in range(self.qubits):
+            self.measure(i, i)
+
     def get_operations(self):
         return self.operations
 

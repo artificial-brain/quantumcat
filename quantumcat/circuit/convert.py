@@ -104,6 +104,7 @@ def named_qubits_for_ops(named_qubits, qargs):
 
     return op_named_qubits
 
+
 def named_qubits_for_multi_controlled_op(named_qubits, qargs):
     mct_named_qubits = []
     for j in range(len(named_qubits)):
