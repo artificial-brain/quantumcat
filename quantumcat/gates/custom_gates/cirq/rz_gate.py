@@ -12,28 +12,22 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import cirq
-import numpy
-import math
+import numpy as np
 
 
-class RGate(cirq.Gate):
-    def __init__(self, theta, phi):
-        super(RGate, self).__init__()
-        self.theta = theta
-        self.phi=phi
+class RZGate(cirq.Gate):
+    def __init__(self, phi):
+        super(RZGate, self).__init__()
+        self.phi = phi
 
     def _num_qubits_(self):
         return 1
 
     def _unitary_(self, dtype=None):
-        theta, phi = float(self.theta), float(self.phi)
-        cos = math.cos(theta / 2)
-        sin = math.sin(theta / 2)
-        exp_m = numpy.exp(-1j * phi)
-        exp_p = numpy.exp(1j * phi)
-        return numpy.array([[cos, -1j * exp_m * sin],
-                            [-1j * exp_p * sin, cos]], dtype=dtype)
+        ilam2 = 0.5j * float(self.phi)
+        return np.array([[np.exp(-ilam2), 0],
+                         [0, np.exp(ilam2)]], dtype=dtype)
 
 
     def _circuit_diagram_info_(self, args):
-        return f"R{self.theta, self.phi}"
+        return "RZ"

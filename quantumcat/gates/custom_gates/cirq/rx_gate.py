@@ -30,6 +30,5 @@ class RXGate(cirq.Gate):
         return numpy.array([[cos, -1j * sin],
                             [-1j * sin, cos]], dtype=dtype)
 
-
     def _circuit_diagram_info_(self, args):
         return f"RX({self.theta})"
