@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 from quantumcat.circuit import QCircuit
-from quantumcat.utils import providers
-
+from quantumcat.utils import providers, constants
 
 circuit = QCircuit(4, 4)
 circuit.x_gate(0)

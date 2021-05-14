@@ -14,5 +14,6 @@
 
 DEVICE = 'device'
 SIMULATOR = 'simulator'
-QASM_SIMULATOR = 'qasm_simulator'
+DEFAULT_SIMULATOR = 'qasm_simulator'
+STATEVECTOR_SIMULATOR = 'statevector_simulator'
 PARAMS = 'params'

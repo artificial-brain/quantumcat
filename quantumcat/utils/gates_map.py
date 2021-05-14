@@ -15,8 +15,9 @@
 from quantumcat.circuit.op_type import OpType
 from qiskit.circuit.library import standard_gates
 from cirq import ops
-from quantumcat.gates import custom_gates
 from braket.circuits import gates as amazon_gates
+from quantumcat.gates import custom_gates
+
 
 quantumcat_to_qiskit = {
     OpType.x_gate: standard_gates.x.XGate,
@@ -52,6 +53,11 @@ quantumcat_to_qiskit = {
     OpType.rzx_gate: standard_gates.rzx.RZXGate,
     OpType.r_gate: standard_gates.r.RGate,
     OpType.p_gate: standard_gates.p.PhaseGate,
+    OpType.mcp_gate: standard_gates.p.MCPhaseGate,
+    OpType.mcx_gate: standard_gates.x.MCXGate,
+    OpType.mcxgc_gate: standard_gates.x.MCXGrayCode,
+    OpType.mcxrec_gate: standard_gates.x.MCXRecursive,
+    OpType.mcxvchain_gate: standard_gates.x.MCXVChain,
     OpType.dcx_gate: standard_gates.dcx.DCXGate,
     OpType.c3x_gate: standard_gates.x.C3XGate,
     OpType.c3sx_gate: standard_gates.x.C3SXGate,
@@ -68,6 +74,7 @@ quantumcat_to_qiskit = {
     OpType.cu3_gate: standard_gates.u3.CU3Gate,
     OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
+    OpType.measure_all: OpType.measure_all,
 }
 
 quantumcat_to_cirq = {
@@ -99,12 +106,30 @@ quantumcat_to_cirq = {
     OpType.rxx_gate: custom_gates.cirq.RXXGate,
     OpType.r_gate: custom_gates.cirq.RGate,
     OpType.rx_gate: custom_gates.cirq.RXGate,
+    OpType.ry_gate: custom_gates.cirq.RYGate,
+    OpType.rz_gate: custom_gates.cirq.RZGate,
+    OpType.ryy_gate: custom_gates.cirq.RYYGate,
     OpType.rccx_gate: custom_gates.cirq.RCCXGate,
     OpType.rc3x_gate: custom_gates.cirq.RC3XGate,
-    OpType.cz_gate: ops.common_gates.CZ,
+    OpType.c3x_gate: custom_gates.cirq.C3XGate,
+    OpType.c3sx_gate: custom_gates.cirq.C3SXGate,
+    OpType.c4x_gate: custom_gates.cirq.C4XGate,
+    OpType.dcx_gate: custom_gates.cirq.DCXGate,
+    OpType.ch_gate: custom_gates.cirq.CHGate,
+    OpType.crx_gate: custom_gates.cirq.CRXGate,
+    OpType.cry_gate: custom_gates.cirq.CRYGate,
+    OpType.crz_gate: custom_gates.cirq.CRZGate,
+    OpType.csx_gate: custom_gates.cirq.CSXGate,
+    OpType.cphase_gate: custom_gates.cirq.CPhaseGate,
+    OpType.cu_gate: custom_gates.cirq.CUGate,
+    OpType.cu1_gate: custom_gates.cirq.CU1Gate,
+    OpType.cu3_gate: custom_gates.cirq.CU3Gate,
+    OpType.cswap_gate: ops.three_qubit_gates.CSWAP,
     OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
+    OpType.measure_all: OpType.measure_all,
 }
+
 
 quantumcat_to_braket = {
     OpType.x_gate: amazon_gates.X,
