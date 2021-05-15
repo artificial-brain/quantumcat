@@ -24,11 +24,11 @@ class RYGate(cirq.Gate):
     def _num_qubits_(self):
         return 1
 
-    def _unitary_(self, dtype=None):
+    def _unitary_(self):
         cos = math.cos(self.theta / 2)
         sin = math.sin(self.theta / 2)
         return numpy.array([[cos, -sin],
-                            [sin, cos]], dtype=dtype)
+                            [sin, cos]])
 
 
     def _circuit_diagram_info_(self, args):

@@ -42,3 +42,5 @@ def on_bracket(q_circuit, simulator_name, repetitions, api):
     if simulator_name == constants.DEFAULT_SIMULATOR:
         results = LocalSimulator().run(q_circuit, shots=repetitions).result()
         return results
+
+
