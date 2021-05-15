@@ -91,7 +91,7 @@ def to_q_sharp(q_circuit, qubits, cbits):
     pass
 
 
-def to_braket(q_circuit, qubits, cbits):
+def to_braket(q_circuit, qubits):
     operations = q_circuit.operations
     braket_qc = Circuit()
     for op in operations:
@@ -106,6 +106,6 @@ def to_braket(q_circuit, qubits, cbits):
         if braket_op == OpType.measure:
             braket_qc.add(ResultType.Probability(target=[qargs[0]]))
         else:
-            braket_qc.add([Instruction(braket_op(), qargs)])
+            braket_qc.add([Instruction(braket_op(*params), qargs)])
 
     return braket_qc
