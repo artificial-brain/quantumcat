@@ -15,6 +15,8 @@
 from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers, constants
 from quantumcat.algorithms import GroversAlgorithm
+from quantumcat.applications.generator import RandomNumber
+from qiskit import IBMQ
 
 
 def create_circuit_demo():
@@ -49,5 +51,20 @@ def grovers_demo():
     print(results)
 
 
+def random_number_demo():
+    random_number = RandomNumber(length=4, output_type=constants.DECIMAL)\
+        .execute(api=constants.IBM_API, device=constants.IBM_DEVICE_NAME)
+    print(random_number)
+
+
+def run_on_real_device():
+    circuit = QCircuit(1)
+    circuit.x_gate(0)
+    circuit.measure_all()
+    # circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
+    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
+                          api=constants.IBM_API, device=constants.IBM_DEVICE_NAME))
+
+
 if __name__ == '__main__':
-    create_circuit_demo()
+    random_number_demo()
