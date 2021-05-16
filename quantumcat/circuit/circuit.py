@@ -405,11 +405,13 @@ class QCircuit:
         return converted_q_circuit
 
     def execute(self, provider=providers.DEFAULT_PROVIDER,
-                simulator_name=constants.DEFAULT_SIMULATOR, repetitions=1000, api=None):
+                simulator_name=constants.DEFAULT_SIMULATOR,
+                repetitions=1000, api=None, device=None):
         self.check_and_convert(provider)
         if self.provider == providers.IBM_PROVIDER:
             return execute_circuit.on_qiskit(self.converted_q_circuit,
-                                             simulator_name, repetitions, api)
+                                             simulator_name, repetitions,
+                                             api, device)
         elif self.provider == providers.GOOGLE_PROVIDER:
             return execute_circuit.on_cirq(self.converted_q_circuit,
                                            simulator_name, repetitions, api, self.get_operations())
