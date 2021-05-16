@@ -13,13 +13,21 @@
 #  limitations under the License.
 
 from quantumcat.utils import constants, helper
-from qiskit import Aer
-from qiskit import execute, QuantumCircuit
+from qiskit import Aer, execute, IBMQ
+from qiskit.providers.ibmq import least_busy
 import cirq
 
 
-def on_qiskit(q_circuit, simulator_name, repetitions, api):
-    results = execute(q_circuit, Aer.get_backend(simulator_name), shots=repetitions).result()
+def on_qiskit(q_circuit, simulator_name, repetitions, api, device_name):
+    if api is None:
+        backend = Aer.get_backend(simulator_name)
+    else:
+        provider = IBMQ.enable_account(api)
+        backend = least_busy(provider.backends(simulator=False)) if device_name is None \
+            else provider.get_backend(device_name)
+
+    results = execute(q_circuit, backend, shots=repetitions).result()
+
     if simulator_name == constants.DEFAULT_SIMULATOR:
         return results.get_counts()
     elif simulator_name == constants.STATEVECTOR_SIMULATOR:

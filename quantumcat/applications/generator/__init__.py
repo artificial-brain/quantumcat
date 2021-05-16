@@ -12,12 +12,5 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-DEVICE = 'device'
-SIMULATOR = 'simulator'
-DEFAULT_SIMULATOR = 'qasm_simulator'
-STATEVECTOR_SIMULATOR = 'statevector_simulator'
-PARAMS = 'params'
-BINARY = 'binary'
-DECIMAL = 'decimal'
-IBM_API = ''
-IBM_DEVICE_NAME = 'ibmq_lima'
+
+from quantumcat.applications.generator.random_number import RandomNumber
