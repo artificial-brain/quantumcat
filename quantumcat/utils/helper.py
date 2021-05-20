@@ -94,3 +94,8 @@ def measure_qubits_index(operations):
         if qiskit_op == OpType.measure:
             qubits_index.append('q' + str(qargs[0]))
     return qubits_index
+
+
+def binary_to_decimal(binary_num):
+    return int(binary_num, 2)
+
