@@ -1,5 +1,5 @@
 numpy==1.20.1
-qiskit==0.25.1
+qiskit==0.26.2
 cirq==0.10.0
 
 pytest~=6.2.4
