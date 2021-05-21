@@ -382,7 +382,8 @@ def protein_folding_demo():
     #qc.draw_circuit(provider=providers.IBM_PROVIDER)
     for i in range(0,3): 
         qc.measure(w[i])
-    qc.draw_circuit(provider=providers.IBM_PROVIDER)
+    #qc.draw_circuit(provider=providers.IBM_PROVIDER)
+    print(qc.execute(provider=providers.GOOGLE_PROVIDER, repetitions=1024))
     
 
     #result = qc.execute(provider=providers.IBM_PROVIDER)
@@ -410,13 +411,13 @@ def test_demo():
     qc = QCircuit(6)
     qc.x_gate(2)
     qc.x_gate(5)
-    #qc.measure(0)
+    qc.measure(0)
     qc.measure(2)
     #qc.measure_all()
     """for i in range(6):
         qc.measure(i)"""
     qc.draw_circuit(provider=providers.IBM_PROVIDER)
+    print(qc.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
 
 if __name__ == '__main__':
-    test_demo()
-
+    protein_folding_demo()
