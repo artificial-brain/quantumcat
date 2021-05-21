@@ -22,18 +22,12 @@ class CCRCA_INVERSE:
         # subcircuit defined for the controlled-controlled ripple-carry adder for 3 bits
         # (the sum is stored by overwriting the values of x)
         self.arglist = arglist
-        #print(self.arglist)
         self.sc = circuit
-        #self.sc.draw_circuit(provider=providers.IBM_PROVIDER)
-        self.sw = [self.arglist[0]]           # control qubits
-        #print(self.sw)
-        self.sa = [self.arglist[1], self.arglist[2], self.arglist[3]]     # ancilla qubits
-        #print(self.sa[0])
-        self.ss = [self.arglist[4]]           # carry 
-        self.sx = [self.arglist[5], self.arglist[6], self.arglist[7]]     # summand x 
-        self.sy = [self.arglist[8], self.arglist[9], self.arglist[10]]    # summand y
-        #self.sc = QCircuit(11)
-        #self.sc.draw_circuit(provider=providers.IBM_PROVIDER)
+        self.sw = [self.arglist[0]]                                         # control qubits
+        self.sa = [self.arglist[1], self.arglist[2], self.arglist[3]]       # ancilla qubits
+        self.ss = [self.arglist[4]]                                         # carry 
+        self.sx = [self.arglist[5], self.arglist[6], self.arglist[7]]       # summand x 
+        self.sy = [self.arglist[8], self.arglist[9], self.arglist[10]]      # summand y
 
         self.sc.cx_gate(self.sw[0],self.sa[0])
 

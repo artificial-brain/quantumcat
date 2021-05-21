@@ -14,21 +14,26 @@
 
 from quantumcat.circuit import QCircuit
 
-
-
-
 class Subroutine:
     """
     Subroutines for finding best conformation
     """
 
-    def __init__(self):
+    def __init__(self, x, y, z, w, a, c, e, anc):
         super(Subroutine, self).__init__()
-        b = 0
-        arglist = []
-    
 
-    def subroutine01(self):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.w = w
+        self.a = a
+        self.c = c
+        self.e = e
+        self.anc = anc
+
+        print(self.anc)
+
+    def subroutine01(self, circuit, length):
         pass
 
     def subroutine02(self):

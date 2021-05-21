@@ -11,3 +11,333 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+from quantumcat.circuit import QCircuit
+from quantumcat.utils import providers
+from quantumcat.applications.protein_folding import CCRCA, CCRCA_INVERSE
+
+class ProteinFolding:
+
+    def __init__(self, sequence):
+        super(ProteinFolding, self).__init__()
+        self.sequence = sequence
+
+        self.length = 2
+        self.x = [0, 1, 2]
+        self.y = [3, 4, 5]
+        self.z = [6, 7, 8]
+        self.w = [9, 10, 11]
+        self.a = [12, 13, 14]
+        self.c = [15]
+        self.e = [16]
+        self.anc = [17, 18, 19]
+        
+        self.circuit = QCircuit(20) 
+
+        # encoding binary 1
+        self.circuit.x_gate(self.a[2])
+        # encoding the two's complement of 1
+        #qc.x(t[0:length])
+
+        # setting the state into superposition
+        #qc.h_gate(w[0:3])
+        
+        for i in range(len(self.w)):
+            self.circuit.h_gate(self.w[i])
+
+        # setting energy qubit e into superposition on par with |w>
+        self.circuit.h_gate(self.e[0])
+
+
+        # global variable used in Subroutine 1 to navigate among the values of vector w
+        self.b = 0
+        self.arglist = []
+
+        # Subroutine 1: Generating conformational space
+
+        for d in range (2,self.length+1):
+                        
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            # if w[0]=1 then x+1, if w[0]=0 then x-1
+            self.arglist.append(self.w[self.b])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            #range [0,1,2] for d=2, range [3,4,5] for d=3
+            for i in range(0,3): 
+                self.arglist.append(self.x[i])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            #print(arglist)
+            CCRCA(self.circuit, self.arglist)
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.circuit.x_gate(self.w[self.b])
+            self.arglist.append(self.w[self.b])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            for i in range(0,3): 
+                self.arglist.append(self.x[i])
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA(self.circuit, self.arglist)
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            self.circuit.x_gate(self.w[self.b])
+            
+            
+            # if w[1]=1 then y+1, if w[1]=0 then y-1
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.arglist.append(self.w[self.b+1])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            #range [0,1,2] for d=2, range [3,4,5] for d=3
+            for i in range(0,3): 
+                self.arglist.append(self.y[i])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA(self.circuit, self.arglist)
+            
+            
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.circuit.x_gate(self.w[self.b+1])
+            self.arglist.append(self.w[self.b+1])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            for i in range(0,3): 
+                self.arglist.append(self.y[i])
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA(self.circuit, self.arglist)
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            self.circuit.x_gate(self.w[self.b+1])
+            
+            
+            
+            
+            # if w[2]=1 then z+1, if w[2]=0 then z-1
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.arglist.append(self.w[self.b+2])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            #range [0,1,2] for d=2, range [3,4,5] for d=3
+            for i in range(0,3): 
+                self.arglist.append(self.z[i])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA(self.circuit, self.arglist)
+            
+            
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.circuit.x_gate(self.w[self.b+2])
+            self.arglist.append(self.w[self.b+2])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            for i in range(0,3): 
+                self.arglist.append(self.z[i])
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA(self.circuit, self.arglist)
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            self.circuit.x_gate(self.w[self.b+2])
+            
+            #b = b+3
+            
+        # Subroutine 2: Finding an arbitrary conformation, e.g. |w>=|110> which is 
+        # a transition downwards out of the page. 
+        # There are a total of 8 conformations for a sequence of length L=2.
+        # For this conformation, the energy value will be |e>=|1>, otherwise it will be |0>. 
+        self.circuit.h_gate(self.e[0])
+        self.circuit.x_gate(self.w[2])
+        self.circuit.ccx_gate(self.w[0],self.w[1],self.anc[0])
+        self.circuit.ccx_gate(self.anc[0],self.w[2],self.e[0])
+
+        # uncomputing
+
+        self.circuit.ccx_gate(self.w[0],self.w[1],self.anc[0])
+        self.circuit.x_gate(self.w[2])
+        self.circuit.h_gate(self.e[0])
+
+
+
+        # Subroutine 3: Uncomputation of coordinates by running Subroutine 1 in reverse
+        self.b = 0
+
+        for d in range (self.length,1,-1):
+            
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            
+            # if w[0]=1 then x+1, if w[0]=0 then x-1
+            self.arglist.append(self.w[self.b])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            #range [0,1,2] for d=2, range [3,4,5] for d=3
+            for i in range(0,3): 
+                self.arglist.append(self.x[i])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA_INVERSE(self.circuit, self.arglist)
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.circuit.x_gate(self.w[self.b])
+            self.arglist.append(self.w[self.b])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            for i in range(0,3): 
+                self.arglist.append(self.x[i])
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA_INVERSE(self.circuit, self.arglist)
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            self.circuit.x_gate(self.w[self.b])
+            
+            
+            # if w[1]=1 then y+a, if w[1]=0 then y-a
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.arglist.append(self.w[self.b+1])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            #range [0,1,2] for d=2, range [3,4,5] for d=3
+            for i in range(0,3): 
+                self.arglist.append(self.y[i])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA_INVERSE(self.circuit, self.arglist)
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.circuit.x_gate(self.w[self.b+1])
+            self.arglist.append(self.w[self.b+1])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            for i in range(0,3): 
+                self.arglist.append(self.y[i])
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA_INVERSE(self.circuit, self.arglist)
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            self.circuit.x_gate(self.w[self.b+1])
+            
+            
+            
+            
+            # if w[2]=1 then z+1, if w[2]=0 then z-1
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.arglist.append(self.w[self.b+2])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            #range [0,1,2] for d=2, range [3,4,5] for d=3
+            for i in range(0,3): 
+                self.arglist.append(self.z[i])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA_INVERSE(self.circuit, self.arglist)
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            self.circuit.x_gate(self.w[self.b+2])
+            self.arglist.append(self.w[self.b+2])
+            for i in range(0,3):
+                self.arglist.append(self.anc[i])
+            self.arglist.append(self.c[0])
+            for i in range(0,3): 
+                self.arglist.append(self.z[i])
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            for i in range(0,3):
+                self.arglist.append(self.a[i])
+            CCRCA_INVERSE(self.circuit, self.arglist)
+            self.circuit.x_gate(self.a[0])
+            self.circuit.x_gate(self.a[1])
+            self.circuit.x_gate(self.w[self.b+2])
+            
+            for i in range(len(self.arglist)-1,-1,-1):
+                self.arglist.pop(i)
+            
+            #b = b-3
+
+        return
+
+    def run(self, provider):
+        self.provider = provider
+
+        # Subroutine 4: Finding conformation with e = 1 among 8. This can be done with 
+        # Grover's search algorithm. Grover diffusion operator has to be executed 
+        # pi/4 * sqrt(N/M) where N = 16 (all conformations) and M = 1 (solution). 
+        # This is equal to ca. 3. Thus executing the search algorithm three times 
+        # suffices to find a solution. 
+        # The oracle has to mark the state 110. 
+
+
+        # Grover's iteration
+        for j in range(0,3):
+            # the oracle, selects 110 (this oracle is correct, so is the diffusion operator)
+            self.circuit.h_gate(self.w[1])
+            self.circuit.x_gate(self.w[2])
+            self.circuit.ccx_gate(self.w[0],self.w[2],self.anc[0])
+            self.circuit.ccx_gate(self.anc[0],self.e[0],self.w[1])
+            # uncomputing
+            self.circuit.ccx_gate(self.w[0],self.w[2],self.anc[0])
+            self.circuit.x_gate(self.w[2])
+            self.circuit.h_gate(self.w[1])
+
+
+            # The diffusion operator
+            for i in range(0,3):
+                self.circuit.h_gate(self.w[i])
+                self.circuit.x_gate(self.w[i])  
+            self.circuit.h_gate(self.e[0])
+            self.circuit.x_gate(self.e[0])
+            
+            self.circuit.ccx_gate(self.e[0],self.w[0],self.anc[0])
+            self.circuit.h_gate(self.w[2])
+            self.circuit.ccx_gate(self.anc[0],self.w[1],self.w[2])
+
+            # uncompute
+            self.circuit.h_gate(self.w[2])
+            self.circuit.ccx_gate(self.e[0],self.w[0],self.anc[0])
+            
+            for i in range(0,3):
+                self.circuit.x_gate(self.w[i])
+                self.circuit.h_gate(self.w[i])  
+            self.circuit.x_gate(self.e[0])
+            self.circuit.h_gate(self.e[0])
+
+        # Measuring the conformation
+        for i in range(0,3): 
+            self.circuit.measure(self.w[i])
+        
+        return self.circuit.execute(provider=self.provider, repetitions=1024)

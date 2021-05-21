@@ -15,3 +15,4 @@
 
 from quantumcat.applications.protein_folding.ccrca import CCRCA
 from quantumcat.applications.protein_folding.ccrca_inverse import CCRCA_INVERSE
+from quantumcat.applications.protein_folding.proteinfolding import ProteinFolding
