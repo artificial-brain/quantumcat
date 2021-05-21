@@ -39,7 +39,7 @@ def is_custom_class(obj):
         return False
 
 
-def num_of_cbit(operations):
+def num_of_measurements(operations):
     return sum(1 for op in operations if gates_map.quantumcat_to_qiskit[next(iter(op.items()))[0]] == OpType.measure)
 
 def named_qubits_for_ops(named_qubits, qargs):
