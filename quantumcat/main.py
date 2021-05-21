@@ -389,20 +389,6 @@ def protein_folding_demo():
     #print(result)
     
 
-def test_demo():
-    a = [0, 1, 2]
-    b = [3, 4, 5]
-    qc = QCircuit(6)
-    qc.x_gate(2)
-    qc.x_gate(5)
-    #qc.measure(0)
-    #qc.measure(0)
-    qc.measure_all()
-    """for i in range(6):
-        qc.measure(i)"""
-    qc.draw_circuit(provider=providers.IBM_PROVIDER)
-
-
 def random_number_demo():
     random_number = RandomNumber(length=4, output_type=constants.DECIMAL)\
         .execute(api=constants.IBM_API, device=constants.IBM_DEVICE_NAME)
@@ -417,6 +403,19 @@ def run_on_real_device():
     print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
                           api=constants.IBM_API, device=constants.IBM_DEVICE_NAME))
 
+
+def test_demo():
+    a = [0, 1, 2]
+    b = [3, 4, 5]
+    qc = QCircuit(6)
+    qc.x_gate(2)
+    qc.x_gate(5)
+    #qc.measure(0)
+    qc.measure(2)
+    #qc.measure_all()
+    """for i in range(6):
+        qc.measure(i)"""
+    qc.draw_circuit(provider=providers.IBM_PROVIDER)
 
 if __name__ == '__main__':
     test_demo()
