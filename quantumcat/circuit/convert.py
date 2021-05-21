@@ -28,8 +28,8 @@ def to_qiskit(q_circuit, qubits):
     :return: qiskit quantumcircuit object
     """
     operations = q_circuit.operations
-    cbits = helper.num_of_cbit(operations)
-    qiskit_qc = QuantumCircuit(qubits, cbits) if cbits > 0 else QuantumCircuit(qubits)
+    num_of_measurements = helper.num_of_measurements(operations)
+    qiskit_qc = QuantumCircuit(qubits, qubits) if num_of_measurements > 0 else QuantumCircuit(qubits)
     for op in operations:
         params = []
         operation = next(iter(op.items()))

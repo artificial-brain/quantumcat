@@ -20,15 +20,13 @@ from qiskit import IBMQ
 
 
 def create_circuit_demo():
-    circuit = QCircuit(2)
+    circuit = QCircuit(6)
     circuit.x_gate(0)
-    circuit.measure_all()
-    # circuit.measure(0)
-    # circuit.measure(1)
-    # # circuit.measure(2)
-    # circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
-                          simulator_name=constants.STATEVECTOR_SIMULATOR))
+    circuit.x_gate(3)
+    circuit.measure(0)
+    circuit.measure(3)
+    circuit.draw_circuit(provider=providers.IBM_PROVIDER)
+    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
 
 
 def grovers_demo():
@@ -67,4 +65,4 @@ def run_on_real_device():
 
 
 if __name__ == '__main__':
-    random_number_demo()
+    create_circuit_demo()
