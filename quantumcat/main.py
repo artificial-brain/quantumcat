@@ -14,12 +14,12 @@
 
 from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers, constants
+import numpy as np
 
 circuit = QCircuit(4)
-circuit.h_gate(0)
-circuit.cx_gate(0, 1)
+# circuit.h_gate(0)
+# circuit.cx_gate(0, 1)
 # circuit.x_gate(0)
-
 # circuit.z_gate(0)
 # circuit.ccx_gate(0, 1, 2)
 # circuit.s_gate(0)
@@ -42,6 +42,7 @@ circuit.cx_gate(0, 1)
 # circuit.rxx_gate(30, 0, 1)
 # circuit.p_gate(30, 0)
 # circuit.rzz_gate(30, 0, 1)
+
 # circuit.u1_gate(30, 1)
 # circuit.ch_gate(0, 1)
 # circuit.crx_gate(30, 0, 1)
@@ -55,7 +56,7 @@ circuit.cx_gate(0, 1)
 # circuit.rzx_gate(30, 0, 1)
 
 # gates having multiple angles
-# circuit.u3_gate(30, 40, 2, 0)
+circuit.u3_gate(np.pi/2, np.pi/2, np.pi/2, 0)
 # circuit.u2_gate(30, 20, 0)
 # circuit.u_gate(40, 60, 3, 1)
 # circuit.cu_gate(30, 60, 20, 60, 0, 1)
@@ -65,7 +66,7 @@ circuit.cx_gate(0, 1)
 
 # circuit.measure(0, 0)
 # circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-circuit.draw_circuit(provider=providers.AMAZON_PROVIDER)
+# circuit.draw_circuit(provider=providers.AMAZON_PROVIDER)
 print(circuit.execute(provider=providers.AMAZON_PROVIDER))
 # print(circuit.execute(provider=providers.AMAZON_PROVIDER, repetitions=10))
 # print(circuit)

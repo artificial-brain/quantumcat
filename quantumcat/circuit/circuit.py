@@ -418,8 +418,8 @@ class QCircuit:
             return execute_circuit.on_cirq(self.converted_q_circuit,
                                            simulator_name, repetitions, api, self.get_operations())
         elif self.provider == providers.AMAZON_PROVIDER:
-            return execute_circuit.on_bracket(self.converted_q_circuit,
-                                              simulator_name, repetitions, api)
+            return execute_circuit.on_braket(self.converted_q_circuit,
+                                             simulator_name, repetitions, api)
 
     def check_and_convert(self, provider):
         if self.converted_q_circuit is None or self.provider != provider:

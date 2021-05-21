@@ -15,7 +15,8 @@
 from quantumcat.gates.custom_gates.braket.u_gate import UGate
 from quantumcat.gates.custom_gates.braket.u2_gate import U2Gate
 from quantumcat.gates.custom_gates.braket.u3_gate import U3Gate
-from quantumcat.gates.custom_gates.braket.u1_gate import U1Gate
+from quantumcat.gates.custom_gates.braket.u3 import u3
+# from quantumcat.gates.custom_gates.braket.u1_gate import U1Gate
 from quantumcat.gates.custom_gates.braket.ch_gate import CHGate
 from quantumcat.gates.custom_gates.braket.crx_gate import CRXGate
 from quantumcat.gates.custom_gates.braket.cry_gate import CRYGate

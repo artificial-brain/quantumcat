@@ -38,7 +38,7 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
         return simulator.simulate(q_circuit).final_state_vector()
 
 
-def on_bracket(q_circuit, simulator_name, repetitions, api):
+def on_braket(q_circuit, simulator_name, repetitions, api):
     if simulator_name == constants.DEFAULT_SIMULATOR:
         results = LocalSimulator().run(q_circuit, shots=repetitions).result()
         return dict(results.measurement_counts)

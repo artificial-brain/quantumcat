@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 import numpy as np
-import braket.ir.jaqcd as ir
+import quantumcat.gates.custom_gates.braket.ir.instructions as ir
 from braket.circuits import Instruction, Gate, QubitSet, QubitInput, circuit
 
 
@@ -25,7 +25,7 @@ class CHGate(Gate):
     def to_ir(self, target: QubitSet):
         return ir.CHGate.construct(control=target[0], target=target[1])
 
-    def to_matrix(self, *args, **kwargs) -> np.ndarray:
+    def to_matrix(self) -> np.ndarray:
         _sqrt2o2 = 1 / np.sqrt(2)
         return np.array([[1, 0, 0, 0],
                         [0, _sqrt2o2, 0, _sqrt2o2],
@@ -35,7 +35,7 @@ class CHGate(Gate):
 
     @staticmethod
     @circuit.subroutine(register=True)
-    def ch(control: QubitInput, target: QubitInput) -> Instruction:
+    def ch_gate(control: QubitInput, target: QubitInput) -> Instruction:
         return Instruction(Gate.CHGate(), target=[control, target])
 
 
