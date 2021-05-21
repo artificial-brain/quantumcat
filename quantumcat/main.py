@@ -25,7 +25,7 @@ from qiskit import IBMQ
 
 
 def create_circuit_demo():
-    circuit = QCircuit(2)
+    circuit = QCircuit(6)
     circuit.x_gate(0)
     circuit.measure_all()
     # circuit.measure(0)
@@ -419,3 +419,4 @@ def test_demo():
 
 if __name__ == '__main__':
     test_demo()
+
