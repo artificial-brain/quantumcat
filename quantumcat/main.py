@@ -24,11 +24,15 @@ from quantumcat.applications.generator import RandomNumber
 
 def create_circuit_demo():
     circuit = QCircuit(6)
-    circuit.x_gate(0)
+    circuit.h_gate(0)
+    circuit.x_gate(3)
     circuit.measure_all()
     # circuit.measure(0)
     # circuit.measure(1)
-    # # circuit.measure(2)
+    # circuit.measure(2)
+    # circuit.measure(3)
+    # circuit.measure(4)
+    # circuit.measure(5)
     circuit.draw_circuit(provider=providers.IBM_PROVIDER)
     print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
                           simulator_name=constants.STATEVECTOR_SIMULATOR))
@@ -65,20 +69,6 @@ def run_on_real_device():
     # circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
     print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
                           api=constants.IBM_API, device=constants.IBM_DEVICE_NAME))
-
-def test_demo():
-    a = [0, 1, 2]
-    b = [3, 4, 5]
-    qc = QCircuit(6)
-    qc.x_gate(2)
-    qc.x_gate(5)
-    qc.measure(0)
-    qc.measure(2)
-    #qc.measure_all()
-    """for i in range(6):
-        qc.measure(i)"""
-    qc.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(qc.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
 
 def protein_folding_demo():
     job = ProteinFolding(11)                    #11 is currently dummy, placed parameter for future improvements on code

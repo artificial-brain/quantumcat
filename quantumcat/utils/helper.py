@@ -99,3 +99,13 @@ def measure_qubits_index(operations):
 def binary_to_decimal(binary_num):
     return int(binary_num, 2)
 
+
+def cirq_measurment_in_reverse(results):
+    result_dict = {}
+    for result in results:
+        result_dict[reverse_binary(result)] = results[result]
+    return result_dict
+
+
+def reverse_binary(num):
+    return num[::-1]
