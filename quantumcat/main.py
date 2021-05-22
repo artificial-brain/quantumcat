@@ -19,14 +19,15 @@ from quantumcat.algorithms import GroversAlgorithm
 
 def create_circuit_demo():
     circuit = QCircuit(2)
-    circuit.x_gate(0)
-    circuit.x_gate(1)
-    circuit.measure_all()
+    # circuit.x_gate(0)
+    # circuit.x_gate(1)
+    circuit.y_gate(0)
+    # circuit.measure_all()
     # circuit.measure(0)
     # circuit.measure(1)
     # # circuit.measure(2)
     # circuit.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
+    print(circuit.execute(provider=providers.GOOGLE_PROVIDER,
                           simulator_name=constants.STATEVECTOR_SIMULATOR))
 
 

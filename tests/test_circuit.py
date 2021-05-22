@@ -22,6 +22,10 @@ def statevector(circ):
     return circ.execute(provider=providers.IBM_PROVIDER, repetitions=10, simulator_name=constants.STATEVECTOR_SIMULATOR)
 
 
+def statevectorcirq(circ):
+    return circ.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10, simulator_name=constants.STATEVECTOR_SIMULATOR)
+
+
 @pytest.fixture()
 def circdef():
     circ = QCircuit(5)
@@ -34,6 +38,7 @@ def test_x_gate(circdef):
     circdef.x_gate(2)
     circdef.x_gate(3)
     circdef.x_gate(4)
+    # print(statevectorcirq(circdef))
     assert statevector(circdef).tolist() == [0+0j, 0+0j, 0+0j, 0+0j, 0+0j, 0+0j, 0+0j, 0+0j,
                                              0+0j, 0+0j, 0+0j, 0+0j, 0+0j, 0+0j, 0+0j, 0+0j,
                                              0+0j, 0+0j, 0+0j, 0+0j, 0+0j, 0+0j, 0+0j, 0+0j,
@@ -202,9 +207,20 @@ def test_swap_gate(circdef):
 
 def test_iswap_gate(circdef):
     circdef.iswap_gate(0, 1)
-    circdef.measure(0)
-    circdef.measure(1)
-    assert True
+    circdef.iswap_gate(1, 2)
+    circdef.iswap_gate(2, 3)
+    circdef.iswap_gate(3, 4)
+    assert np.round(statevector(circdef), 3).tolist() == np.round([1.00000000e+00-2.10292737e-17j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 1.01465364e-17-8.80915192e-17j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j], 3).tolist()
 
 
 def test_sx_gate(circdef):
@@ -344,16 +360,34 @@ def test_rccx_gate(circdef):
     circdef.rccx_gate(0, 1, 2)
     circdef.rccx_gate(1, 2, 3)
     circdef.rccx_gate(2, 3, 4)
-    assert True
-    
-    
+    assert np.round(statevector(circdef), 3).tolist() == np.round([1.00000000e+00-6.10622664e-16j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 5.55111512e-17+2.77555756e-16j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 5.55111512e-17+2.77555756e-16j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -5.47382213e-48-3.76325271e-48j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 5.55111512e-17+2.77555756e-16j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, -6.16297582e-33-3.69778549e-32j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -9.24446373e-32+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 1.23259516e-32-8.01186857e-32j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j], 3).tolist()
+
+
 def test_rc3x_gate(circdef):
     circdef.rc3x_gate(0, 1, 2, 3)
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    circdef.measure(3)
-    assert True
+    circdef.rc3x_gate(1, 2, 3, 4)
+    circdef.rc3x_gate(2, 3, 4, 1)
+    assert np.round(statevector(circdef), 3).tolist() == np.round([1.00000000e+00-6.10622664e-16j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 5.55111512e-17+2.77555756e-16j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 5.55111512e-17+2.77555756e-16j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -5.47382213e-48-3.76325271e-48j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 5.55111512e-17+2.77555756e-16j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, -6.16297582e-33-3.69778549e-32j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -9.24446373e-32+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 1.23259516e-32-8.01186857e-32j, 0.00000000e+00+0.00000000e+00j,
+                                                                   0.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j], 3).tolist()
 
 
 def test_rxx_gate(circdef):
@@ -409,7 +443,7 @@ def test_p_gate(circdef):
                                              -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j]
 
 
-def test_c3x_gate(circdef):
+def test_c3x_gate(circdef):  # couldn't find the gate
     circdef.c3x_gate(0, 1, 2, 3)
     circdef.measure(0)
     circdef.measure(1)
@@ -418,7 +452,7 @@ def test_c3x_gate(circdef):
     assert True
 
 
-def test_c3sx_gate(circdef):
+def test_c3sx_gate(circdef):  # couldn't find the gate
     circdef.c3sx_gate(0, 1, 2, 3)
     circdef.measure(0)
     circdef.measure(1)
@@ -427,99 +461,175 @@ def test_c3sx_gate(circdef):
     assert True
 
 
-def test_c4x_gate(circdef):
+def test_c4x_gate(circdef):  # couldn't find the gate
     circdef.c4x_gate(0, 1, 2, 3, 4)
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    circdef.measure(3)
-    circdef.measure(4)
+    circdef.c4x_gate(0, 1, 2, 4, 3)
+    circdef.c4x_gate(0, 1, 4, 3, 2)
+    circdef.c4x_gate(0, 2, 4, 3, 1)
     assert True
 
 
 def test_dcx_gate(circdef):
     circdef.dcx_gate(0, 1)
-    assert True
+    circdef.dcx_gate(1, 2)
+    circdef.dcx_gate(2, 3)
+    circdef.dcx_gate(3, 4)
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j]
 
 
 def test_ch_gate(circdef):
     circdef.ch_gate(0, 1)
-    circdef.measure(0)
-    circdef.measure(1)
-    assert True
+    circdef.ch_gate(1, 2)
+    circdef.ch_gate(2, 3)
+    circdef.ch_gate(3, 4)
+    assert np.round(statevector(circdef), 3).tolist() == np.round([1.00000000e+00+3.60822483e-16j, 0.00000000e+00+0.00000000e+00j, -3.92523115e-17-9.02546913e-34j,
+                                                                   0.00000000e+00+0.00000000e+00j, -3.92523115e-17+2.17894100e-33j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -2.77555756e-17-6.16297582e-33j, 0.00000000e+00+0.00000000e+00j, -3.92523115e-17+3.92523115e-17j,
+                                                                   0.00000000e+00+0.00000000e+00j, 4.27642354e-50-4.51273456e-34j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -2.77555756e-17-3.71968495e-33j, 0.00000000e+00+0.00000000e+00j, -1.96261557e-17-7.57154484e-33j,
+                                                                   0.00000000e+00+0.00000000e+00j, -5.55111512e-17+2.46519033e-32j, 0.00000000e+00+0.00000000e+00j,
+                                                                   3.08148791e-33-6.38197043e-34j, 0.00000000e+00+0.00000000e+00j, 0.00000000e+00-6.38197043e-34j,
+                                                                   0.00000000e+00+0.00000000e+00j, 1.54074396e-33-1.54074396e-33j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -3.92523115e-17+3.92523115e-17j, 0.00000000e+00+0.00000000e+00j, 1.28292706e-49-4.51273456e-34j,
+                                                                   0.00000000e+00+0.00000000e+00j, -2.77555756e-17-8.34191682e-33j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -1.96261557e-17-1.21937767e-32j, 0.00000000e+00+0.00000000e+00j], 3).tolist()
 
 
 def test_csx_gate(circdef):
     circdef.csx_gate(0, 1)
-    circdef.measure(0)
-    circdef.measure(1)
-    assert True
+    circdef.csx_gate(1, 2)
+    circdef.csx_gate(2, 3)
+    circdef.csx_gate(3, 4)
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j]
 
 
 def test_cswap_gate(circdef):
     circdef.cswap_gate(0, 1, 2)
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    assert True
+    circdef.cswap_gate(1, 2, 3)
+    circdef.cswap_gate(2, 3, 4)
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j]
 
 
 def test_cphase_gate(circdef):
-    circdef.cphase_gate(30, 0, 1)
-    circdef.measure(0)
-    circdef.measure(1)
-    assert True
+    circdef.cphase_gate(np.pi/4, 0, 1)
+    circdef.cphase_gate(np.pi/3, 1, 2)
+    circdef.cphase_gate(np.pi/2, 2, 3)
+    circdef.cphase_gate(2*np.pi/3, 3, 4)
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j]
 
 
 def test_crx_gate(circdef):
-    circdef.crx_gate(30, 0, 1)
-    circdef.measure(0)
-    circdef.measure(1)
-    assert True
+    circdef.crx_gate(np.pi/4, 0, 1)
+    circdef.crx_gate(np.pi/3, 1, 2)
+    circdef.crx_gate(np.pi/2, 2, 3)
+    circdef.crx_gate(2*np.pi/3, 3, 4)
+    assert np.round(statevector(circdef), 3).tolist() == np.round([1.00000000e+00+0.00000000e+00j, 0.00000000e+00+0.00000000e+00j, -1.21047942e-33-2.36309336e-19j,
+                                                                   0.00000000e+00+0.00000000e+00j, 5.25430464e-34+8.66418136e-18j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -9.64728823e-20+4.88268892e-34j, 0.00000000e+00+0.00000000e+00j, 2.12412088e-33-1.08174986e-17j,
+                                                                   0.00000000e+00+0.00000000e+00j, -1.15237898e-37-4.49301625e-50j, 0.00000000e+00+0.00000000e+00j,
+                                                                   4.33209068e-18+2.54881708e-36j, 0.00000000e+00+0.00000000e+00j, 2.41180816e-34+4.82364412e-20j,
+                                                                   0.00000000e+00+0.00000000e+00j, -1.37800288e-34+7.43708407e-18j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -6.49946566e-36-5.02782168e-51j, 0.00000000e+00+0.00000000e+00j, 9.02014647e-35+2.54844219e-50j,
+                                                                   0.00000000e+00+0.00000000e+00j, 3.24970257e-50-1.54305530e-36j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -1.87364573e-17-4.82636241e-33j, 0.00000000e+00+0.00000000e+00j, -7.78335461e-50+1.99597894e-37j,
+                                                                   0.00000000e+00+0.00000000e+00j, 4.63865491e-34-7.50340116e-18j, 0.00000000e+00+0.00000000e+00j,
+                                                                   8.35479669e-20-4.12621590e-34j, 0.00000000e+00+0.00000000e+00j], 3).tolist()
 
 
 def test_cry_gate(circdef):
-    circdef.cry_gate(30, 0, 1)
-    circdef.measure(0)
-    circdef.measure(1)
-    assert True
+    circdef.cry_gate(np.pi/4, 0, 1)
+    circdef.cry_gate(np.pi/3, 1, 2)
+    circdef.cry_gate(np.pi/2, 2, 3)
+    circdef.cry_gate(2*np.pi/3, 3, 4)
+    assert np.round(statevector(circdef), 3).tolist() == np.round([1.00000000e+00+0.j, 0.00000000e+00+0.j, -2.36309336e-19+0.j, 0.00000000e+00+0.j,
+                                                                   8.66418136e-18+0.j, 0.00000000e+00+0.j, -9.64728823e-20+0.j, 0.00000000e+00+0.j,
+                                                                   -1.08174986e-17+0.j, 0.00000000e+00+0.j, 1.15237898e-37+0.j, 0.00000000e+00+0.j,
+                                                                   4.33209068e-18+0.j, 0.00000000e+00+0.j, -4.82364412e-20+0.j, 0.00000000e+00+0.j,
+                                                                   7.43708407e-18+0.j, 0.00000000e+00+0.j, 6.49946566e-36+0.j, 0.00000000e+00+0.j,
+                                                                   1.30088099e-35+0.j, 0.00000000e+00+0.j, -1.54305530e-36+0.j, 0.00000000e+00+0.j,
+                                                                   -1.87364573e-17+0.j, 0.00000000e+00+0.j, 1.99597894e-37+0.j, 0.00000000e+00+0.j,
+                                                                   7.50340116e-18+0.j, 0.00000000e+00+0.j, -8.35479669e-20+0.j, 0.00000000e+00+0.j], 3).tolist()
 
 
 def test_crz_gate(circdef):
-    circdef.crz_gate(30, 0, 1)
-    circdef.measure(0)
-    circdef.measure(1)
-    assert True
+    circdef.crz_gate(np.pi/4, 0, 1)
+    circdef.crz_gate(np.pi/3, 1, 2)
+    circdef.crz_gate(np.pi/2, 2, 3)
+    circdef.crz_gate(2*np.pi/3, 3, 4)
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j]
 
 
 def test_cu_gate(circdef):
-    circdef.cu_gate(30, 45, 60, 10, 0, 1)
-    assert True
+    circdef.cu_gate(np.pi/4, np.pi/3, 2*np.pi/3, np.pi/5, 0, 1)
+    circdef.cu_gate(np.pi/3, np.pi/4, 2*np.pi/3, np.pi/6, 1, 2)
+    circdef.cu_gate(np.pi/4, np.pi/6, 2*np.pi/3, np.pi/2, 2, 3)
+    circdef.cu_gate(np.pi/5, np.pi/2, 2*np.pi/3, np.pi/3, 3, 4)
+    assert np.round(statevector(circdef), 3).tolist() == np.round([1.00000000e+00-8.45106957e-18j, 0.00000000e+00+0.00000000e+00j,
+                                                                   1.39522544e-18+2.17710947e-17j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -8.98385651e-19+2.34744432e-17j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -8.73769284e-18-7.68521223e-18j, 0.00000000e+00+0.00000000e+00j,
+                                                                   7.77752738e-19-2.95582339e-17j, 0.00000000e+00+0.00000000e+00j,
+                                                                   6.11096685e-35+2.31133418e-34j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -9.24753408e-18-3.53910500e-19j, 0.00000000e+00+0.00000000e+00j,
+                                                                   3.02751641e-18-3.44213115e-18j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -4.13139347e-34+6.72197234e-18j, 0.00000000e+00+0.00000000e+00j,
+                                                                   2.18570485e-34+1.95153664e-35j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -5.37740566e-35+3.69909923e-37j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -2.76196315e-34+7.34481266e-35j, 0.00000000e+00+0.00000000e+00j,
+                                                                   9.60405239e-18+2.52707183e-19j, 0.00000000e+00+0.00000000e+00j,
+                                                                   -7.50998001e-35+1.98557349e-35j, 0.00000000e+00+0.00000000e+00j,
+                                                                   1.14992492e-19-3.00470596e-18j, 0.00000000e+00+0.00000000e+00j,
+                                                                   1.11841621e-18+9.83699712e-19j, 0.00000000e+00+0.00000000e+00j], 3).tolist()
 
 
 def test_cu1_gate(circdef):
-    circdef.cu1_gate(30, 0, 1)
-    circdef.measure(0)
-    circdef.measure(1)
-    assert True
+    circdef.cu1_gate(np.pi/4, 0, 1)
+    circdef.cu1_gate(np.pi/3, 1, 2)
+    circdef.cu1_gate(np.pi/2, 2, 3)
+    circdef.cu1_gate(2*np.pi/3, 3, 4)
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j]
 
 
 def test_cu3_gate(circdef):
-    circdef.cu3_gate(30, 45, 60, 0, 1)
-    circdef.measure(0)
-    circdef.measure(1)
-    assert True
+    circdef.cu3_gate(np.pi/4, np.pi/3, 2*np.pi/3, 0, 1)
+    circdef.cu3_gate(np.pi/3, np.pi/2, 2*np.pi/3, 1, 2)
+    circdef.cu3_gate(np.pi/2, 2*np.pi/3, np.pi/2, 2, 3)
+    circdef.cu3_gate(0, np.pi/5, 2*np.pi/3, 3, 4)
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j]
 
 
 def test_mcx_gate(circdef):
-    circdef.mcx_gate([0, 1], 2, [3, 4])
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    assert True
+    circdef.mcx_gate([0, 1], 2)
+    circdef.mcx_gate([0, 2], 1)
+    circdef.mcx_gate([0, 3], 2)
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j]
 
 
-def test_mcxgc_gate(circdef):
+def test_mcxgc_gate(circdef):  # couldn't find the gate
     circdef.mcxgc_gate([0, 1], 2)
     circdef.measure(0)
     circdef.measure(1)
@@ -527,7 +637,7 @@ def test_mcxgc_gate(circdef):
     assert True
 
 
-def test_mcxvchain_gate(circdef):
+def test_mcxvchain_gate(circdef):  # couldn't find the gate
     circdef.mcxvchain_gate([0, 1], 2, [3, 4])
     circdef.measure(0)
     circdef.measure(1)
@@ -535,7 +645,7 @@ def test_mcxvchain_gate(circdef):
     assert True
 
 
-def test_mcxrec_gate(circdef):
+def test_mcxrec_gate(circdef):  # couldn't find the gate
     circdef.mcxrec_gate([0, 1], 2)
     circdef.measure(0)
     circdef.measure(1)
@@ -544,16 +654,19 @@ def test_mcxrec_gate(circdef):
 
 
 def test_mcp_gate(circdef):
-    circdef.mcp_gate(30, [0, 1], 2)
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    assert True
+    circdef.mcp_gate(np.pi/4, [0, 1], 2)
+    circdef.mcp_gate(np.pi/4, [0, 2, 3], 4)
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j]
 
 
 def test_mct_gate(circdef):
     circdef.mct_gate([0, 1], 2, [3, 4])
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    assert True
+    circdef.mct_gate([0, 1], 3, [2, 4])
+    circdef.mct_gate([0, 2], 1, [3, 4])
+    assert statevector(circdef).tolist() == [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
+                                             0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j]
