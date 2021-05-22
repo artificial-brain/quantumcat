@@ -23,13 +23,34 @@ class ProteinFolding:
         self.sequence = sequence
 
         self.length = 2
+
+        # two's complements: 
+        # 0 = 000, 1 = 001, 2 = 010, 3 = 011, -1 = 111, -2 = 110, -3 = 101 
+        # (-4 = 100, not needed) 
+        # For the purpose of this simplified validation we don't need the fixed 
+        # coordinates of the first amino acid which are all 0
+
+        # quantum register holding the x coordinates for x1, x2 etc. (x0 = 000 omitted)
         self.x = [0, 1, 2]
+        # quantum register holding the y coordinates for y1, y2 etc. (y0 = 000 omitted)
         self.y = [3, 4, 5]
+        # quantum register holding the y coordinates for z1, z2 etc. (z0 = 000 omitted)
         self.z = [6, 7, 8]
+        # quantum register holding the controls w0, w1, etc.
         self.w = [9, 10, 11]
+        # register holding the binary 1 (3 qubits)
         self.a = [12, 13, 14]
+
+        # register holding the two's complement of 1 (3 qubits) not needed, 
+        # can be replaced by a with the first 2 qubits negated.
+
+        # register holding the carry bit for ripple-carry adder
         self.c = [15]
+        # quantum register that holds the energy value for each conformation: if first and 
+        # last amino acid are located diagonally # from each other, e = 1, otherwise e = 0. 
+        # There are 4 conformations for which e = 1.
         self.e = [16]
+        # ancilla qubits, at most three needed for the ccrca function
         self.anc = [17, 18, 19]
         
         self.circuit = QCircuit(20) 
