@@ -12,4 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from quantumcat.applications.protein_folding import ProteinFolding
+
+from quantumcat.applications.protein_folding.ccrca import CCRCA
+from quantumcat.applications.protein_folding.ccrca_inverse import CCRCA_INVERSE
+from quantumcat.applications.protein_folding.proteinfolding import ProteinFolding

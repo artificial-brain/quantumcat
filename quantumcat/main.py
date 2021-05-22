@@ -15,8 +15,11 @@
 from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers, constants
 from quantumcat.algorithms import GroversAlgorithm
+
+from quantumcat.applications import ProteinFolding
+
 from quantumcat.applications.generator import RandomNumber
-from qiskit import IBMQ
+
 
 
 def create_circuit_demo():
@@ -31,7 +34,8 @@ def create_circuit_demo():
     # circuit.measure(4)
     # circuit.measure(5)
     circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
+    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
+                          simulator_name=constants.STATEVECTOR_SIMULATOR))
 
 
 def grovers_demo():
@@ -53,12 +57,10 @@ def grovers_demo():
 
     print(results)
 
-
 def random_number_demo():
     random_number = RandomNumber(length=4, output_type=constants.DECIMAL)\
         .execute(api=constants.IBM_API, device=constants.IBM_DEVICE_NAME)
     print(random_number)
-
 
 def run_on_real_device():
     circuit = QCircuit(1)
@@ -68,6 +70,10 @@ def run_on_real_device():
     print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
                           api=constants.IBM_API, device=constants.IBM_DEVICE_NAME))
 
+def protein_folding_demo():
+    job = ProteinFolding(11)                    #11 is currently dummy, placed parameter for future improvements on code
+    result = job.run(providers.GOOGLE_PROVIDER)
+    print(result)
 
 if __name__ == '__main__':
-    create_circuit_demo()
+    protein_folding_demo()
