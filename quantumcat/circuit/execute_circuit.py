@@ -16,6 +16,7 @@ from quantumcat.utils import constants, helper
 from qiskit import Aer
 from qiskit import execute, QuantumCircuit
 import cirq
+import numpy as np
 
 
 def on_qiskit(q_circuit, simulator_name, repetitions, api):
@@ -33,4 +34,4 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
         qubits_index = helper.measure_qubits_index(operations)
         return dict(result.multi_measurement_histogram(keys=qubits_index, fold_func=helper.bitstring) if len(qubits_index) > 0 else result.histogram(key='result', fold_func=helper.bitstring))
     elif simulator_name == constants.STATEVECTOR_SIMULATOR:
-        return simulator.simulate(q_circuit).final_state_vector()
+        return simulator.simulate(q_circuit).final_state_vector

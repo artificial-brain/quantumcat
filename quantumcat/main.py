@@ -19,8 +19,8 @@ from quantumcat.algorithms import GroversAlgorithm
 
 def create_circuit_demo():
     circuit = QCircuit(2)
-    # circuit.x_gate(0)
-    # circuit.x_gate(1)
+    circuit.x_gate(0)
+    circuit.x_gate(1)
     circuit.y_gate(0)
     # circuit.measure_all()
     # circuit.measure(0)
