@@ -16,7 +16,6 @@ from quantumcat.utils import constants, helper
 from qiskit import Aer
 from qiskit import execute, QuantumCircuit
 import cirq
-import numpy as np
 
 
 def on_qiskit(q_circuit, simulator_name, repetitions, api):
