@@ -14,7 +14,7 @@
 
 
 from quantumcat.circuit.op_type import OpType
-from quantumcat.exceptions import CircuitError
+from quantumcat.exceptions import CircuitError, APIDetailsNotFoundError
 from quantumcat.utils import ErrorMessages
 from quantumcat.circuit import convert
 from quantumcat.utils import providers
@@ -420,9 +420,9 @@ class QCircuit:
                                            simulator_name, repetitions, api, self.get_operations())
         elif self.provider == providers.IONQ_PROVIDER:
             if api is None:
-                raise CircuitError(ErrorMessages.ionq_api_details_not_provided)
+                raise APIDetailsNotFoundError(ErrorMessages.ionq_api_details_not_provided)
             return execute_circuit.on_ionq(self.converted_q_circuit,
-                                           repetitions, api, default_target)
+                                           default_target, repetitions, api, self.get_operations())
 
     def check_and_convert(self, provider):
         if self.converted_q_circuit is None or self.provider != provider:

@@ -42,7 +42,7 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
     simulator = cirq.Simulator()
     if simulator_name == constants.DEFAULT_SIMULATOR:
         result = simulator.run(q_circuit, repetitions=repetitions)
-        return helper.cirq_measurment_in_reverse(result)
+        qubits_index = helper.measure_qubits_index(operations)
         if len(qubits_index) > 0:
             return helper.cirq_measurment_in_reverse(result.multi_measurement_histogram
                                               (keys=qubits_index, fold_func=helper.bitstring))
@@ -53,7 +53,12 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
 
 
 # Need testing
-def on_ionq(q_circuit, repetitions, api, default_target):
+def on_ionq(q_circuit, repetitions, api, default_target, operations):
     service = ionq.Service(api_key=api, default_target=default_target)
     result = service.run(q_circuit, repetitions=repetitions)
-    return result
+    qubits_index = helper.measure_qubits_index(operations)
+    if len(qubits_index) > 0:
+        return helper.cirq_measurment_in_reverse(result.multi_measurement_histogram
+                                              (keys=qubits_index, fold_func=helper.bitstring))
+    else:
+        return helper.cirq_measurment_in_reverse(result.histogram(key='result', fold_func=helper.bitstring))
