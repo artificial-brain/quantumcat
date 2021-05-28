@@ -400,13 +400,16 @@ class QCircuit:
             converted_q_circuit = convert.to_qiskit(self, self.qubits)
         elif self.provider == providers.GOOGLE_PROVIDER:
             converted_q_circuit = convert.to_cirq(self, self.qubits)
-        if self.provider == providers.MICROSOFT_PROVIDER:
+        elif self.provider == providers.IONQ_PROVIDER:
+            converted_q_circuit = convert.to_cirq(self, self.qubits)
+        elif self.provider == providers.MICROSOFT_PROVIDER:
             converted_q_circuit = convert.to_q_sharp(self, self.qubits)
         return converted_q_circuit
 
     def execute(self, provider=providers.DEFAULT_PROVIDER,
                 simulator_name=constants.DEFAULT_SIMULATOR,
-                repetitions=1000, api=None, device=None):
+                repetitions=1000, api=None, device=None,
+                default_target='simulator'):
         self.check_and_convert(provider)
         if self.provider == providers.IBM_PROVIDER:
             return execute_circuit.on_qiskit(self.converted_q_circuit,
@@ -415,6 +418,11 @@ class QCircuit:
         elif self.provider == providers.GOOGLE_PROVIDER:
             return execute_circuit.on_cirq(self.converted_q_circuit,
                                            simulator_name, repetitions, api, self.get_operations())
+        elif self.provider == providers.IONQ_PROVIDER:
+            if api is None:
+                raise CircuitError(ErrorMessages.ionq_api_details_not_provided)
+            return execute_circuit.on_ionq(self.converted_q_circuit,
+                                           repetitions, api, default_target)
 
     def check_and_convert(self, provider):
         if self.converted_q_circuit is None or self.provider != provider:
