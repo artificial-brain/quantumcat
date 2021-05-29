@@ -21,21 +21,13 @@ from quantumcat.applications import ProteinFolding
 from quantumcat.applications.generator import RandomNumber
 
 
-
 def create_circuit_demo():
     circuit = QCircuit(6)
     circuit.h_gate(0)
     circuit.x_gate(3)
     circuit.measure_all()
-    # circuit.measure(0)
-    # circuit.measure(1)
-    # circuit.measure(2)
-    # circuit.measure(3)
-    # circuit.measure(4)
-    # circuit.measure(5)
-    circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10,
-                          simulator_name=constants.STATEVECTOR_SIMULATOR))
+    # circuit.draw_circuit(provider=providers.IBM_PROVIDER)
+    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
 
 
 def grovers_demo():
@@ -54,12 +46,11 @@ def grovers_demo():
     results = grovers_algorithm_unknown_solution.execute(repetitions=10, provider=providers.IBM_PROVIDER)
 
     # grovers_algorithm_unknown_solution.draw_grovers_circuit()
-
     print(results)
 
 def random_number_demo():
     random_number = RandomNumber(length=4, output_type=constants.DECIMAL)\
-        .execute(api=constants.IBM_API, device=constants.IBM_DEVICE_NAME)
+        .execute()
     print(random_number)
 
 def run_on_real_device():
