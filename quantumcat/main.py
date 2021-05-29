@@ -17,7 +17,10 @@ from quantumcat.utils import providers, constants
 import numpy as np
 
 circuit = QCircuit(4)
-# circuit.h_gate(0)
+circuit.h_gate(0)
+# circuit.h_gate(1)
+# circuit.h_gate(2)
+# circuit.h_gate(3)
 # circuit.cx_gate(0, 1)
 # circuit.x_gate(0)
 # circuit.z_gate(0)
@@ -56,7 +59,7 @@ circuit = QCircuit(4)
 # circuit.rzx_gate(30, 0, 1)
 
 # gates having multiple angles
-circuit.u3_gate(np.pi/2, np.pi/2, np.pi/2, 0)
+# circuit.u3_gate(np.pi/2, np.pi/2, np.pi/2, 0)
 # circuit.u2_gate(30, 20, 0)
 # circuit.u_gate(40, 60, 3, 1)
 # circuit.cu_gate(30, 60, 20, 60, 0, 1)
@@ -67,6 +70,6 @@ circuit.u3_gate(np.pi/2, np.pi/2, np.pi/2, 0)
 # circuit.measure(0, 0)
 # circuit.draw_circuit(provider=providers.IBM_PROVIDER)
 # circuit.draw_circuit(provider=providers.AMAZON_PROVIDER)
-print(circuit.execute(provider=providers.AMAZON_PROVIDER))
+print(circuit.execute(provider=providers.AMAZON_PROVIDER, simulator_name=constants.STATEVECTOR_SIMULATOR))
 # print(circuit.execute(provider=providers.AMAZON_PROVIDER, repetitions=10))
 # print(circuit)
