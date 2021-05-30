@@ -657,32 +657,6 @@ def test_p_gate(circdef):
                                                   -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j, -0.+0.j]
 
 
-def test_c3x_gate(circdef):  # couldn't find the gate
-    circdef.c3x_gate(0, 1, 2, 3)
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    circdef.measure(3)
-    assert True
-
-
-def test_c3sx_gate(circdef):  # couldn't find the gate
-    circdef.c3sx_gate(0, 1, 2, 3)
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    circdef.measure(3)
-    assert True
-
-
-def test_c4x_gate(circdef):  # couldn't find the gate
-    circdef.c4x_gate(0, 1, 2, 3, 4)
-    circdef.c4x_gate(0, 1, 2, 4, 3)
-    circdef.c4x_gate(0, 1, 4, 3, 2)
-    circdef.c4x_gate(0, 2, 4, 3, 1)
-    assert True
-
-
 def test_dcx_gate(circdef):
     circdef.dcx_gate(0, 1)
     circdef.dcx_gate(1, 2)
@@ -926,30 +900,6 @@ def test_mcx_gate(circdef):
                                                     0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
                                                     0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j,
                                                     0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j]
-
-
-def test_mcxgc_gate(circdef):  # couldn't find the gate
-    circdef.mcxgc_gate([0, 1], 2)
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    assert True
-
-
-def test_mcxvchain_gate(circdef):  # couldn't find the gate
-    circdef.mcxvchain_gate([0, 1], 2, [3, 4])
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    assert True
-
-
-def test_mcxrec_gate(circdef):  # couldn't find the gate
-    circdef.mcxrec_gate([0, 1], 2)
-    circdef.measure(0)
-    circdef.measure(1)
-    circdef.measure(2)
-    assert True
 
 
 def test_mcp_gate(circdef):
