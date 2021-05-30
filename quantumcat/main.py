@@ -88,7 +88,11 @@ def braket_demo():
     circuit.rxx_gate(30, 0, 1)
     circuit.p_gate(30, 0)
     circuit.rzz_gate(30, 0, 1)
+    circuit.draw_circuit(provider=providers.AMAZON_PROVIDER)
+    print(circuit.execute(provider=providers.AMAZON_PROVIDER))
+    # print(circuit.execute(provider=providers.AMAZON_PROVIDER, simulator_name=constants.STATEVECTOR_SIMULATOR))
 
 
 if __name__ == '__main__':
-    create_circuit_demo()
+    braket_demo()
+    # create_circuit_demo()

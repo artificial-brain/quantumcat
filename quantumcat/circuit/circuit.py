@@ -405,6 +405,7 @@ class QCircuit:
         elif self.provider == providers.IONQ_PROVIDER:
             converted_q_circuit = convert.to_cirq(self, self.qubits)
         elif self.provider == providers.MICROSOFT_PROVIDER:
+            pass
         elif self.provider == providers.AMAZON_PROVIDER:
             converted_q_circuit = convert.to_braket(self, self.qubits)
         if self.provider == providers.MICROSOFT_PROVIDER:
