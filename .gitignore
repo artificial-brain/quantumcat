@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # virtual environment
-docsenv/
+docsenv/*
 
 # Distribution / packaging
 .Python
