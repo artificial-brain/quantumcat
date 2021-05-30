@@ -17,9 +17,15 @@ import numpy as np
 
 
 class GroversAlgorithm:
-    """docstring for Circuit."""
-
+    """
+    The GroversAlgorithm class functions to enable all the requisites for the implemetation of Grover's Algorithm
+    for the cases in which the solutions are known and unknown.
+    """
     def __init__(self, clause_list=[], input_arr=[], search_keyword=None, solution_known='N', flip_output=False, num_of_iterations=None):
+         """
+        Initializes the GroversAlgorithm class and enable the smooth running of all the included
+        operations.
+        """
         super(GroversAlgorithm, self).__init__()
         self.clause_list = clause_list
         self.input_arr = input_arr
@@ -34,6 +40,9 @@ class GroversAlgorithm:
             self.num_of_iterations = self.get_num_of_iterations()
 
     def initialize(self, provider):
+    	"""
+        Initialize function carries out the task of initializing the algorithm to solve the problem under consideration.
+        """ 
         self.total_qubits = (2 * self.num_of_qubits) + 1 if self.solution_known == 'N' else (self.num_of_qubits + 1)
         self.circuit = QCircuit(self.total_qubits,  self.num_of_qubits)
         self.provider = provider
@@ -51,6 +60,10 @@ class GroversAlgorithm:
         self.circuit.h_gate(self.total_qubits - 1)
 
     def oracle_for_unknown_solution(self):
+    	"""
+        Creates the oracle for finding the solution, when the solution to the problem is not known
+        beforehand.
+        """
         output_qubit = self.total_qubits - 1
         clause_qubits = []
 
@@ -75,6 +88,9 @@ class GroversAlgorithm:
             self.XOR(self.clause_list[index], clause_qubit)
 
     def oracle_for_known_solution(self):
+    	"""
+        Creates the oracle for the problem under consideration, when the solution is known beforehand.
+        """
         output_qubit = self.total_qubits - 1
         input_qubits = []
         keyword = self.search_keyword
@@ -90,10 +106,19 @@ class GroversAlgorithm:
                 self.circuit.x_gate(index)
 
     def XOR(self, qubits, output_qubit):
+    	"""
+        Generates and XOR classical logic gate.
+        Parameters:
+        <qubits> - takes in list of qubit indices as input for XOR
+        <coutput_qubit> - takes in the index of target qubit
+        """
         for qubit in qubits:
             self.circuit.cx_gate(qubit, output_qubit)
 
     def diffuser(self):
+    	"""
+    	Creates the diffuser circuit for running the algorithm.
+    	"""
         q_circuit = self.circuit
         qubits = self.num_of_qubits
 
@@ -114,6 +139,15 @@ class GroversAlgorithm:
             q_circuit.h_gate(qubit)
 
     def execute(self, provider=providers.DEFAULT_PROVIDER, repetitions=10):
+    	"""
+    	Executes the circuit by calling in the provider that executes the algorithm
+    	
+    	Parameters:
+    	<provider> - takes in specified provider as a string input
+    	<repetitions> - takes in the number of executions of the circuit
+		
+		Returns: Solution after executing the algorithm
+    	"""
         self.initialize(provider)
 
         for _ in range(self.num_of_iterations):
@@ -129,6 +163,11 @@ class GroversAlgorithm:
         return self.circuit.execute(provider=provider, repetitions=repetitions)
 
     def draw_grovers_circuit(self):
+    	"""
+    	Generates circuit diagram of the Grover's algorithm.
+
+    	Returns: Schematic representation of circuit for the algorithm
+    	"""
         return self.circuit.draw_circuit(provider=self.provider)
 
     def get_num_of_iterations(self):

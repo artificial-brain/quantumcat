@@ -18,8 +18,18 @@ from quantumcat.utils import providers, constants, helper
 
 
 class RandomNumber:
-
+    """ RandomNumber class provides the requisite functions and definitions for creating a true random number generator circuit.
+        These numbers are created using intrinsically random quantum physical principles.
+    """
     def __init__(self, length, output_type=constants.BINARY):
+        """
+        Initializes the RandomNumber class and enable the smooth running of all the included
+        operations.
+
+        Parameters:
+        <length> - takes in length of random number to be generated.
+        <output_type> - takes in form of representation of the random number.
+        """
         super(RandomNumber, self).__init__()
         self.length = length
         self.output_type = output_type
@@ -28,6 +38,16 @@ class RandomNumber:
 
     def execute(self, provider=providers.DEFAULT_PROVIDER,
                 simulator_name=constants.DEFAULT_SIMULATOR, api=None, device=None):
+        """
+        Executes the circuit by calling in the provider that executes the algorithm
+        Parameters:
+        <provider> - takes in specified provider as a string input
+        <simulator_name> - takes in the number of executions of the circuit
+        <api> - takes in API token as string input, of the backend to be executed.
+        <device> - takes in the name of specific quantum device to be used for execution.
+
+        Returns: Random number generated 
+        """
         num_qubits = self.length
         circuit = QCircuit(num_qubits)
         self.circuit = circuit
@@ -49,6 +69,11 @@ class RandomNumber:
         return random_number
 
     def draw_random_number_circuit(self):
+        """
+        Generates circuit diagram of the random number generator algorithm.
+
+        Returns: Schematic representation of circuit for the algorithm
+        """
         return self.circuit.draw_circuit(provider=self.provider)
 
 
