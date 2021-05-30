@@ -15,7 +15,6 @@
 import numpy as np
 import braket.ir.jaqcd as ir
 from braket.circuits import Instruction, Gate, QubitSet, QubitInput, circuit, AngledGate
-import math
 
 
 class CRXGate(AngledGate):

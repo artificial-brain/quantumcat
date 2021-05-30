@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 import numpy as np
-import quantumcat.gates.custom_gates.braket.ir.instructions as ir
+import braket.ir.jaqcd as ir
 from braket.circuits import Instruction, Gate, QubitSet, QubitInput, circuit
 
 
