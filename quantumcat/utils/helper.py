@@ -39,7 +39,7 @@ def is_custom_class(obj):
         return False
 
 
-def num_of_cbit(operations):
+def num_of_measurements(operations):
     return sum(1 for op in operations if gates_map.quantumcat_to_qiskit[next(iter(op.items()))[0]] == OpType.measure)
 
 def named_qubits_for_ops(named_qubits, qargs):
@@ -99,3 +99,13 @@ def measure_qubits_index(operations):
 def binary_to_decimal(binary_num):
     return int(binary_num, 2)
 
+
+def cirq_measurment_in_reverse(results):
+    result_dict = {}
+    for result in results:
+        result_dict[reverse_binary(result)] = results[result]
+    return result_dict
+
+
+def reverse_binary(num):
+    return num[::-1]

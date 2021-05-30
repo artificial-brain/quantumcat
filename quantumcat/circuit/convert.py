@@ -12,7 +12,8 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from qiskit import QuantumCircuit, ClassicalRegister
+
+from qiskit import QuantumCircuit
 from quantumcat.utils import gates_map
 from quantumcat.circuit.op_type import OpType
 from quantumcat.utils import constants, helper
@@ -28,8 +29,8 @@ def to_qiskit(q_circuit, qubits):
     :return: qiskit quantumcircuit object
     """
     operations = q_circuit.operations
-    cbits = helper.num_of_cbit(operations)
-    qiskit_qc = QuantumCircuit(qubits, cbits) if cbits > 0 else QuantumCircuit(qubits)
+    num_of_measurements = helper.num_of_measurements(operations)
+    qiskit_qc = QuantumCircuit(qubits, qubits) if num_of_measurements > 0 else QuantumCircuit(qubits)
     for op in operations:
         params = []
         operation = next(iter(op.items()))
