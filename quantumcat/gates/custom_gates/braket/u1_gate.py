@@ -31,7 +31,7 @@ class U1Gate(AngledGate):
     def to_matrix(self) -> np.ndarray:
         lam = float(self.angle)
         return np.array([[1, 0],
-                        [0, np.exp(1j * lam)]])
+                         [0, np.exp(1j * lam)]])
 
     @staticmethod
     @circuit.subroutine(register=True)
