@@ -30,10 +30,8 @@ class UGate(AngledGate):
         return ir.UGate.construct(target=target[0], angle=self.angle)
 
     def to_matrix(self, *args, **kwargs) -> np.ndarray:
-        return np.array([
-                        [np.cos(self.theta / 2), -np.exp(1j * self.lam) * np.sin(self.theta / 2)],
-                        [np.exp(1j * self.phi) * np.sin(self.theta / 2), np.exp(1j * (self.phi + self.lam)) * np.cos(self.theta / 2)]
-                        ], dtype=None)
+        return np.array([[np.cos(self.theta / 2), -np.exp(1j * self.lam) * np.sin(self.theta / 2)],
+                        [np.exp(1j * self.phi) * np.sin(self.theta / 2), np.exp(1j * (self.phi + self.lam)) * np.cos(self.theta / 2)]], dtype=None)
 
     @staticmethod
     @circuit.subroutine(register=True)

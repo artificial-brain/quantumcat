@@ -31,9 +31,9 @@ class CRZGate(AngledGate):
     def to_matrix(self, *args, **kwargs) -> np.ndarray:
         arg = 1j * float(self.angle) / 2
         return np.array([[1, 0, 0, 0],
-                        [0, np.exp(-arg), 0, 0],
-                        [0, 0, 1, 0],
-                        [0, 0, 0, np.exp(arg)]],)
+                         [0, np.exp(-arg), 0, 0],
+                         [0, 0, 1, 0],
+                         [0, 0, 0, np.exp(arg)]],)
 
     @staticmethod
     @circuit.subroutine(register=True)

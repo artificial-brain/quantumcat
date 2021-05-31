@@ -33,9 +33,9 @@ class CRXGate(AngledGate):
         cos = np.cos(half_theta)
         isin = 1j * np.sin(half_theta)
         return np.array([[1, 0, 0, 0],
-                        [0, cos, 0, -isin],
-                        [0, 0, 1, 0],
-                        [0, -isin, 0, cos]])
+                         [0, cos, 0, -isin],
+                         [0, 0, 1, 0],
+                         [0, -isin, 0, cos]])
 
     @staticmethod
     @circuit.subroutine(register=True)

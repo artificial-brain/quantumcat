@@ -36,10 +36,8 @@ class U3Gate(AngledGate):
         theta, phi, lam = float(self.theta), float(self.phi), float(self.lam)
         cos = np.cos(theta / 2)
         sin = np.sin(theta / 2)
-        return np.array([
-                        [cos, -np.exp(1j * lam) * sin],
-                        [np.exp(1j * phi) * sin, np.exp(1j * (phi + lam)) * cos]
-                        ])
+        return np.array([[cos, -np.exp(1j * lam) * sin],
+                        [np.exp(1j * phi) * sin, np.exp(1j * (phi + lam)) * cos]])
 
     @staticmethod
     @circuit.subroutine(register=True)

@@ -37,9 +37,9 @@ class CUGate(AngledGate):
         c = np.exp(1j * (self.gamma + self.phi)) * sin
         d = np.exp(1j * (self.gamma + self.phi + self.lam)) * cos
         return np.array([[1, 0, 0, 0],
-                        [0, a, 0, b],
-                        [0, 0, 1, 0],
-                        [0, c, 0, d]])
+                         [0, a, 0, b],
+                         [0, 0, 1, 0],
+                         [0, c, 0, d]])
 
     @staticmethod
     @circuit.subroutine(register=True)

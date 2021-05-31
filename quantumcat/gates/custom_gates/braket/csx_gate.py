@@ -28,9 +28,9 @@ class CSXGate(Gate):
 
     def to_matrix(self, *args, **kwargs) -> np.ndarray:
         return np.array([[1, 0, 0, 0],
-                        [0, (1 + 1j) / 2, 0, (1 - 1j) / 2],
-                        [0, 0, 1, 0],
-                        [0, (1 - 1j) / 2, 0, (1 + 1j) / 2]])
+                         [0, (1 + 1j) / 2, 0, (1 - 1j) / 2],
+                         [0, 0, 1, 0],
+                         [0, (1 - 1j) / 2, 0, (1 + 1j) / 2]])
 
     @staticmethod
     @circuit.subroutine(register=True)

@@ -33,9 +33,9 @@ class CU3Gate(AngledGate):
         cos = np.cos(theta / 2)
         sin = np.sin(theta / 2)
         return np.array([[1, 0, 0, 0],
-                        [0, cos, 0, -np.exp(1j * lam) * sin],
-                        [0, 0, 1, 0],
-                        [0, np.exp(1j * phi) * sin, 0, np.exp(1j * (phi+lam)) * cos]])
+                         [0, cos, 0, -np.exp(1j * lam) * sin],
+                         [0, 0, 1, 0],
+                         [0, np.exp(1j * phi) * sin, 0, np.exp(1j * (phi+lam)) * cos]])
 
     @staticmethod
     @circuit.subroutine(register=True)
