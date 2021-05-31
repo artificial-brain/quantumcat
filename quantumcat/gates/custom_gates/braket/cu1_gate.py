@@ -32,9 +32,9 @@ class CU1Gate(AngledGate):
     def to_matrix(self, *args, **kwargs) -> np.ndarray:
         eith = np.exp(1j * float(self.angle))
         return np.array([[1, 0, 0, 0],
-                                [0, 1, 0, 0],
-                                [0, 0, 1, 0],
-                                [0, 0, 0, eith]])
+                         [0, 1, 0, 0],
+                         [0, 0, 1, 0],
+                         [0, 0, 0, eith]])
 
     @staticmethod
     @circuit.subroutine(register=True)

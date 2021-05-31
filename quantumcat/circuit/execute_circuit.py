@@ -15,12 +15,10 @@
 from quantumcat.utils import constants, helper
 from qiskit import Aer, execute, IBMQ
 from qiskit.providers.ibmq import least_busy
-from qiskit import Aer
-from qiskit import execute
 import cirq
 import cirq.ionq as ionq
-
 from braket.devices import LocalSimulator
+
 
 def on_qiskit(q_circuit, simulator_name, repetitions, api, device_name,
               hub='ibm-q', group=None, project=None):
@@ -73,7 +71,3 @@ def on_braket(q_circuit, simulator_name, repetitions, api):
         return dict(results.measurement_counts)
     elif simulator_name == constants.STATEVECTOR_SIMULATOR:
         return LocalSimulator().run(q_circuit.state_vector(), shots=0).result().values[0]
-
-
-
-

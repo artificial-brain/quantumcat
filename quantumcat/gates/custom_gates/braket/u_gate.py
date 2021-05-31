@@ -12,7 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import numpy
+import numpy as np
 import braket.ir.jaqcd as ir
 from braket.circuits import Instruction, Gate, QubitSet, QubitInput, circuit, AngledGate
 
@@ -29,11 +29,11 @@ class UGate(AngledGate):
     def to_ir(self, target: QubitSet):
         return ir.UGate.construct(target=target[0], angle=self.angle)
 
-    def to_matrix(self, *args, **kwargs) -> numpy.ndarray:
-        return numpy.array([
-            [numpy.cos(self.theta / 2), -numpy.exp(1j * self.lam) * numpy.sin(self.theta / 2)],
-            [numpy.exp(1j * self.phi) * numpy.sin(self.theta / 2), numpy.exp(1j * (self.phi + self.lam))
-                * numpy.cos(self.theta / 2)]], dtype=None)
+    def to_matrix(self, *args, **kwargs) -> np.ndarray:
+        return np.array([
+                        [np.cos(self.theta / 2), -np.exp(1j * self.lam) * np.sin(self.theta / 2)],
+                        [np.exp(1j * self.phi) * np.sin(self.theta / 2), np.exp(1j * (self.phi + self.lam)) * np.cos(self.theta / 2)]
+                        ], dtype=None)
 
     @staticmethod
     @circuit.subroutine(register=True)
