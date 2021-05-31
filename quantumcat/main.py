@@ -19,9 +19,9 @@ from quantumcat.applications.generator import RandomNumber
 
 
 def create_circuit_demo():
-"""
+    """
     Build your circuit here
-"""
+    """
     circuit = QCircuit(6,6)
     circuit.h_gate(0)
     circuit.x_gate(3)

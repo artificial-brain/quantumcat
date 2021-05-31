@@ -24,15 +24,20 @@ def on_qiskit(q_circuit, simulator_name, repetitions, api, device_name,
 	"""
     Initializes backend for running the circuit in the IBM Qiskit domain.
     
-    Parameters:
-    <q_circuit> - takes in thq quantum circuit to be executed.
-    <simulator_name> - takes in simulator name as string input, where the circuit is to be simulated.
-    <repetitions> - takes in the number of executions of the circuit.
-    <api> - takes in API name as string input, linked with the IBMQ account.
-    <device_name> - takes in the name of IBM quantum devices where the execution takes, as string input.
+    Parameters
+    -----------
+
+    <q_circuit>: takes in thq quantum circuit to be executed.
+    <simulator_name>: takes in simulator name as string input, where the circuit is to be simulated.
+    <repetitions>: takes in the number of executions of the circuit.
+    <api>: takes in API name as string input, linked with the IBMQ account.
+    <device_name>: takes in the name of IBM quantum devices where the execution takes, as string input.
                     The standard list of devices are provided in the IBMQ account.
 
-    Returns: The counts of the state or the statevector of the output, depending on the input.
+    Returns
+    --------
+
+    The counts of the state or the statevector of the output, depending on the input.
     """
     if api is None:
         backend = Aer.get_backend(simulator_name)
@@ -55,14 +60,19 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
 	"""
     Initializes backend for running the circuit in the Google Cirq domain.
     
-    Parameters:
-    <q_circuit> - takes in thq quantum circuit to be executed
-    <simulator_name> - takes in simulator name as string input, where the circuit is to be simulated
-    <repetitions> - takes in the number of executions of the circuit
-    <api> - takes in API name linked with the Google Cirq account 
+    Parameters
+    -----------
+
+    <q_circuit>: takes in thq quantum circuit to be executed
+    <simulator_name>: takes in simulator name as string input, where the circuit is to be simulated
+    <repetitions>: takes in the number of executions of the circuit
+    <api>: takes in API name linked with the Google Cirq account 
     <operations> - 
 
-    Returns: The statevector of the coutput.
+    Returns
+    --------
+    
+    The statevector of the coutput.
     """
     simulator = cirq.Simulator()
     if simulator_name == constants.DEFAULT_SIMULATOR:

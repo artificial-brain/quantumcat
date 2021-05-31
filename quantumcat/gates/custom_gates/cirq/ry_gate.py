@@ -17,14 +17,42 @@ import math
 
 
 class RYGate(cirq.Gate):
+    """
+    The RYGate class enables all the methods for the execution of the RY Gate.
+    The class methods initializes the operation, performs the calculation and generates a schematic representation.
+    """
     def __init__(self, theta):
+        """
+        Initializes RYGate class and enables running of all associated methods.
+
+        Parameters
+        ----------
+
+        <theta>: takes in the angle(in radian) to be rotated.
+        """
         super(RYGate, self).__init__()
         self.theta = theta
 
     def _num_qubits_(self):
+        """
+        Provides the number of qubits required for the gate operation.
+      
+        Returns
+        --------
+
+        Number of qubits required.
+        """
         return 1
 
     def _unitary_(self, dtype=None):
+         """
+        Provides the unitary matrix of the gate operation.
+      
+        Returns
+        --------
+
+        Unitary matrix of gate.
+        """
         cos = math.cos(self.theta / 2)
         sin = math.sin(self.theta / 2)
         return numpy.array([[cos, -sin],
@@ -32,4 +60,12 @@ class RYGate(cirq.Gate):
 
 
     def _circuit_diagram_info_(self, args):
+        """
+        Generates circuit representation of RY Gate.
+
+        Returns
+        --------
+
+        Schematic representation of RY Gate.
+        """
         return "RY"

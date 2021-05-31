@@ -22,7 +22,7 @@ class GroversAlgorithm:
     for the cases in which the solutions are known and unknown.
     """
     def __init__(self, clause_list=[], input_arr=[], search_keyword=None, solution_known='N', flip_output=False, num_of_iterations=None):
-         """
+        """
         Initializes the GroversAlgorithm class and enable the smooth running of all the included
         operations.
         """
@@ -108,9 +108,12 @@ class GroversAlgorithm:
     def XOR(self, qubits, output_qubit):
     	"""
         Generates and XOR classical logic gate.
-        Parameters:
-        <qubits> - takes in list of qubit indices as input for XOR
-        <coutput_qubit> - takes in the index of target qubit
+
+        Parameters
+        ----------
+
+        <qubits>: takes in list of qubit indices as input for XOR gate.
+        <output_qubit>: takes in the index of target qubit.
         """
         for qubit in qubits:
             self.circuit.cx_gate(qubit, output_qubit)
@@ -140,13 +143,18 @@ class GroversAlgorithm:
 
     def execute(self, provider=providers.DEFAULT_PROVIDER, repetitions=10):
     	"""
-    	Executes the circuit by calling in the provider that executes the algorithm
+    	Executes the circuit by calling in the provider that executes the algorithm.
     	
-    	Parameters:
-    	<provider> - takes in specified provider as a string input
-    	<repetitions> - takes in the number of executions of the circuit
+    	Parameters
+    	-----------
+
+    	<provider>: takes in specified provider as a string input.
+    	<repetitions>: takes in the number of executions of the circuit.
 		
-		Returns: Solution after executing the algorithm
+		Returns
+		--------
+
+		Solution after executing the algorithm.
     	"""
         self.initialize(provider)
 
@@ -164,11 +172,22 @@ class GroversAlgorithm:
 
     def draw_grovers_circuit(self):
     	"""
-    	Generates circuit diagram of the Grover's algorithm.
+    	Generates circuit diagram of the Grover's algorithm built for the problem.
 
-    	Returns: Schematic representation of circuit for the algorithm
+    	Returns
+    	--------
+
+    	Schematic representation of circuit for the algorithm.
     	"""
         return self.circuit.draw_circuit(provider=self.provider)
 
     def get_num_of_iterations(self):
+    	"""
+    	Calculates the number of iterations of the algorithm required for a reliable result.
+
+    	Returns
+    	--------
+
+    	Integral value of the number of iterations required.
+    	"""
         return int(0.5*(0.5*np.pi/np.arcsin(1/(np.sqrt(2 ** self.num_of_qubits)))-1))

@@ -47,11 +47,16 @@ def named_qubits_for_ops(named_qubits, qargs):
     This function creates NamedQubit array for cirq operations based on the number of qubits required for
     that particular operation. Ex: x_gate -> 1 NamedQubit, cx_gate -> 2 NamedQubit
     
-    Parameters:
-    <named_qubits: NamedQubit for the entire circuit
-    <param qargs: qubits of a operation
+    Parameters
+    -----------
+
+    <named_qubits>: NamedQubit for the entire circuit
+    <qargs>: qubits of a operation
     
-    Returns: NamedQubit array based on the qargs
+    Returns
+    --------
+    
+    NamedQubit array based on the qargs
     """
     op_named_qubits = []
     if len(qargs) > 1:
@@ -101,6 +106,18 @@ def measure_qubits_index(operations):
 
 
 def binary_to_decimal(binary_num):
+	"""
+	Converts binary number to decimal form.
+
+	Parameters
+	-----------
+	<binary_num>: takes in binary form of number.
+
+	Returns
+	--------
+
+	Decimal form of number.
+	"""
     return int(binary_num, 2)
 
 

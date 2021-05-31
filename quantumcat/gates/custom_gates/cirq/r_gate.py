@@ -17,15 +17,44 @@ import math
 
 
 class RGate(cirq.Gate):
+    """
+    The RGate class enables all the methods for the execution of the R gate.
+    The class methods initializes the operation, performs the calculation and generates a schematic representation.
+    """
     def __init__(self, theta, phi):
+        """
+        Initializes RGate class and enables running of all associated methods.
+
+        Parameters
+        ----------
+
+        <theta>: takes in the angle(in radian) to be rotated.
+        <phi>: takes in the angle(in radian) to be rotated.
+        """
         super(RGate, self).__init__()
         self.theta = theta
         self.phi=phi
 
     def _num_qubits_(self):
+        """
+        Provides the number of qubits required for the gate operation.
+      
+        Returns
+        --------
+
+        Number of qubits required.
+        """
         return 1
 
     def _unitary_(self, dtype=None):
+        """
+        Provides the unitary matrix of the gate operation.
+      
+        Returns
+        --------
+
+        Unitary matrix of gate.
+        """
         theta, phi = float(self.theta), float(self.phi)
         cos = math.cos(theta / 2)
         sin = math.sin(theta / 2)
@@ -36,4 +65,12 @@ class RGate(cirq.Gate):
 
 
     def _circuit_diagram_info_(self, args):
+        """
+        Generates circuit representation of R gate.
+
+        Returns
+        --------
+
+        Schematic representation of R gate.
+        """
         return f"R{self.theta, self.phi}"
