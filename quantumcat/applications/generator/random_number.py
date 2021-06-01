@@ -18,6 +18,8 @@ from quantumcat.utils import providers, constants, helper
 import math
 import numpy as np
 
+# Todo: Correct the code when range difference is 1. For e.g: range(7,8)
+
 
 class RandomNumber:
 
@@ -124,12 +126,17 @@ class RandomNumber:
 
         counts = self.qc.execute(provider=provider, repetitions=1,
                                  simulator_name=simulator_name, api=api, device=device)
-        print('counts', counts)
-        random_number = next(iter(counts.keys()))
+
+        # Find a better way to remove this:
+        random_number = list(counts.keys())[0][::-1] if self.range is not None \
+            else next(iter(counts.keys()))
+
+        # Find a better way to remove this:
+        if provider == providers.IBM_PROVIDER and self.range is not None:
+            random_number = random_number[:-self.num_qubits]
 
         if self.output_type == constants.DECIMAL:
             random_number = helper.binary_to_decimal(random_number)
-
         return random_number
 
     def draw_random_number_circuit(self, provider=providers.DEFAULT_PROVIDER):

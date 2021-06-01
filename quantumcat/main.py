@@ -19,12 +19,11 @@ from quantumcat.applications.generator import RandomNumber
 
 
 def create_circuit_demo():
-    circuit = QCircuit(6)
-    circuit.h_gate(0)
-    circuit.x_gate(3)
+    circuit = QCircuit(2)
+    circuit.x_gate(0)
     circuit.measure_all()
     # circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
+    print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
 
 
 def grovers_demo():
@@ -47,8 +46,8 @@ def grovers_demo():
 
 
 def random_number_demo():
-    random_number = RandomNumber(range=(0, 3), output_type=constants.DECIMAL)\
-        .execute()
+    random_number = RandomNumber(range=(0, 31), output_type=constants.DECIMAL)\
+        .execute(provider=providers.GOOGLE_PROVIDER)
     print(random_number)
 
 
