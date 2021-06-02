@@ -177,7 +177,7 @@ quantumcat_to_braket = {
     OpType.u_gate: custom_gates.braket.UGate,
     OpType.u1_gate: custom_gates.braket.U1Gate,
     OpType.u2_gate: custom_gates.braket.U2Gate,
-    OpType.u3_gate: custom_gates.braket.U3Gate,
+    OpType.u3_gate: custom_gates.braket.u3,
     OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
 }
