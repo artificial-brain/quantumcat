@@ -49,7 +49,7 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
         else:
             return helper.cirq_measurment_in_reverse(result.histogram(key='result', fold_func=helper.bitstring))
     elif simulator_name == constants.STATEVECTOR_SIMULATOR:
-        return simulator.simulate(q_circuit).final_state_vector()
+        return simulator.simulate(q_circuit).final_state_vector
 
 
 # Need testing

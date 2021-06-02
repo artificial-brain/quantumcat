@@ -1,2 +1,4 @@
 qiskit==0.26.2
 cirq==0.11.0
+pytest~=6.2.4
+setuptools~=41.2.0
