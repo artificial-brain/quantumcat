@@ -393,6 +393,8 @@ class QCircuit:
             print(self.converted_q_circuit)
         elif self.provider == providers.MICROSOFT_PROVIDER:
             pass
+        elif self.provider == providers.AMAZON_PROVIDER:
+            print(self.converted_q_circuit)
 
     def convert_circuit(self):
         converted_q_circuit = None
@@ -403,6 +405,10 @@ class QCircuit:
         elif self.provider == providers.IONQ_PROVIDER:
             converted_q_circuit = convert.to_cirq(self, self.qubits)
         elif self.provider == providers.MICROSOFT_PROVIDER:
+            pass
+        elif self.provider == providers.AMAZON_PROVIDER:
+            converted_q_circuit = convert.to_braket(self, self.qubits)
+        if self.provider == providers.MICROSOFT_PROVIDER:
             converted_q_circuit = convert.to_q_sharp(self, self.qubits)
         return converted_q_circuit
 
@@ -418,6 +424,9 @@ class QCircuit:
         elif self.provider == providers.GOOGLE_PROVIDER:
             return execute_circuit.on_cirq(self.converted_q_circuit,
                                            simulator_name, repetitions, api, self.get_operations())
+        elif self.provider == providers.AMAZON_PROVIDER:
+            return execute_circuit.on_braket(self.converted_q_circuit,
+                                             simulator_name, repetitions, api)
         elif self.provider == providers.IONQ_PROVIDER:
             if api is None:
                 raise APIDetailsNotFoundError(ErrorMessages.ionq_api_details_not_provided)
