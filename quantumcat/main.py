@@ -46,8 +46,8 @@ def grovers_demo():
 
 
 def random_number_demo():
-    random_number = RandomNumber(range=(0, 31), output_type=constants.DECIMAL)\
-        .execute(provider=providers.GOOGLE_PROVIDER)
+    random_number = RandomNumber(range=(7, 11), output_type=constants.DECIMAL)\
+        .execute(provider=providers.IBM_PROVIDER)
     print(random_number)
 
 

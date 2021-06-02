@@ -48,10 +48,10 @@ class RandomNumber:
 
         qc.measure_all()
 
-    def get_binary_output(self, num_bits, decimal_output):
+    def get_binary_output(self, num_qubits, decimal_output):
         outputs_binary = []
         output = np.array(decimal_output)
-        for n in range(num_bits - 1, -1, -1):
+        for n in range(num_qubits - 1, -1, -1):
             func = lambda x: self.nth_bit(x, n)
             outputs_binary.append(func(output))
         outputs_binary = np.asarray(outputs_binary, dtype='int8')
@@ -94,30 +94,30 @@ class RandomNumber:
 
     def get_num_bits(self):
         upper_limit = self.range[1]
-        return math.ceil(math.log(upper_limit, 2))
+        return math.floor(math.log(upper_limit, 2)) + 1
 
     @staticmethod
     def nth_bit(num, n):
         return num & (1 << n) != 0
 
     @staticmethod
-    def make_output(a, b, bits):
-        num_vals = b - a + 1
+    def make_output(lower_limit, upper_limit, num_qubits):
+        num_vals = upper_limit - lower_limit + 1
         output = []
-        rep = (2 ** bits) // num_vals
-        for i in range(a, b + 1):
+        rep = (2 ** num_qubits) // num_vals
+        for i in range(lower_limit, upper_limit + 1):
             output += ([i] * rep)
-        if (2 ** bits) % num_vals != 0:
-            for i in range(0, (2 ** bits) % num_vals):
-                output += [a]
-                a += 1
+        if (2 ** num_qubits) % num_vals != 0:
+            for i in range(0, (2 ** num_qubits) % num_vals):
+                output += [lower_limit]
+                lower_limit += 1
         return output
 
     @staticmethod
-    def get_sop(binary_output, num_bits):
-        inp = np.arange(1, 2 ** num_bits + 1, 1, dtype='int32')
+    def get_sop(binary_output, num_qubits):
+        inp = np.arange(1, ((2 ** num_qubits) + 1), 1, dtype='int32')
         sop = []
-        for i in range(num_bits):
+        for i in range(num_qubits):
             sop.append(inp * binary_output[i])
         return sop
 
