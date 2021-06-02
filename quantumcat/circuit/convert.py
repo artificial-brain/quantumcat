@@ -18,6 +18,8 @@ from quantumcat.utils import gates_map
 from quantumcat.circuit.op_type import OpType
 from quantumcat.utils import constants, helper
 import cirq
+from braket.circuits import Circuit, Instruction
+from braket.circuits.result_type import ResultType
 import inspect
 
 
@@ -77,7 +79,7 @@ def to_cirq(q_circuit, qubits):
         elif cirq_op == OpType.mct_gate:
             mct_named_qubits = helper.named_qubits_for_multi_controlled_op(named_qubits, qargs)
             cirq_qc.append([cirq.ops.X(mct_named_qubits[1]).controlled_by(*mct_named_qubits[0])])
-          # Find a better way to replace the following if
+        # Find a better way to replace the following if
         elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
             cirq_qc.append([cirq_op(*params).on(*helper.named_qubits_for_ops(named_qubits, qargs))])
         else:
@@ -88,3 +90,23 @@ def to_cirq(q_circuit, qubits):
 
 def to_q_sharp(q_circuit, qubits, cbits):
     pass
+
+
+def to_braket(q_circuit, qubits):
+    operations = q_circuit.operations
+    braket_qc = Circuit()
+    for op in operations:
+        params = []
+        instructor = []
+        operation = next(iter(op.items()))
+        braket_op = gates_map.quantumcat_to_braket[operation[0]]
+        qargs = operation[1]
+        if constants.PARAMS in op:
+            params = (op[constants.PARAMS])
+
+        if braket_op == OpType.measure:
+            braket_qc.add(ResultType.Probability(target=[qargs[0]]))
+        else:
+            braket_qc.add([Instruction(braket_op(*params), qargs)])
+
+    return braket_qc
