@@ -21,7 +21,7 @@ import cirq.ionq as ionq
 
 def on_qiskit(q_circuit, simulator_name, repetitions, api, device_name,
               hub='ibm-q', group=None, project=None):
-	"""
+    """
     Initializes backend for running the circuit in the IBM Qiskit domain.
     
     Args:
@@ -53,7 +53,7 @@ def on_qiskit(q_circuit, simulator_name, repetitions, api, device_name,
 
 
 def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
-	"""
+    """
     Initializes backend for running the circuit in the Google Cirq domain.
     
     Args:

@@ -51,7 +51,7 @@ class GroversAlgorithm:
             self.num_of_iterations = self.get_num_of_iterations()
 
     def initialize(self, provider):
-    	"""
+        """
         Initialize function carries out the task of initializing the algorithm to solve the problem under consideration.
 
         Args:
@@ -77,7 +77,7 @@ class GroversAlgorithm:
         self.circuit.h_gate(self.total_qubits - 1)
 
     def oracle_for_unknown_solution(self):
-    	"""
+        """
         Creates the oracle for finding the solution, when the solution to the problem is not known
         beforehand.
         """
@@ -105,7 +105,7 @@ class GroversAlgorithm:
             self.XOR(self.clause_list[index], clause_qubit)
 
     def oracle_for_known_solution(self):
-    	"""
+        """
         Creates the oracle for the problem under consideration, when the solution is known beforehand.
         """
         output_qubit = self.total_qubits - 1
@@ -123,7 +123,7 @@ class GroversAlgorithm:
                 self.circuit.x_gate(index)
 
     def XOR(self, qubits, output_qubit):
-    	"""
+        """
         Generates and XOR classical logic gate.
 
         Args:
@@ -137,9 +137,9 @@ class GroversAlgorithm:
             self.circuit.cx_gate(qubit, output_qubit)
 
     def diffuser(self):
-    	"""
-    	Creates the diffuser circuit for running the algorithm.
-    	"""
+        """
+        Creates the diffuser circuit for running the algorithm.
+        """
         q_circuit = self.circuit
         qubits = self.num_of_qubits
 
@@ -160,16 +160,16 @@ class GroversAlgorithm:
             q_circuit.h_gate(qubit)
 
     def execute(self, provider=providers.DEFAULT_PROVIDER, repetitions=10):
-    	"""
-    	Executes the circuit by calling in the provider that executes the algorithm.
-    	
-    	Args:
+        """
+        Executes the circuit by calling in the provider that executes the algorithm.
+        
+        Args:
             provider: backend provider as a string input.
-    	    repetitions: number of executions of the circuit.
-		
-		Returns:
+            repetitions: number of executions of the circuit.
+        
+        Returns:
             circuit: solution after executing the algorithm.
-    	"""
+        """
         self.initialize(provider)
 
         for _ in range(self.num_of_iterations):
@@ -185,19 +185,19 @@ class GroversAlgorithm:
         return self.circuit.execute(provider=provider, repetitions=repetitions)
 
     def draw_grovers_circuit(self):
-    	"""
-    	Generates circuit diagram of the Grover's algorithm built for the problem.
+        """
+        Generates circuit diagram of the Grover's algorithm built for the problem.
 
-    	Returns:
+        Returns:
             figure: schematic representation of circuit for the algorithm.
-    	"""
+        """
         return self.circuit.draw_circuit(provider=self.provider)
 
     def get_num_of_iterations(self):
-    	"""
-    	Calculates the number of iterations of the algorithm required for a reliable result.
+        """
+        Calculates the number of iterations of the algorithm required for a reliable result.
 
-    	Returns:
+        Returns:
             int: integral value of the number of iterations required.
-    	"""
+        """
         return int(0.5*(0.5*np.pi/np.arcsin(1/(np.sqrt(2 ** self.num_of_qubits)))-1))

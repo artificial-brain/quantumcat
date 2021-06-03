@@ -120,7 +120,7 @@ class QCircuit:
             control_qubit: index of control qubit, to which the gate is to be applied.
             target_qubit: index of target qubit, to which the gate is to be applied.
 
-		Returns:
+        Returns:
             self: modified state of the qubit to the circuit.
 
         Raises:
@@ -141,7 +141,7 @@ class QCircuit:
             control_qubit: index of control qubit, to which the gate is to be applied.
             target_qubit: index of target qubit, to which the gate is to be applied.
 
-		Returns:
+        Returns:
             self: modified state of the qubit to the circuit.
 
         Raises:
@@ -168,7 +168,7 @@ class QCircuit:
         Raises:
             CircuitError: if qubit index is not within range.
         """
-        self.check_qubit_boundary(control_qubit1
+        self.check_qubit_boundary(control_qubit1)
         self.check_qubit_boundary(control_qubit2)
         self.check_qubit_boundary(target_qubit)
         self.operations.append({OpType.ccx_gate: [[control_qubit1], [control_qubit2], [target_qubit]]})

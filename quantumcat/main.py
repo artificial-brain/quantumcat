@@ -20,7 +20,7 @@ from quantumcat.applications.generator import RandomNumber
 
 def create_circuit_demo():
     """
-    Build your circuit here
+        Build your circuit here
     """
     circuit = QCircuit(6,6)
     circuit.h_gate(0)
@@ -31,9 +31,9 @@ def create_circuit_demo():
 
 
 def grovers_demo():
-"""
-    Sample circuit for demonstration of Grover's Algorithm
-"""
+    """
+        Sample circuit for demonstration of Grover's Algorithm
+    """
     clause_list_sudoku = [[0, 1], [0, 2], [1, 3], [2, 3]]
     clause_list_light_board = [[0, 1, 3], [1, 0, 2, 4], [2, 1, 5], [3, 0, 4, 6],
                                [4, 1, 3, 5, 7], [5, 2, 4, 8], [6, 3, 7], [7, 4, 6, 8],
@@ -53,18 +53,18 @@ def grovers_demo():
 
 
 def random_number_demo():
-"""
-    Sample circuit for demonstration of Random Number Generator Algorithm
-"""
+    """
+        Sample circuit for demonstration of Random Number Generator Algorithm
+    """
     random_number = RandomNumber(length=4, output_type=constants.DECIMAL)\
         .execute()
     print(random_number)
 
 
 def run_on_real_device():
-"""
-    Executes the QuantumCat circuit on an actual quantum device that is provided by supported platforms.
-"""
+    """
+        Executes the QuantumCat circuit on an actual quantum device that is provided by supported platforms.
+    """
     circuit = QCircuit(1)
     circuit.x_gate(0)
     circuit.measure_all()

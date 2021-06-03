@@ -16,18 +16,18 @@ import numpy
 
 
 class SXGate(cirq.Gate):
-	"""
+    """
     The SXGate class enables all the methods for the execution of the SX Gate.
     The class methods initializes the operation, performs the calculation and generates a schematic representation.
     """
     def __init__(self):
-    	"""
+        """
         Initializes SXGate class and enables running of all associated methods.
         """
         super(SXGate, self).__init__()
 
     def _num_qubits_(self):
-    	"""
+        """
         Provides the number of qubits required for the gate operation.
       
         Returns:
@@ -36,7 +36,7 @@ class SXGate(cirq.Gate):
         return 1
 
     def _unitary_(self, dtype=None):
-    	"""
+        """
         Provides the unitary matrix of the gate operation.
 
         Args:
@@ -49,7 +49,7 @@ class SXGate(cirq.Gate):
                             [1 - 1j, 1 + 1j]], dtype=dtype) / 2
 
     def _circuit_diagram_info_(self, args):
-    	"""
+        """
         Generates circuit representation of SX Gate.
         
         Args:

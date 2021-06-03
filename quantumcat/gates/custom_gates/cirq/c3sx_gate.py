@@ -19,13 +19,16 @@ class C3SXGate(cirq.Gate):
         Provides the number of qubits required for the gate operation.
       
         Returns:
-        	Number of qubits required.
+           Number of qubits required.
         """
         return 4
 
     def _unitary_(self, dtype=None):
         """
         Provides the unitary matrix of the gate operation.
+
+        Args:
+            dtype: dtype.
       
         Returns:
             mat: Unitary matrix of gate.
@@ -55,6 +58,6 @@ class C3SXGate(cirq.Gate):
         Generates circuit representation of C3SX gate.
 
         Returns:
-        	Schematic representation of C3SX gate.
+          Schematic representation of C3SX gate.
         """
         return ["C3SX_c1", "C3SX_c2", "C3SX_c3", "C3SX_t"]

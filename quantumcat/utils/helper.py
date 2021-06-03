@@ -48,11 +48,11 @@ def named_qubits_for_ops(named_qubits, qargs):
     that particular operation. Ex: x_gate -> 1 NamedQubit, cx_gate -> 2 NamedQubit
     
     Args:
-		named_qubits: NamedQubit for the entire circuit.
-    	qargs: qubits of a operation.
+        named_qubits: NamedQubit for the entire circuit.
+        qargs: qubits of a operation.
     
     Returns:
-    	op_named_qubits: NamedQubit array based on the qargs.
+        op_named_qubits: NamedQubit array based on the qargs.
     """
     op_named_qubits = []
     if len(qargs) > 1:
@@ -102,15 +102,15 @@ def measure_qubits_index(operations):
 
 
 def binary_to_decimal(binary_num):
-	"""
-	Converts binary number to decimal form.
+    """
+    Converts binary number to decimal form.
 
-	Args:
-		binary_num: takes in binary form of number.
+    Args:
+        binary_num: takes in binary form of number.
 
-	Returns:
-		Decimal form of number.
-	"""
+    Returns:
+        Decimal form of number.
+    """
     return int(binary_num, 2)
 
 
