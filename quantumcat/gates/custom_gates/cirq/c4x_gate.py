@@ -18,21 +18,20 @@ class C4XGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 5
 
     def _unitary_(self, dtype=None):
         """
-        Provides the number of qubits required for the gate operation.
-      
-        Returns
-        --------
+        Provides the unitary matrix of the gate operation.
 
-        Number of qubits required.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         mat = numpy.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -74,9 +73,10 @@ class C4XGate(cirq.Gate):
         """
         Generates circuit representation of C4X gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of C4X gate.
+        Returns:
+            Schematic representation of C4X gate.
         """
         return ["C4X_c1", "C4X_c2", "C4X_c3", "C4X_c4", "C4X_t"]

@@ -18,21 +18,20 @@ class CHGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
          """
-        Provides the number of qubits required for the gate operation.
-      
-        Returns
-        --------
+        Provides the unitary matrix of the gate operation.
 
-        Number of qubits required.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         sqt2 = numpy.sqrt(2)
         return numpy.array([[1, 0, 0, 0],
@@ -44,9 +43,10 @@ class CHGate(cirq.Gate):
         """
         Generates circuit representation of CH gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of CH gate.
+        Returns:
+            Schematic representation of CH gate.
         """
         return ["CH_c", "CH_t"]

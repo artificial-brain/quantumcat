@@ -1,5 +1,0 @@
-"""
-My Code
-"""
-def fir():
-	

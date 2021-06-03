@@ -31,21 +31,20 @@ class CYGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
         """
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         return numpy.array([[1, 0, 0, 0],
                             [0, 1, 0, 0],
@@ -56,9 +55,10 @@ class CYGate(cirq.Gate):
         """
         Generates circuit representation of CY gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of CY gate.
+        Returns:
+            Schematic representation of CY gate.
         """
        return ["CY_c", "CY_t"]

@@ -18,21 +18,20 @@ class CSXGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
         """
-        Provides the number of qubits required for the gate operation.
-      
-        Returns
-        --------
+        Provides the unitary matrix of the gate operation.
 
-        Number of qubits required.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         par1 = (1+1j)/2
         par2 = (1-1j)/2
@@ -45,9 +44,10 @@ class CSXGate(cirq.Gate):
         """
         Generates circuit representation of CSX gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of CSX gate.
+        Returns:
+            Schematic representation of CSX gate.
         """
         return ["CSX_c", "CSX_t"]

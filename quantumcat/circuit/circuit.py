@@ -30,7 +30,7 @@ class QCircuit:
     """
     def __init__(self, qubits, provider=providers.DEFAULT_PROVIDER):
         """
-        This function is aimed at initializing the QCircuit class and enable the smooth running of all the included
+        Function is aimed at initializing the QCircuit class and enable the smooth running of all the included
         operations.
         """
         super(QCircuit, self).__init__()
@@ -44,15 +44,14 @@ class QCircuit:
         Produces a single qubit rotation of pi(in radian) angle along the X-axis.
         Flips the |0> state to |1> and vice versa.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.x_gate: [qubit]})
@@ -62,15 +61,14 @@ class QCircuit:
         """
         Produces a single qubit rotation of pi(in radian) angle along the Y-axis.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.y_gate: [qubit]})
@@ -80,15 +78,14 @@ class QCircuit:
         """
         Produces a single qubit rotation of pi(in radian) angle along the Z-axis.
 
-        Parameters
-        -----------
-
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
         
-        Returns
-        --------
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.z_gate: [qubit]})
@@ -100,15 +97,14 @@ class QCircuit:
         If the qubit is in |0> state, it changes to the |+> state.
         If the qubit is in |1> state, it changes to the |-> state.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.h_gate: [qubit]})
@@ -120,16 +116,15 @@ class QCircuit:
         If the control qubit is in the |0> state, the X gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the X gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+		Returns:
+            self: modified state of the qubit to the circuit.
 
-		Returns
-        --------
-        
-		Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -142,16 +137,15 @@ class QCircuit:
         If the control qubit is in the |0> state, the Z gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the Z gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+		Returns:
+            self: modified state of the qubit to the circuit.
 
-		Returns
-        --------
-        
-		Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.operations.append({OpType.cz_gate: [[control_qubit], [target_qubit]]})
@@ -163,19 +157,18 @@ class QCircuit:
         to the target qubit. If both the control qubits are in the |1> state, the X gate is performed
         on the target qubit. Otherwise, the the X gate is not performed on the target qubit.
        
-        Parameters
-        -----------
+        Args:
+            control_qubit1: index of control qubit 1, to which the gate is to be applied.
+            control_qubit2: index of control qubit 2, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit1>: takes in index of control qubit 1, to which the gate is to be applied.
-        <control_qubit2>: takes in index of control qubit 2, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
-        self.check_qubit_boundary(control_qubit1)
+        self.check_qubit_boundary(control_qubit1
         self.check_qubit_boundary(control_qubit2)
         self.check_qubit_boundary(target_qubit)
         self.operations.append({OpType.ccx_gate: [[control_qubit1], [control_qubit2], [target_qubit]]})
@@ -185,16 +178,15 @@ class QCircuit:
         """
         Produces a single qubit rotation around the Y-axis, for a specific angle taken as input.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.ry_gate: [qubit],
@@ -205,17 +197,18 @@ class QCircuit:
         """
         Parametric two qubit gate, performing rotation of theta angle, about YY axis.
 
-        Parameters
-        -----------
-
-        <theta>: takes in the angle(in radian) to be rotated.
-        <qubit1>: takes in index of qubit, to which the gate is to be applied.
-        <qubit2>: takes in index of qubit, to which the gate is to be applied.
-
-        Returns
-        --------
+        Args:
         
-        Modified state of the qubits to the circuit.
+
+        theta: the angle(in radian) to be rotated.
+        qubit1: index of qubit, to which the gate is to be applied.
+        qubit2: index of qubit, to which the gate is to be applied.
+
+        Returns:
+            self: modified state of the qubit to the circuit.
+
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit1)
         self.check_qubit_boundary(qubit2)
@@ -227,17 +220,16 @@ class QCircuit:
         """
         Parametric two qubit gate, performing rotation of theta angle, about ZZ axis.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            qubit1: index of qubit, to which the gate is to be applied.
+            qubit2: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <qubit1>: takes in index of qubit, to which the gate is to be applied.
-        <qubit2>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubits to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit1)
         self.check_qubit_boundary(qubit2)
@@ -249,17 +241,16 @@ class QCircuit:
         """
         Parametric two qubit gate, performing rotation of theta angle, about ZX axis.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            qubit1: index of qubit, to which the gate is to be applied.
+            qubit2: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <qubit1>: takes in index of qubit, to which the gate is to be applied.
-        <qubit2>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubits to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit1)
         self.check_qubit_boundary(qubit2)
@@ -271,16 +262,15 @@ class QCircuit:
         """
         Produces a single qubit rotation around the Z-axis, for a specific angle taken as input.
 
-        Parameters
-        -----------
+        Args:
+            phi: the angle(in radian) to be rotated.
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <phi>: takes in the angle(in radian) to be rotated.
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.rz_gate: [qubit],
@@ -298,15 +288,14 @@ class QCircuit:
         Produces a single qubit rotation of pi/2 around the Z axis.
         It is a Clifford gate and is known as root of Z gate.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.s_gate: [qubit]})
@@ -317,15 +306,14 @@ class QCircuit:
         Produces a single qubit rotation of -pi/2 around the Z axis.
         It is a Clifford gate and is known as root of Z gate.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
 
         self.check_qubit_boundary(qubit)
@@ -337,16 +325,15 @@ class QCircuit:
         Produces an interchange in the states of the target qubits.
         It is symmetric and a Clifford gate.
 
-        Parameters
-        -----------
+        Args:
+            qubit1: index of qubit, to which the gate is to be applied.
+            qubit2: index of qubit, to which the gate is to be applied.
 
-        <qubit1>: takes in index of qubit, to which the gate is to be applied.
-        <qubit2>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubits to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit1)
         self.check_qubit_boundary(qubit2)
@@ -359,16 +346,15 @@ class QCircuit:
         to the amplitudes of |01> and |10>.
         It is symmetric and a Clifford gate.
 
-        Parameters
-        -----------
+        Args:
+            qubit1: index of qubit, to which the gate is to be applied.
+            qubit2: index of qubit, to which the gate is to be applied.
 
-        <qubit1>: takes in index of qubit, to which the gate is to be applied.
-        <qubit2>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubits to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit_a)
         self.check_qubit_boundary(qubit_b)
@@ -380,15 +366,14 @@ class QCircuit:
         Produces a single qubit rotation of pi/2 around the X axis.
         It is a Clifford gate and is known as root of X gate.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.sx_gate: [qubit]})
@@ -399,15 +384,14 @@ class QCircuit:
         Produces a single qubit rotation of -pi/2 around the X axis.
         It is a Clifford gate and is known as root of X gate.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.sxd_gate: [qubit]})
@@ -418,15 +402,14 @@ class QCircuit:
         Produces a single qubit rotation of pi/4 around the Z axis.
         It is a Clifford gate and is known as 4th root of Z gate.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.t_gate: [qubit]})
@@ -437,15 +420,14 @@ class QCircuit:
         Produces a single qubit rotation of -pi/4 around the Z axis.
         It is a Clifford gate and is known as 4th root of Z gate.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.td_gate: [qubit]})
@@ -456,18 +438,17 @@ class QCircuit:
         Produces a single qubit rotation with 3 Euler angles. This is the most generic form of single
         qubit rotation operators and all the other rotation operators are specific instances of the U gate.
 
-        Parameters
-        -----------
+        Args:
+            theta: angle(in radian) to be rotated.
+            phi: angle(in radian) to be rotated.
+            lam: angle(in radian) to be rotated.
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in angle(in radian) to be rotated.
-        <phi>: takes in angle(in radian) to be rotated.
-        <lam>: takes in angle(in radian) to be rotated.
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.u_gate: [qubit],
@@ -477,19 +458,18 @@ class QCircuit:
     def u1_gate(self, theta, qubit):
         """
         U1 gate is a special case of the U gate.
-        Produces a single qubit rotation with theta = phi = 0 and takes in angle theta.
+        Produces a single qubit rotation with theta = phi = 0 and angle theta.
         The U1 gate is equaivalent to the RZ gate.
 
-        Parameters
-        -----------
+        Args:
+            theta: angle(in radian) to be rotated.
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in angle(in radian) to be rotated.
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.u1_gate: [qubit],
@@ -499,19 +479,18 @@ class QCircuit:
     def u2_gate(self, phi, lam, qubit):
         """
         U2 gate, is a special case of the U gate.
-        Produces a single qubit rotation with theta = pi/2 and takes in angles phi and lam.
+        Produces a single qubit rotation with theta = pi/2 and angles phi and lam.
 
-        Parameters
-        -----------
+        Args:
+            phi: angle(in radian) to be rotated.
+            lam: angle(in radian) to be rotated.
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <phi>: takes in angle(in radian) to be rotated.
-        <lam>: takes in angle(in radian) to be rotated.
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.u2_gate: [qubit],
@@ -524,18 +503,17 @@ class QCircuit:
         This is the most generic form of single qubit rotation operators and all the other 
         rotation operators are specific instances of the U gate.
 
-        Parameters
-        -----------
+        Args:
+            theta: angle(in radian) to be rotated.
+            phi: angle(in radian) to be rotated.
+            lam: angle(in radian) to be rotated.
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in angle(in radian) to be rotated.
-        <phi>: takes in angle(in radian) to be rotated.
-        <lam>: takes in angle(in radian) to be rotated.
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append(({OpType.u3_gate: [qubit],
@@ -548,16 +526,15 @@ class QCircuit:
         If the control qubit is in the |0> state, the Y gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the Y gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.operations.append({OpType.cy_gate: [[control_qubit], [target_qubit]]})
@@ -569,15 +546,14 @@ class QCircuit:
         It's matrix is the identity matrix.
         This gate is primarily nominal and is not generally used in computation.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.i_gate: [qubit]})
@@ -589,17 +565,16 @@ class QCircuit:
         The simplified Toffoli gate is not equivalent to the Toffoli gate.
         It can be used in places where the Toffoli gate is uncomputed again.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit1: index of control qubit 1, to which the gate is to be applied.
+            control_qubit2: index of control qubit 2, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit1>: takes in index of control qubit 1, to which the gate is to be applied.
-        <control_qubit2>: takes in index of control qubit 2, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
 
         """
         self.check_qubit_boundary(control_qubit1)
@@ -614,18 +589,17 @@ class QCircuit:
         The simplified Toffoli gate is not equivalent to the Toffoli gate.
         It can be used in places where the Toffoli gate is uncomputed again.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit1: index of control qubit 1, to which the gate is to be applied.
+            control_qubit2: index of control qubit 2, to which the gate is to be applied.
+            control_qubit3: index of control qubit 3, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit1>: takes in index of control qubit 1, to which the gate is to be applied.
-        <control_qubit2>: takes in index of control qubit 2, to which the gate is to be applied.
-        <control_qubit3>: takes in index of control qubit 3, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit1)
         self.check_qubit_boundary(control_qubit2)
@@ -639,17 +613,16 @@ class QCircuit:
         """
         Parametric two qubit gate, performing rotation of theta angle, about XX axis.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            qubit1: index of qubit, to which the gate is to be applied.
+            qubit2: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <qubit1>: takes in index of qubit, to which the gate is to be applied.
-        <qubit2>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubits to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit1)
         self.check_qubit_boundary(qubit2)
@@ -660,16 +633,15 @@ class QCircuit:
         """
         Produces a single qubit rotation around the X-axis, for a specific angle taken as input.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.rx_gate: [qubit], constants.PARAMS: [theta]})
@@ -679,17 +651,16 @@ class QCircuit:
         """
         Produces a rotation of theta, around the cos(phi)x+sin(phi)y axis.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            phi: the angle(in radian) to compute the axis of rotation.
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <phi>: takes in the angle(in radian) to compute the axis of rotation.
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.r_gate: [qubit], constants.PARAMS: [theta, phi]})
@@ -700,16 +671,15 @@ class QCircuit:
         Produces a single qubit rotation around the Z-axis, for a specific angle taken as input.
         The Z gate, S gate and T gate are specific instances of the P gate.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            qubit: index of qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <qubit>: takes in index of qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(qubit)
         self.operations.append({OpType.p_gate: [qubit], constants.PARAMS: [theta]})
@@ -722,18 +692,17 @@ class QCircuit:
         If all the control qubits are in the |1> state, the X gate is performed
         on the target qubit. Otherwise, the the X gate is not performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit1: index of control qubit 1, to which the gate is to be applied.
+            control_qubit2: index of control qubit 2, to which the gate is to be applied.
+            control_qubit3: index of control qubit 3, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit1>: takes in index of control qubit 1, to which the gate is to be applied.
-        <control_qubit2>: takes in index of control qubit 2, to which the gate is to be applied.
-        <control_qubit3>: takes in index of control qubit 3, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit1)
         self.check_qubit_boundary(control_qubit2)
@@ -749,18 +718,17 @@ class QCircuit:
         If all the control qubits are in the |1> state, the SX gate is performed
         on the target qubit. Otherwise, the the SX gate is not performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit1: index of control qubit 1, to which the gate is to be applied.
+            control_qubit2: index of control qubit 2, to which the gate is to be applied.
+            control_qubit3: index of control qubit 3, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit1>: takes in index of control qubit 1, to which the gate is to be applied.
-        <control_qubit2>: takes in index of control qubit 2, to which the gate is to be applied.
-        <control_qubit3>: takes in index of control qubit 3, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit1)
         self.check_qubit_boundary(control_qubit2)
@@ -777,19 +745,18 @@ class QCircuit:
         If all the control qubits are in the |1> state, the X gate is performed
         on the target qubit. Otherwise, the the X gate is not performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit1: index of control qubit 1, to which the gate is to be applied.
+            control_qubit2: index of control qubit 2, to which the gate is to be applied.
+            control_qubit3: index of control qubit 3, to which the gate is to be applied.
+            control_qubit4: index of control qubit 4, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit1>: takes in index of control qubit 1, to which the gate is to be applied.
-        <control_qubit2>: takes in index of control qubit 2, to which the gate is to be applied.
-        <control_qubit3>: takes in index of control qubit 3, to which the gate is to be applied.
-        <control_qubit4>: takes in index of control qubit 4, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit1)
         self.check_qubit_boundary(control_qubit2)
@@ -806,16 +773,15 @@ class QCircuit:
         The first CX is applied on the second qubit with first qubit as control.
         The second CX is applied on the first qubit with second qubit as control.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit1: index of control qubit 1, to which the gate is to be applied.
+            control_qubit2: index of control qubit 2, to which the gate is to be applied.
 
-        <control_qubit1>: takes in index of control qubit 1, to which the gate is to be applied.
-        <control_qubit2>: takes in index of control qubit 2, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubits to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit1)
         self.check_qubit_boundary(control_qubit2)
@@ -828,16 +794,15 @@ class QCircuit:
         If the control qubit is in the |0> state, the H gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the H gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -850,16 +815,15 @@ class QCircuit:
         If the control qubit is in the |0> state, the SX gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the SX gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -872,17 +836,16 @@ class QCircuit:
         If the control qubit is in the |0> state, the Swap gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the Swap gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit1: index of target qubit, to which the gate is to be applied.
+            target_qubit2: index of target qubit, to which the gate is to be applied.
 
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit1>: takes in index of target qubit, to which the gate is to be applied.
-        <target_qubit2>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubits to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit1)
@@ -896,17 +859,16 @@ class QCircuit:
         If the control qubit is in the |0> state, the Phase gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the Phase gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -920,17 +882,16 @@ class QCircuit:
         If the control qubit is in the |0> state, the RX gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the RX gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -944,17 +905,16 @@ class QCircuit:
         If the control qubit is in the |0> state, the RY gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the RY gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated. 
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated. 
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -968,17 +928,16 @@ class QCircuit:
         If the control qubit is in the |0> state, the RZ gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the RZ gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -992,20 +951,19 @@ class QCircuit:
         If the control qubit is in the |0> state, the U gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the U gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            phi: the angle(in radian) to be rotated.
+            lam: the angle(in radian) to be rotated.
+            gamma: the angle(in radian) to be rotated.
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <phi>: takes in the angle(in radian) to be rotated.
-        <lam>: takes in the angle(in radian) to be rotated.
-        <gamma>: takes in the angle(in radian) to be rotated.
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -1019,17 +977,16 @@ class QCircuit:
         If the control qubit is in the |0> state, the U1 gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the U1 gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -1043,19 +1000,18 @@ class QCircuit:
         If the control qubit is in the |0> state, the U3 gate is not performed on the target qubit. If the control qubit is
         in the |1> state, then the U3 gate is performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            theta: the angle(in radian) to be rotated.
+            phi: the angle(in radian) to be rotated.
+            lam: the angle(in radian) to be rotated.
+            control_qubit: index of control qubit, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <theta>: takes in the angle(in radian) to be rotated.
-        <phi>: takes in the angle(in radian) to be rotated.
-        <lam>: takes in the angle(in radian) to be rotated.
-        <control_qubit>: takes in index of control qubit, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(control_qubit)
         self.check_qubit_boundary(target_qubit)
@@ -1069,16 +1025,15 @@ class QCircuit:
         If all the control qubits are in the |1> state, the X gate is performed
         on the target qubit. Otherwise, the the X gate is not performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubits: list of control qubit indices, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubits>: takes in list of control qubit indices, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(target_qubit)
         for qubit in control_qubits:
@@ -1093,16 +1048,15 @@ class QCircuit:
         If all the control qubits are in the |1> state, the X gate is performed using Gray code,
         on the target qubit. Otherwise, the the X gate is not performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubits: list of control qubit indices, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubits>: takes in list of control qubit indices, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(target_qubit)
         for qubit in control_qubits:
@@ -1117,15 +1071,15 @@ class QCircuit:
         If all the control qubits are in the |1> state, the X gate is performed using V chain of CX gates,
         on the target qubit. Otherwise, the the X gate is not performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubits: list of control qubit indices, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubits>: takes in list of control qubit indices, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        ate of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(target_qubit)
         for qubit in control_qubits:
@@ -1140,16 +1094,15 @@ class QCircuit:
         If all the control qubits are in the |1> state, the X gate is performed using recursion,
         on the target qubit. Otherwise, the the X gate is not performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            control_qubits: list of control qubit indices, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <control_qubits>: takes in list of control qubit indices, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(target_qubit)
         for qubit in control_qubits:
@@ -1164,17 +1117,16 @@ class QCircuit:
         If all the control qubits are in the |1> state, the P gate is performed
         on the target qubit. Otherwise, the the P gate is not performed on the target qubit.
 
-        Parameters
-        -----------
+        Args:
+            lam: the angle(in radian) to be rotated.
+            control_qubits: list of control qubit indices, to which the gate is to be applied.
+            target_qubit: index of target qubit, to which the gate is to be applied.
 
-        <lam>: takes in the angle(in radian) to be rotated.
-        <control_qubits>: takes in list of control qubit indices, to which the gate is to be applied.
-        <target_qubit>: takes in index of target qubit, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubit to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         self.check_qubit_boundary(target_qubit)
         for qubit in control_qubits:
@@ -1189,16 +1141,15 @@ class QCircuit:
         If all the control qubits are in the |1> state, the X gate is performed
         on the target qubits. Otherwise, the the X gate is not performed on the target qubits.
 
-        Parameters
-        -----------
+        Args:
+            control_qubits: list of control qubit indices, to which the gate is to be applied.
+            target_qubits: list of target qubit indices, to which the gate is to be applied.
 
-        <control_qubits>: takes in list of control qubit indices, to which the gate is to be applied.
-        <target_qubits>: takes in list of target qubit indices, to which the gate is to be applied.
+        Returns:
+            self: modified state of the qubit to the circuit.
 
-        Returns
-        --------
-        
-        Modified state of the qubits to the circuit.
+        Raises:
+            CircuitError: if qubit index is not within range.
         """
         for qubit in control_qubits:
             self.check_qubit_boundary(qubit)
@@ -1212,11 +1163,12 @@ class QCircuit:
         Executes the act of measuring the state of a qubit to a classical bit. The readouts
         from the classical bits are used to study the results generated by the quantum device.
 
-        Parameters
-        -----------
+        Args:
+            qubit: index of qubit, to be measured.
+            cbit: index of classical bit, to which the qubit is measured.
 
-        <qubit>: takes in index of qubit, to be measured.
-        <cbit>: takes in index of classical bit, to which the qubit is measured.
+        Raises:
+            CircuitError: if qubit index is not within range.
 
         """
         self.check_qubit_boundary(qubit)
@@ -1226,7 +1178,7 @@ class QCircuit:
         """
         Measures the state of all the qubits used in the circuit, to classical bits.
         The qubits are measured to the same corresponding index of classical bits
-        The function does not take in any parameters.
+        The function does not take in any Args:.
         """
         self.operations.append({OpType.measure_all: OpType.measure_all})
 
@@ -1237,10 +1189,8 @@ class QCircuit:
         """
         Checks if the index of the qubits entered in gate are permissible within the limits of the number of qubits declared.
         
-        Parameters
-        -----------
-
-        <qubit>: takes in index of qubit to be checked.
+        Args:
+            qubit: index of qubit to be checked.
         """
         if qubit > (self.qubits - 1):
             raise CircuitError(ErrorMessages.qubit_out_of_bound)
@@ -1249,10 +1199,8 @@ class QCircuit:
         """
         Generates the circuit diagram of the circuit that has been built.
 
-        Parameters
-        -----------
-
-        <provider>: takes in the name of backend provider as string input.
+        Args:
+            provider: the name of backend provider as string input.
         """
         self.check_and_convert(provider)
 
@@ -1285,20 +1233,16 @@ class QCircuit:
         """
         Executes the circuit using the backend which is given as an input by the user.
 
-        Parameters
-        -----------
-
-        <provider>: takes in the name of backend provider as string input.
-        <simulator_name>: takes in the name of simulator as string input.
-        <repetitions>: takes in the number of times the circuit is to be executed.
-        <api>: takes in the API token for the backend device as string input.
-        <device>: takes in the device name, where the circuit is to be executed, as string input.
+        Args:
+            provider: the name of backend provider as string input.
+            simulator_name: the name of simulator as string input.
+            repetitions: the number of times the circuit is to be executed.
+            api: the API token for the backend device as string input.
+            device: the device name, where the circuit is to be executed, as string input.
 
 
-        Returns
-        --------
-        
-        Results after execution.
+        Returns:
+            Results after execution.
         """
         self.check_and_convert(provider)
         if self.provider == providers.IBM_PROVIDER:
@@ -1324,10 +1268,8 @@ class QCircuit:
         """
         Produces a superposition of the |0> and |1> on the qubit.
 
-        Parameters
-        -----------
-
-        <qubit>: takes in the index of the qubit to be superposed.
+        Args:
+            qubit: the index of the qubit to be superposed.
         """
         self.h_gate(qubit)
 
@@ -1335,23 +1277,19 @@ class QCircuit:
         """
         Produces an entangled state of the |00> and |11> on the qubit.
 
-        Parameters
-        -----------
-
-        <qubit1>: takes in the index of the qubit 1 to be entangled.
-        <qubit2>: takes in the index of the qubit 2 to be entangled.
+        Args:
+            qubit1: the index of the qubit 1 to be entangled.
+            qubit2: the index of the qubit 2 to be entangled.
         """
         self.superposition(qubit1)
         self.cx_gate(qubit1, qubit2)
 
     def phase_kickback(self, qubit):
         """
-        Produces an entangled state of the |00> and |11> on the qubit.
+        Produces a phase kickback on the qubit.
 
-        Parameters
-        -----------
-
-        <qubit>: takes in the index of the qubit, in which the phase kickback is performed.
+        Args:
+            qubit: the index of the qubit, in which the phase kickback is performed.
         """
         self.x_gate(qubit)
         self.h_gate(qubit)

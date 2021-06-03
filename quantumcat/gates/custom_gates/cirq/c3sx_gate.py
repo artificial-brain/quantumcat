@@ -18,10 +18,8 @@ class C3SXGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+        	Number of qubits required.
         """
         return 4
 
@@ -29,10 +27,8 @@ class C3SXGate(cirq.Gate):
         """
         Provides the unitary matrix of the gate operation.
       
-        Returns
-        --------
-
-        Unitary matrix of gate.
+        Returns:
+            mat: Unitary matrix of gate.
         """
         exp1 = (1+1j)/2
         exp2 = (1-1j)/2
@@ -58,9 +54,7 @@ class C3SXGate(cirq.Gate):
         """
         Generates circuit representation of C3SX gate.
 
-        Returns
-        --------
-
-        Schematic representation of C3SX gate.
+        Returns:
+        	Schematic representation of C3SX gate.
         """
         return ["C3SX_c1", "C3SX_c2", "C3SX_c3", "C3SX_t"]

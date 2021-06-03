@@ -30,21 +30,20 @@ class SXDGate(cirq.Gate):
     	"""
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 1
 
     def _unitary_(self, dtype=None):
     	"""
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         return numpy.array([[1 - 1j, 1 + 1j],
                             [1 + 1j, 1 - 1j]], dtype=dtype) / 2
@@ -52,10 +51,11 @@ class SXDGate(cirq.Gate):
     def _circuit_diagram_info_(self, args):
     	"""
         Generates circuit representation of SXD Gate.
+        
+        Args:
+            args: index names of qubits.
 
-        Returns
-        --------
-
-        Schematic representation of SXD Gate.
+        Returns:
+            Schematic representation of SXD Gate.
         """
         return "SXD"

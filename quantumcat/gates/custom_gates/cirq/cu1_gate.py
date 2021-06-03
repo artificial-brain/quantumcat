@@ -12,10 +12,8 @@ class CU1Gate(cirq.Gate):
         """
         Initializes CU1Gate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <lam>: takes in the angle(in radian) to be rotated.
+        Args:
+            lam: angle(in radian) to be rotated.
         """
         super(CU1Gate, self).__init__()
         self.lam = lam
@@ -24,21 +22,20 @@ class CU1Gate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
         """
-        Provides the number of qubits required for the gate operation.
-      
-        Returns
-        --------
+        Provides the unitary matrix of the gate operation.
 
-        Number of qubits required.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         exp1 = numpy.exp(1j*self.lam)
         return numpy.array([[1, 0, 0, 0],
@@ -50,9 +47,10 @@ class CU1Gate(cirq.Gate):
         """
         Generates circuit representation of CU1 gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of CU1 gate.
+        Returns:
+            Schematic representation of CU1 gate.
         """
         return ["CU1_c", "CU1_t"]

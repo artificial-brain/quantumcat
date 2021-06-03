@@ -25,17 +25,16 @@ def to_qiskit(q_circuit, qubits):
     """
     Transpiles QuantumCat circuit into Qiskit circuit.
 
-    Parameters
-    -----------
-
-    <q_circuit>: QuantumCat circuit object to be converted to Qiskit circuit object.
-    <qubits>: takes in number of qubits to create Qiskit circuit.
-    <cbits>: takes in number of classical bits for measurement operation.
+    Args:
+        q_circuit: QuantumCat circuit object to be converted to Qiskit circuit object.
+        qubits: number of qubits to create Qiskit circuit.
+        cbits: number of classical bits for measurement.
     
-    Returns
-    --------
+    Returns:
+        Converted Qiskit quantum circuit.
 
-    Converted Qiskit quantum circuit.
+    Raises:
+        CircuitError: If arguements do not correspond to qubit index.
     """
     operations = q_circuit.operations
     num_of_measurements = helper.num_of_measurements(operations)
@@ -65,16 +64,15 @@ def to_cirq(q_circuit, qubits):
     """
     Transpiles QuantumCat circuit into Cirq circuit.
 
-    Parameters
-    -----------
-
-    <q_circuit>: QuantumCat circuit object to be converted to Cirq circuit object.
-    <qubits>: takes in number of qubits to create Cirq circuit.
+    Args:
+        q_circuit: QuantumCat circuit object to be converted to Cirq circuit object.
+        qubits: number of qubits to create Cirq circuit.
     
-    Returns
-    --------
+    Returns:
+        Converted Cirq quantum circuit.
 
-    Cirq quantum circuit object.
+    Raises:
+        CircuitError: If arguements do not correspond to qubit index.
     """
     operations = q_circuit.operations
     cirq_qc = cirq.Circuit()
@@ -108,16 +106,15 @@ def to_q_sharp(q_circuit, qubits, cbits):
     """
     Transpiles QuantumCat circuit into Q# circuit.
 
-    Parameters
-    -----------
-
-    <q_circuit>: QuantumCat circuit object to be converted to Cirq circuit object.
-    <qubits>: takes in number of qubits to create Q# circuit.
-    <cbits>: takes in number of classical bits for measurement operation.
+    Args:
+        q_circuit: QuantumCat circuit object to be converted to Q# circuit object.
+        qubits: number of qubits to create Q# circuit.
+        cbits: number of classical bits for measurement.
     
-    Returns
-    --------
+    Returns:
+        Converted Q# quantum circuit.
 
-    Q# quantum circuit object.
+    Raises:
+        CircuitError: If arguments do not correspond to qubit index.
     """
     pass

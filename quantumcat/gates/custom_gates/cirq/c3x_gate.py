@@ -18,21 +18,20 @@ class C3XGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        -------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 4
 
     def _unitary_(self, dtype=None):
         """
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         mat = numpy.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -56,9 +55,10 @@ class C3XGate(cirq.Gate):
         """
         Generates circuit representation of C3X gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of C3X gate.
+        Returns:
+            Schematic representation of C3X gate.
         """
         return ["C3X_c1", "C3X_c2", "C3X_c3", "C3X_t"]

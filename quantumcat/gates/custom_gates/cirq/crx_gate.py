@@ -12,10 +12,8 @@ class CRXGate(cirq.Gate):
         """
         Initializes CRXGate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <theta>: takes in the angle(in radian) to be rotated.
+        Args:
+            theta: takes in the angle(in radian) to be rotated.
         """
         super(CRXGate, self).__init__()
         self.theta = theta
@@ -24,21 +22,20 @@ class CRXGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
         """
-        Provides the number of qubits required for the gate operation.
-      
-        Returns
-        --------
+        Provides the unitary matrix of the gate operation.
 
-        Number of qubits required.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         theta2 = float(self.theta) / 2
         cos = numpy.cos(theta2)
@@ -52,9 +49,10 @@ class CRXGate(cirq.Gate):
         """
         Generates circuit representation of CRX gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of CRX gate.
+        Returns:
+            Schematic representation of CRX gate.
         """
         return ["CRX_c", "CRX_t"]

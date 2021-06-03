@@ -24,10 +24,8 @@ class RZXGate(cirq.Gate):
         """
         Initializes RZXGate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <theta>: takes in the angle(in radian) to be rotated.
+        Args:
+            theta: angle(in radian) to be rotated.
         """
         super(RZXGate, self).__init__()
         self.theta = theta
@@ -36,21 +34,20 @@ class RZXGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
         """
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         half_theta = float(self.theta) / 2
         cos = numpy.cos(half_theta)
@@ -63,10 +60,11 @@ class RZXGate(cirq.Gate):
     def _circuit_diagram_info_(self, args):
         """
         Generates circuit representation of RZX Gate.
+        
+        Args:
+            args: index names of qubits.
 
-        Returns
-        --------
-
-        Schematic representation of RZX Gate.
+        Returns:
+            Schematic representation of RZX Gate.
         """
         return [f"RZX({self.theta})"] * self.num_qubits()

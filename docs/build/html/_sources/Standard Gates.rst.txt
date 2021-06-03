@@ -1,5 +1,0 @@
-Standard set of Gates
-======================
-QuantumCat supports wide array of standard gate including single qubit gates and multi-qubit gates. All the standard gates are available in IBM Qiskit, Google Cirq and AWS braket are also included in the QuantumCat platform.
-
-QuantumCat provides the following gates as standard gates that can be imported from the QCircuit class.

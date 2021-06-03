@@ -18,21 +18,20 @@ class DCXGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
         """
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         return numpy.array([[1, 0, 0, 0],
                             [0, 0, 1, 0],
@@ -43,9 +42,10 @@ class DCXGate(cirq.Gate):
         """
         Generates circuit representation of DCX gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of DCX gate.
+        Returns:
+            Schematic representation of DCX gate.
         """
         return ["DCX_c1", "DCX_c2"]

@@ -12,10 +12,8 @@ class CRZGate(cirq.Gate):
         """
         Initializes CRZGate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <theta>: takes in the angle(in radian) to be rotated.
+        Args:
+            lam: angle(in radian) to be rotated.
         """
         super(CRZGate, self).__init__()
         self.lam = lam
@@ -24,21 +22,20 @@ class CRZGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
         """
-        Provides the number of qubits required for the gate operation.
-      
-        Returns
-        --------
+        Provides the unitary matrix of the gate operation.
 
-        Number of qubits required.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         lamd = float(self.lam)/2
         lam1 = numpy.exp(-1j * lamd)
@@ -52,9 +49,10 @@ class CRZGate(cirq.Gate):
         """
         Generates circuit representation of CRZ gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of CRZ gate.
+        Returns:
+            Schematic representation of CRZ gate.
         """
         return ["CRZ_c", "CRZ_t"]

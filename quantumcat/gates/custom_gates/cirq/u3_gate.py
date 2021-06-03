@@ -24,12 +24,10 @@ class U3Gate(cirq.Gate):
         """
         Initializes U3Gate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <theta>: takes in the angle(in radian) to be rotated.
-        <phi>: takes in the angle(in radian) to be rotated.
-        <lam>: takes in the angle(in radian) to be rotated.
+        Args:
+            theta: angle(in radian) to be rotated.
+            phi: angle(in radian) to be rotated.
+            lam: angle(in radian) to be rotated.
         """
         super(U3Gate, self).__init__()
         self.theta = theta
@@ -40,21 +38,20 @@ class U3Gate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 1
 
     def _unitary_(self, dtype=None):
         """
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         theta, phi, lam = self.theta, self.phi, self.lam
         theta, phi, lam = float(theta), float(phi), float(lam)
@@ -66,10 +63,11 @@ class U3Gate(cirq.Gate):
     def _circuit_diagram_info_(self, args):
         """
         Generates circuit representation of U3 Gate.
+        
+        Args:
+            args: index names of qubits.
 
-        Returns
-        --------
-
-        Schematic representation of U3 Gate.
+        Returns:
+            Schematic representation of U3 Gate.
         """
         return f"U3{self.theta, self.phi, self.lam}"

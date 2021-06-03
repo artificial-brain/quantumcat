@@ -18,8 +18,11 @@ Quantum Cat aims at helping even a beginner to use the power of quantum computer
    :maxdepth: 2
    :hidden:
    :caption: Contents:
+
+   modules
    
    Contents/beforeyoubegin
+   Contents/settingup
    Contents/standard gates
    Contents/algorithms
    Contents/applications

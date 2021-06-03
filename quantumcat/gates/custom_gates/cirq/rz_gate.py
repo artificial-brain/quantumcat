@@ -24,10 +24,8 @@ class RZGate(cirq.Gate):
         """
         Initializes RZGate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <phi>: takes in the angle(in radian) to be rotated.
+        Args:
+            phi: angle(in radian) to be rotated.
         """
         super(RZGate, self).__init__()
         self.phi = phi
@@ -36,21 +34,20 @@ class RZGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 1
 
     def _unitary_(self, dtype=None):
         """
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         ilam2 = 0.5j * float(self.phi)
         return np.array([[np.exp(-ilam2), 0],
@@ -61,9 +58,10 @@ class RZGate(cirq.Gate):
         """
         Generates circuit representation of RZ Gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of RZ Gate.
+        Returns:
+            Schematic representation of RZ Gate.
         """
         return "RZ"

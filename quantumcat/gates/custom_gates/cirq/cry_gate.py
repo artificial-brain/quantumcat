@@ -12,22 +12,21 @@ class CRYGate(cirq.Gate):
         """
         Initializes CRYGate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <theta>: takes in the angle(in radian) to be rotated.
+        Args:
+            theta: angle(in radian) to be rotated.
         """
         super(CRYGate, self).__init__()
         self.theta = theta
 
     def _num_qubits_(self):
         """
-        Provides the number of qubits required for the gate operation.
-      
-        Returns
-        --------
+        Provides the unitary matrix of the gate operation.
 
-        Number of qubits required.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         return 2
 
@@ -35,10 +34,8 @@ class CRYGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         theta2 = float(self.theta) / 2
         cos = numpy.cos(theta2)
@@ -52,9 +49,10 @@ class CRYGate(cirq.Gate):
         """
         Generates circuit representation of CRY gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of CRY gate.
+        Returns:
+            Schematic representation of CRY gate.
         """
         return ["CRY_c", "CRY_t"]

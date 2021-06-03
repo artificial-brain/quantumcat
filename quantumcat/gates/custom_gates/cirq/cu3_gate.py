@@ -12,12 +12,10 @@ class CU3Gate(cirq.Gate):
         """
         Initializes CU3Gate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <theta>: takes in the angle(in radian) to be rotated.
-        <phi>: takes in the angle(in radian) to be rotated.
-        <lam>: takes in the angle(in radian) to be rotated.
+        Args:
+            theta: angle(in radian) to be rotated.
+            phi: angle(in radian) to be rotated.
+            lam: angle(in radian) to be rotated.
         """
         super(CU3Gate, self).__init__()
         self.theta = theta
@@ -28,21 +26,20 @@ class CU3Gate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
         """
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         cos = numpy.cos(self.theta/2)
         sin = numpy.sin(self.theta/2)
@@ -58,9 +55,10 @@ class CU3Gate(cirq.Gate):
         """
         Generates circuit representation of CU3 gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of CU3 gate.
+        Returns:
+            Schematic representation of CU3 gate.
         """
         return ["CU3_c", "CU3_t"]

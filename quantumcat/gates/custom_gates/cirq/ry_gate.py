@@ -25,10 +25,8 @@ class RYGate(cirq.Gate):
         """
         Initializes RYGate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <theta>: takes in the angle(in radian) to be rotated.
+        Args:
+            theta: angle(in radian) to be rotated.
         """
         super(RYGate, self).__init__()
         self.theta = theta
@@ -37,21 +35,20 @@ class RYGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 1
 
     def _unitary_(self, dtype=None):
          """
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         cos = math.cos(self.theta / 2)
         sin = math.sin(self.theta / 2)
@@ -63,9 +60,10 @@ class RYGate(cirq.Gate):
         """
         Generates circuit representation of RY Gate.
 
-        Returns
-        --------
+        Args:
+            args: index names of qubits.
 
-        Schematic representation of RY Gate.
+        Returns:
+            Schematic representation of RY Gate.
         """
         return "RY"

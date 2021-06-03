@@ -24,12 +24,10 @@ class UGate(cirq.Gate):
         """
         Initializes UGate class and enables running of all associated methods.
 
-        Parameters
-        ----------
-
-        <theta>: takes in the angle(in radian) to be rotated.
-        <phi>: takes in the angle(in radian) to be rotated.
-        <lam>: takes in the angle(in radian) to be rotated.
+        Args:
+            theta: angle(in radian) to be rotated.
+            phi: angle(in radian) to be rotated.
+            lam: angle(in radian) to be rotated.
         """
         super(UGate, self).__init__()
         self.theta = theta
@@ -40,21 +38,20 @@ class UGate(cirq.Gate):
         """
         Provides the number of qubits required for the gate operation.
       
-        Returns
-        --------
-
-        Number of qubits required.
+        Returns:
+            Number of qubits required.
         """
         return 1
 
     def _unitary_(self, dtype=None):
         """
         Provides the unitary matrix of the gate operation.
-      
-        Returns
-        --------
 
-        Unitary matrix of gate.
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
         """
         return numpy.array([[numpy.cos(self.theta / 2), -numpy.exp(1j * self.lam) * numpy.sin(self.theta / 2)],
                             [numpy.exp(1j * self.phi) * numpy.sin(self.theta / 2), numpy.exp(1j * (self.phi + self.lam))* numpy.cos(self.theta / 2)]], dtype=dtype)
@@ -62,10 +59,11 @@ class UGate(cirq.Gate):
     def _circuit_diagram_info_(self, args):
         """
         Generates circuit representation of U Gate.
+        
+        Args:
+            args: index names of qubits.
 
-        Returns
-        --------
-
-        Schematic representation of U Gate.
+        Returns:
+            Schematic representation of U Gate.
         """
         return f"U{self.theta, self.phi, self.lam}"
