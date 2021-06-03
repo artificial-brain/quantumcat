@@ -1,3 +1,5 @@
-qiskit==0.26.2
-cirq==0.11.0
-amazon-braket-sdk==1.5.15
+qiskit~=0.26.2
+cirq~=0.11.0
+amazon-braket-sdk~=1.5.15
+pytest~=6.2.4
+setuptools~=41.2.0
