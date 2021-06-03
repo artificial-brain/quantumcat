@@ -16,7 +16,6 @@ from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers, constants
 from quantumcat.algorithms import GroversAlgorithm
 from quantumcat.applications.generator import RandomNumber
-import numpy as np
 
 
 def create_circuit_demo():
@@ -63,7 +62,7 @@ def run_on_real_device():
 
 
 def braket_demo():
-    circuit = QCircuit(1)
+    circuit = QCircuit(3)
     # circuit.h_gate(0)
     # circuit.cx_gate(0, 1)
     # circuit.x_gate(0)
@@ -90,7 +89,6 @@ def braket_demo():
     # circuit.p_gate(30, 0)
     # circuit.rzz_gate(30, 0, 1)
 
-    circuit.u3_gate(np.pi/2, np.pi/2, np.pi/2, 0)
     circuit.draw_circuit(provider=providers.AMAZON_PROVIDER)
     print(circuit.execute(provider=providers.AMAZON_PROVIDER))
     # print(circuit.execute(provider=providers.AMAZON_PROVIDER, simulator_name=constants.STATEVECTOR_SIMULATOR))
