@@ -16,14 +16,39 @@ import numpy
 
 
 class RXXGate(cirq.Gate):
+    """
+    The RXXGate class enables all the methods for the execution of the RXX Gate.
+    The class methods initializes the operation, performs the calculation and generates a schematic representation.
+    """
     def __init__(self, theta):
+        """
+        Initializes RXXGate class and enables running of all associated methods.
+
+        Args:
+            theta: angle(in radian) to be rotated.
+        """
         super(RXXGate, self).__init__()
         self.theta = theta
 
     def _num_qubits_(self):
+        """
+        Provides the number of qubits required for the gate operation.
+      
+        Returns:
+            Number of qubits required.
+        """
         return 2
 
     def _unitary_(self, dtype=None):
+        """
+        Provides the unitary matrix of the gate operation.
+
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
+        """
         theta2 = float(self.theta) / 2
         cos = numpy.cos(theta2)
         isin = 1j * numpy.sin(theta2)
@@ -33,4 +58,13 @@ class RXXGate(cirq.Gate):
                             [-isin, 0, 0, cos]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):
+        """
+        Generates circuit representation of RXX Gate.
+
+        Args:
+            args: index names of qubits.
+
+        Returns:
+            Schematic representation of RXX Gate.
+        """
         return [f"RXX({self.theta})"] * self.num_qubits()

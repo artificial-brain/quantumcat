@@ -16,14 +16,39 @@ import numpy as np
 
 
 class RYYGate(cirq.Gate):
+    """
+    The RYYGate class enables all the methods for the execution of the RYY Gate.
+    The class methods initializes the operation, performs the calculation and generates a schematic representation.
+    """
     def __init__(self, phi):
+        """
+        Initializes RYYGate class and enables running of all associated methods.
+
+        Args:
+            phi: angle(in radian) to be rotated.
+        """
         super(RYYGate, self).__init__()
         self.phi = phi
 
     def _num_qubits_(self):
+        """
+        Provides the number of qubits required for the gate operation.
+      
+        Returns:
+            Number of qubits required.
+        """
         return 2
 
     def _unitary_(self, dtype=None):
+        """
+        Provides the unitary matrix of the gate operation.
+
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
+        """
         theta = float(self.phi)
         cos = np.cos(self.phi / 2)
         isin = 1j * np.sin(self.phi / 2)
@@ -34,4 +59,13 @@ class RYYGate(cirq.Gate):
 
 
     def _circuit_diagram_info_(self, args):
+        """
+        Generates circuit representation of RYY Gate.
+
+        Args:
+            args: index names of qubits.
+
+        Returns:
+            Schematic representation of RYY Gate.
+        """
         return [f"RYY({self.phi})"] * self.num_qubits()

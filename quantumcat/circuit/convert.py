@@ -24,11 +24,19 @@ import inspect
 
 
 def to_qiskit(q_circuit, qubits):
-    """This function converts quantumcat circuit into qiskit circuit.
-    :param q_circuit: quantumcat circuit object that needs to be converted to qiskit circuit object
-    :param qubits: number of qubits to create qiskit circuit
-    :param cbits: number of classical bits for measurement
-    :return: qiskit quantumcircuit object
+    """
+    Transpiles QuantumCat circuit into Qiskit circuit.
+
+    Args:
+        q_circuit: QuantumCat circuit object to be converted to Qiskit circuit object.
+        qubits: number of qubits to create Qiskit circuit.
+        cbits: number of classical bits for measurement.
+    
+    Returns:
+        Converted Qiskit quantum circuit.
+
+    Raises:
+        CircuitError: If arguements do not correspond to qubit index.
     """
     operations = q_circuit.operations
     num_of_measurements = helper.num_of_measurements(operations)
@@ -55,10 +63,18 @@ def to_qiskit(q_circuit, qubits):
 
 
 def to_cirq(q_circuit, qubits):
-    """This function converts quantumcat circuit into qiskit circuit.
-    :param q_circuit: quantumcat circuit object that needs to be converted to qiskit circuit object
-    :param qubits: number of qubits to create qiskit circuit
-    :return: qiskit quantumcircuit object
+    """
+    Transpiles QuantumCat circuit into Cirq circuit.
+
+    Args:
+        q_circuit: QuantumCat circuit object to be converted to Cirq circuit object.
+        qubits: number of qubits to create Cirq circuit.
+    
+    Returns:
+        Converted Cirq quantum circuit.
+
+    Raises:
+        CircuitError: If arguements do not correspond to qubit index.
     """
     operations = q_circuit.operations
     cirq_qc = cirq.Circuit()
@@ -89,6 +105,20 @@ def to_cirq(q_circuit, qubits):
 
 
 def to_q_sharp(q_circuit, qubits, cbits):
+    """
+    Transpiles QuantumCat circuit into Q# circuit.
+
+    Args:
+        q_circuit: QuantumCat circuit object to be converted to Q# circuit object.
+        qubits: number of qubits to create Q# circuit.
+        cbits: number of classical bits for measurement.
+    
+    Returns:
+        Converted Q# quantum circuit.
+
+    Raises:
+        CircuitError: If arguments do not correspond to qubit index.
+    """
     pass
 
 
