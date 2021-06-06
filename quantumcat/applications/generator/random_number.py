@@ -28,8 +28,8 @@ class RandomNumber:
         operations.
 
         Args:
-            length: takes in length of random number to be generated.
-            output_type: takes in the form of representation of the random number.
+            length: length of random number to be generated.
+            output_type: the form of representation of the random number.
         """
         super(RandomNumber, self).__init__()
         self.length = length
@@ -49,7 +49,7 @@ class RandomNumber:
             device: name of specific quantum device to be used for execution.
 
         Returns:
-            randon_number: random number generated .
+            random_number: random number generated.
         """
         num_qubits = self.length
         circuit = QCircuit(num_qubits)

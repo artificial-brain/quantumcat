@@ -30,7 +30,6 @@ def to_qiskit(q_circuit, qubits):
     Args:
         q_circuit: QuantumCat circuit object to be converted to Qiskit circuit object.
         qubits: number of qubits to create Qiskit circuit.
-        cbits: number of classical bits for measurement.
     
     Returns:
         Converted Qiskit quantum circuit.
@@ -123,6 +122,19 @@ def to_q_sharp(q_circuit, qubits, cbits):
 
 
 def to_braket(q_circuit, qubits):
+    """
+        Transpiles QuantumCat circuit into AWS Braket circuit.
+
+        Args:
+            q_circuit: QuantumCat circuit object to be converted to AWS Braket circuit object.
+            qubits: number of qubits to create Braket circuit.
+
+        Returns:
+            Converted Braket quantum circuit.
+
+        Raises:
+            CircuitError: If arguments do not correspond to qubit index.
+        """
     operations = q_circuit.operations
     braket_qc = Circuit()
     for op in operations:

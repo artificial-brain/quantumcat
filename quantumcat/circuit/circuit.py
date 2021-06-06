@@ -356,9 +356,9 @@ class QCircuit:
         Raises:
             CircuitError: if qubit index is not within range.
         """
-        self.check_qubit_boundary(qubit_a)
-        self.check_qubit_boundary(qubit_b)
-        self.operations.append(({OpType.iswap_gate: [[qubit_a], [qubit_b]]}))
+        self.check_qubit_boundary(qubit_1)
+        self.check_qubit_boundary(qubit_2)
+        self.operations.append(({OpType.iswap_gate: [[qubit_1], [qubit_2]]}))
         return self
 
     def sx_gate(self, qubit):
@@ -1028,6 +1028,8 @@ class QCircuit:
         Args:
             control_qubits: list of control qubit indices, to which the gate is to be applied.
             target_qubit: index of target qubit, to which the gate is to be applied.
+            ancilla_qubits: list of ancilla qubits.
+            mode: current mode of gate, concerning ancilla qubits.
 
         Returns:
             self: modified state of the qubit to the circuit.
@@ -1074,6 +1076,7 @@ class QCircuit:
         Args:
             control_qubits: list of control qubit indices, to which the gate is to be applied.
             target_qubit: index of target qubit, to which the gate is to be applied.
+            dirty_ancilla: list of dirty ancilla qubits.
 
         Returns:
             self: modified state of the qubit to the circuit.
@@ -1144,6 +1147,8 @@ class QCircuit:
         Args:
             control_qubits: list of control qubit indices, to which the gate is to be applied.
             target_qubits: list of target qubit indices, to which the gate is to be applied.
+            ancilla_qubits: list of ancilla qubits.
+            mode: current mode of gate, concerning ancilla qubits.
 
         Returns:
             self: modified state of the qubit to the circuit.
@@ -1177,8 +1182,8 @@ class QCircuit:
     def measure_all(self):
         """
         Measures the state of all the qubits used in the circuit, to classical bits.
-        The qubits are measured to the same corresponding index of classical bits
-        The function does not take in any Args:.
+        The qubits are measured to the same corresponding index of classical bits.
+        The function does not take in any arguments.
         """
         self.operations.append({OpType.measure_all: OpType.measure_all})
 
@@ -1243,6 +1248,7 @@ class QCircuit:
             repetitions: the number of times the circuit is to be executed.
             api: the API token for the backend device as string input.
             device: the device name, where the circuit is to be executed, as string input.
+            default_target: set as simulator.
 
 
         Returns:
@@ -1266,6 +1272,12 @@ class QCircuit:
                                            default_target, repetitions, api, self.get_operations())
 
     def check_and_convert(self, provider):
+        """
+        Checks the circuit inputs and proceed to convert the circuit to required backend.
+
+        Args:
+            provider: the name of backend provider as string input.
+        """
         if self.converted_q_circuit is None or self.provider != provider:
             self.provider = provider
             converted_q_circuit = self.convert_circuit()

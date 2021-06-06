@@ -20,22 +20,22 @@ class CRYGate(cirq.Gate):
 
     def _num_qubits_(self):
         """
-        Provides the unitary matrix of the gate operation.
+        Provides the number of qubits required for the gate operation.
 
-        Args:
-            dtype: dtype.
-      
         Returns:
-            mat: Unitary matrix of gate.
+            Number of qubits required.
         """
         return 2
 
     def _unitary_(self, dtype=None):
         """
-        Provides the number of qubits required for the gate operation.
-      
-        Returns:
-            Number of qubits required.
+                Provides the unitary matrix of the gate operation.
+
+                Args:
+                    dtype: dtype.
+
+                Returns:
+                    mat: Unitary matrix of gate.
         """
         theta2 = float(self.theta) / 2
         cos = numpy.cos(theta2)
