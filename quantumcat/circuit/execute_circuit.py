@@ -65,7 +65,7 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
         simulator_name: simulator name as string input, where the circuit is to be simulated.
         repetitions: number of executions of the circuit.
         api: API name linked with the Google Cirq account.
-        operations: 
+        operations: list of operations to be passed.
 
     Returns:
         Statevector of the output.
