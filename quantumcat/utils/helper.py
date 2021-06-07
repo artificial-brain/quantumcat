@@ -43,11 +43,16 @@ def num_of_measurements(operations):
     return sum(1 for op in operations if gates_map.quantumcat_to_qiskit[next(iter(op.items()))[0]] == OpType.measure)
 
 def named_qubits_for_ops(named_qubits, qargs):
-    """This function creates NamedQubit array for cirq operations based on the number of qubits required for
+    """
+    This function creates NamedQubit array for cirq operations based on the number of qubits required for
     that particular operation. Ex: x_gate -> 1 NamedQubit, cx_gate -> 2 NamedQubit
-    :param named_qubits: NamedQubit for the entire circuit
-    :param qargs: qubits of a operation
-    :return: NamedQubit array based on the qargs
+    
+    Args:
+        named_qubits: NamedQubit for the entire circuit.
+        qargs: qubits of a operation.
+    
+    Returns:
+        op_named_qubits: NamedQubit array based on the qargs.
     """
     op_named_qubits = []
     if len(qargs) > 1:
@@ -97,6 +102,15 @@ def measure_qubits_index(operations):
 
 
 def binary_to_decimal(binary_num):
+    """
+    Converts binary number to decimal form.
+
+    Args:
+        binary_num: takes in binary form of number.
+
+    Returns:
+        Decimal form of number.
+    """
     return int(binary_num, 2)
 
 

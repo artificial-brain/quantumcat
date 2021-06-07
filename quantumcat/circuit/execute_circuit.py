@@ -22,6 +22,23 @@ from braket.devices import LocalSimulator
 
 def on_qiskit(q_circuit, simulator_name, repetitions, api, device_name,
               hub='ibm-q', group=None, project=None):
+    """
+    Initializes backend for running the circuit in the IBM Qiskit device.
+    
+    Args:
+        q_circuit: quantum circuit to be executed.
+        simulator_name: simulator name as string input, where the circuit is to be simulated.
+        repetitions: number of executions of the circuit.
+        api: API token as string input, linked with the IBMQ account.
+        device_name: name of IBM quantum devices where the execution takes place, as string input.
+                    The standard list of devices are provided in the IBMQ account.
+        hub: IBM Quantum hub name
+        group: gives access to all of IBM Quantum devices available to all users. Input to be given as "open".
+        project: gives access to all of IBM Quantum devices available to all users. Input to be given as "main".
+
+    Returns:
+        counts of the state or the statevector of the output, depending on the input.
+    """
     if api is None:
         backend = Aer.get_backend(simulator_name)
     else:
@@ -40,6 +57,19 @@ def on_qiskit(q_circuit, simulator_name, repetitions, api, device_name,
 
 
 def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
+    """
+    Initializes backend for running the circuit in the Google Cirq device.
+    
+    Args:
+        q_circuit: quantum circuit to be executed.
+        simulator_name: simulator name as string input, where the circuit is to be simulated.
+        repetitions: number of executions of the circuit.
+        api: API name linked with the Google Cirq account.
+        operations: list of operations to be passed.
+
+    Returns:
+        Statevector of the output.
+    """
     simulator = cirq.Simulator()
     if simulator_name == constants.DEFAULT_SIMULATOR:
         result = simulator.run(q_circuit, repetitions=repetitions)
@@ -55,6 +85,19 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
 
 # Need testing
 def on_ionq(q_circuit, repetitions, api, default_target, operations):
+    """
+        Initializes backend for running the circuit in the Ionq device.
+
+        Args:
+            q_circuit: quantum circuit to be executed.
+            repetitions: number of executions of the circuit.
+            api: API name linked with the Ionq account.
+            default_target: default target.
+            operations: list of operations to be passed.
+
+        Returns:
+            Statevector of the output.
+        """
     service = ionq.Service(api_key=api, default_target=default_target)
     result = service.run(q_circuit, repetitions=repetitions)
     qubits_index = helper.measure_qubits_index(operations)
@@ -66,6 +109,18 @@ def on_ionq(q_circuit, repetitions, api, default_target, operations):
 
 
 def on_braket(q_circuit, simulator_name, repetitions, api):
+    """
+    Initializes backend for running the circuit in the AWS Braket device.
+
+    Args:
+        q_circuit: quantum circuit to be executed.
+        simulator_name: simulator name as string input, where the circuit is to be simulated.
+        repetitions: number of executions of the circuit.
+        api: API token as string input.
+
+    Returns:
+        Statevector of the output.
+    """
     if simulator_name == constants.DEFAULT_SIMULATOR:
         results = LocalSimulator().run(q_circuit, shots=repetitions).result()
         return dict(results.measurement_counts)

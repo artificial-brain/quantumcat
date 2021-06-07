@@ -16,13 +16,35 @@ import numpy
 
 
 class RC3XGate(cirq.Gate):
+    """
+    The RC3XGate class enables all the methods for the execution of the RC3X gate.
+    The class methods initializes the operation, performs the calculation and generates a schematic representation.
+    """
     def __init__(self):
+        """
+        Initializes RC3XGate class and enables running of all associated methods.
+        """
         super(RC3XGate, self).__init__()
 
     def _num_qubits_(self):
+        """
+        Provides the number of qubits required for the gate operation.
+      
+        Returns:
+            Number of qubits required.
+        """
         return 4
 
     def _unitary_(self, dtype=None):
+        """
+        Provides the unitary matrix of the gate operation.
+
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
+        """
         return numpy.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -42,4 +64,13 @@ class RC3XGate(cirq.Gate):
 
 
     def _circuit_diagram_info_(self, args):
+        """
+        Generates circuit representation of RC3X gate.
+
+        Args:
+            args: index names of qubits.
+
+        Returns:
+            Schematic representation of RC3X gate.
+        """
         return ["RC3X_c1", "RC3X_c2", "RC3X_c3", "RC3X_t"]

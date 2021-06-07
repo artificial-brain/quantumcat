@@ -16,18 +16,52 @@ import numpy as np
 
 
 class RZGate(cirq.Gate):
+    """
+    The RZGate class enables all the methods for the execution of the RZ Gate.
+    The class methods initializes the operation, performs the calculation and generates a schematic representation.
+    """
     def __init__(self, phi):
+        """
+        Initializes RZGate class and enables running of all associated methods.
+
+        Args:
+            phi: angle(in radian) to be rotated.
+        """
         super(RZGate, self).__init__()
         self.phi = phi
 
     def _num_qubits_(self):
+        """
+        Provides the number of qubits required for the gate operation.
+      
+        Returns:
+            Number of qubits required.
+        """
         return 1
 
     def _unitary_(self, dtype=None):
+        """
+        Provides the unitary matrix of the gate operation.
+
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
+        """
         ilam2 = 0.5j * float(self.phi)
         return np.array([[np.exp(-ilam2), 0],
                          [0, np.exp(ilam2)]], dtype=dtype)
 
 
     def _circuit_diagram_info_(self, args):
+        """
+        Generates circuit representation of RZ Gate.
+
+        Args:
+            args: index names of qubits.
+
+        Returns:
+            Schematic representation of RZ Gate.
+        """
         return "RZ"

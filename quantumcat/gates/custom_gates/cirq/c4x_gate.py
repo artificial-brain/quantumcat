@@ -3,14 +3,36 @@ import numpy
 
 
 class C4XGate(cirq.Gate):
+    """
+    The C4XGate class enables all the methods for the execution of the C4X gate.
+    The class methods initializes the operation, performs the calculation and generates a schematic representation.
+    """
 
     def __init__(self):
+        """
+        Initializes C4XGate class and enables running of all associated methods.
+        """
         super(C4XGate, self).__init__()
 
     def _num_qubits_(self):
+        """
+        Provides the number of qubits required for the gate operation.
+      
+        Returns:
+            Number of qubits required.
+        """
         return 5
 
     def _unitary_(self, dtype=None):
+        """
+        Provides the unitary matrix of the gate operation.
+
+        Args:
+            dtype: dtype.
+      
+        Returns:
+            mat: Unitary matrix of gate.
+        """
         mat = numpy.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -48,4 +70,13 @@ class C4XGate(cirq.Gate):
     
     
     def _circuit_diagram_info_(self, args):
+        """
+        Generates circuit representation of C4X gate.
+
+        Args:
+            args: index names of qubits.
+
+        Returns:
+            Schematic representation of C4X gate.
+        """
         return ["C4X_c1", "C4X_c2", "C4X_c3", "C4X_c4", "C4X_t"]
