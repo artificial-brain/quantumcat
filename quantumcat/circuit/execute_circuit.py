@@ -85,6 +85,19 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
 
 # Need testing
 def on_ionq(q_circuit, repetitions, api, default_target, operations):
+    """
+        Initializes backend for running the circuit in the Ionq device.
+
+        Args:
+            q_circuit: quantum circuit to be executed.
+            repetitions: number of executions of the circuit.
+            api: API name linked with the Ionq account.
+            default_target: default target.
+            operations: list of operations to be passed.
+
+        Returns:
+            Statevector of the output.
+        """
     service = ionq.Service(api_key=api, default_target=default_target)
     result = service.run(q_circuit, repetitions=repetitions)
     qubits_index = helper.measure_qubits_index(operations)
