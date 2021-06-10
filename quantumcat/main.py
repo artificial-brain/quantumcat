@@ -47,8 +47,8 @@ def grovers_demo():
 
 
 def random_number_demo():
-    random_number = RandomNumber(length=4, output_type=constants.DECIMAL)\
-        .execute()
+    random_number = RandomNumber(length=2, output_type=constants.DECIMAL)\
+        .execute(provider=providers.AMAZON_PROVIDER)
     print(random_number)
 
 
@@ -95,5 +95,4 @@ def braket_demo():
 
 
 if __name__ == '__main__':
-    braket_demo()
-    # create_circuit_demo()
+    random_number_demo()

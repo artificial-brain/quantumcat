@@ -158,4 +158,5 @@ quantumcat_to_braket = {
     OpType.cswap_gate: amazon_gates.CSwap,
     OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
+    OpType.measure_all: OpType.measure_all,
 }

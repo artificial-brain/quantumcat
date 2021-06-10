@@ -106,6 +106,8 @@ def to_braket(q_circuit, qubits):
 
         if braket_op == OpType.measure:
             braket_qc.add(ResultType.Probability(target=[qargs[0]]))
+        elif braket_op == OpType.measure_all:
+            braket_qc.add(ResultType.Probability)
         else:
             braket_qc.add([Instruction(braket_op(*params), qargs)])
 
