@@ -26,7 +26,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name='quantumcat',
-    version='0.1.1',
+    version='0.1.2',
     description='A high-level cross-platform open-source quantum computing library',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
@@ -38,7 +38,7 @@ setuptools.setup(
     packages=setuptools.find_namespace_packages(),
     install_requires=REQUIREMENTS,
     include_package_data=True,
-    url='http://quantumcat.io',
+    url='https://quantumcat.io',
     python_requires=">=3.8",
     project_urls={
         "Bug Tracker": "https://github.com/artificial-brain/quantumcat/issues",
