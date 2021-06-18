@@ -21,7 +21,8 @@ import cirq
 from braket.circuits import Circuit, Instruction
 from braket.circuits.result_type import ResultType
 import inspect
-
+# from quantumcat.gates.custom_gates.braket.u3_gate import u3_g
+import numpy as np
 
 def to_qiskit(q_circuit, qubits):
     """This function converts quantumcat circuit into qiskit circuit.
@@ -80,7 +81,7 @@ def to_cirq(q_circuit, qubits):
             mct_named_qubits = helper.named_qubits_for_multi_controlled_op(named_qubits, qargs)
             cirq_qc.append([cirq.ops.X(mct_named_qubits[1]).controlled_by(*mct_named_qubits[0])])
         # Find a better way to replace the following if
-        elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
+        elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_cirq_custom_class(cirq_op())):
             cirq_qc.append([cirq_op(*params).on(*helper.named_qubits_for_ops(named_qubits, qargs))])
         else:
             cirq_qc.append([cirq_op(*helper.named_qubits_for_ops(named_qubits, qargs))])
@@ -103,9 +104,10 @@ def to_braket(q_circuit, qubits):
         qargs = operation[1]
         if constants.PARAMS in op:
             params = (op[constants.PARAMS])
-
         if braket_op == OpType.measure:
             braket_qc.add(ResultType.Probability(target=[qargs[0]]))
+        elif helper.is_braket_custom_gate(operation[0]):
+            braket_qc.unitary(matrix=braket_op(*params), targets=[qargs[0]])
         else:
             braket_qc.add([Instruction(braket_op(*params), qargs)])
 
