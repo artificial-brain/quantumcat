@@ -150,7 +150,6 @@ quantumcat_to_braket = {
     OpType.i_gate: amazon_gates.I,
     OpType.cy_gate: amazon_gates.CY,
     OpType.p_gate: amazon_gates.PhaseShift,
-    OpType.u3_gate: custom_gates.braket.U3Gate,
     OpType.rxx_gate: amazon_gates.XX,
     OpType.rx_gate: amazon_gates.Rx,
     OpType.ry_gate: amazon_gates.Ry,
@@ -159,27 +158,8 @@ quantumcat_to_braket = {
     OpType.cz_gate: amazon_gates.CZ,
     OpType.cphase_gate: amazon_gates.CPhaseShift,
     OpType.cswap_gate: amazon_gates.CSwap,
-    OpType.dcx_gate: custom_gates.braket.DCXGate,
-    OpType.ch_gate : custom_gates.braket.CHGate,
-    OpType.crx_gate: custom_gates.braket.CRXGate,
-    OpType.cry_gate: custom_gates.braket.CRYGate,
-    OpType.crz_gate: custom_gates.braket.CRZGate,
-    OpType.csx_gate: custom_gates.braket.CSXGate,
-    OpType.cu_gate: custom_gates.braket.CUGate,
-    OpType.cu1_gate: custom_gates.braket.CU1Gate,
-    OpType.cu3_gate: custom_gates.braket.CU3Gate,
-    # MCXGate
-    # MCXGrayCode
-    # MCXRecursive
-    # MCXVChain
-    # OpType.MSGate
-    OpType.rccx_gate: custom_gates.braket.RCCXGate,
-    OpType.rc3x_gate: custom_gates.braket.RC3XGate,
-    OpType.r_gate: custom_gates.braket.RGate,
-    OpType.rzx_gate: custom_gates.braket.RZXGate,
-    OpType.u_gate: custom_gates.braket.UGate,
-    OpType.u1_gate: custom_gates.braket.U1Gate,
     OpType.u2_gate: custom_gates.braket.U2Gate,
+    OpType.u3_gate: custom_gates.braket.U3Gate,
     OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
 }

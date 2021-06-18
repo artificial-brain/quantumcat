@@ -15,8 +15,8 @@
 from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers, constants
 
-circuit = QCircuit(4)
-circuit.h_gate(0)
+circuit = QCircuit(2)
+circuit.u3_gate(45, 45, 45, 0)
 circuit.cx_gate(0, 1)
 # circuit.x_gate(0)
 

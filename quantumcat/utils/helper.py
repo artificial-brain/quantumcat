@@ -22,7 +22,8 @@ from quantumcat.gates.custom_gates.cirq import UGate, U1Gate, U2Gate, U3Gate, RX
 from quantumcat.circuit.op_type import OpType
 from quantumcat.utils import gates_map
 
-def is_custom_class(obj):
+
+def is_cirq_custom_class(obj):
     if isinstance(obj, UGate) or isinstance(obj, U1Gate) or isinstance(obj, U2Gate) or isinstance(obj, U3Gate) or \
             isinstance(obj, RXXGate) or isinstance(obj, SXDGate) or isinstance(obj, SDGGate) or \
             isinstance(obj, SXGate) or isinstance(obj, TDGate) or isinstance(obj, RXGate) or \
@@ -39,8 +40,16 @@ def is_custom_class(obj):
         return False
 
 
+def is_braket_custom_gate(opType):
+    if opType == OpType.u2_gate or opType == OpType.u3_gate:
+        return True
+    else:
+        return False
+
+
 def num_of_cbit(operations):
     return sum(1 for op in operations if gates_map.quantumcat_to_qiskit[next(iter(op.items()))[0]] == OpType.measure)
+
 
 def named_qubits_for_ops(named_qubits, qargs):
     """This function creates NamedQubit array for cirq operations based on the number of qubits required for
@@ -61,6 +70,7 @@ def named_qubits_for_ops(named_qubits, qargs):
                 op_named_qubits.append(named_qubits[j])
 
     return op_named_qubits
+
 
 def named_qubits_for_multi_controlled_op(named_qubits, qargs):
     mct_named_qubits = []
