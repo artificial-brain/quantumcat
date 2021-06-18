@@ -107,7 +107,7 @@ def to_braket(q_circuit, qubits):
         if braket_op == OpType.measure:
             braket_qc.add(ResultType.Probability(target=[qargs[0]]))
         elif helper.is_braket_custom_gate(operation[0]):
-            braket_qc.unitary(matrix=braket_op(*params), targets=[qargs[0]])
+            braket_qc.unitary(matrix=braket_op(*params), targets=[*qargs])
         else:
             braket_qc.add([Instruction(braket_op(*params), qargs)])
 
