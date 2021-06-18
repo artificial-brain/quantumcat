@@ -45,3 +45,4 @@ from quantumcat.gates.custom_gates.cirq.c3sx_gate import C3SXGate
 from quantumcat.gates.custom_gates.cirq.cphase_gate import CPhaseGate
 from quantumcat.gates.custom_gates.cirq.csx_gate import CSXGate
 from quantumcat.gates.custom_gates.cirq.ch_gate import CHGate
+from quantumcat.gates.custom_gates.cirq.unitary import Unitary

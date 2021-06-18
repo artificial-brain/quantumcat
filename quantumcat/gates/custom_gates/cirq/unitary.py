@@ -11,8 +11,21 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+import cirq
 
 
-from quantumcat.applications.generator.random_number import RandomNumber
-from quantumcat.applications.generator.randint import RandInt
+class Unitary(cirq.Gate):
 
+    def __init__(self, matrix, bits):
+        super(Unitary, self).__init__()
+        self.matrix = matrix
+        self.bits = bits
+
+    def _num_qubits_(self):
+        return self.bits
+
+    def _unitary_(self, dtype=None):
+        return self.matrix
+
+    def _circuit_diagram_info_(self, args):
+        return ["Random number matrix"] * self.bits
