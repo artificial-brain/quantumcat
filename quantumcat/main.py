@@ -62,32 +62,10 @@ def run_on_real_device():
 
 
 def braket_demo():
-    circuit = QCircuit(3)
-    # circuit.h_gate(0)
-    # circuit.cx_gate(0, 1)
-    # circuit.x_gate(0)
-    # circuit.z_gate(0)
-    # circuit.ccx_gate(0, 1, 2)
-    # circuit.s_gate(0)
-    # circuit.sdg_gate(0)
-    # circuit.swap_gate(0, 1)
-    # circuit.iswap_gate(0, 1)
-    # circuit.sx_gate(0)
-    # circuit.sxd_gate(0)
-    # circuit.t_gate(0)
-    # circuit.td_gate(0)
-    # circuit.i_gate(0)
-    # circuit.cy_gate(0, 1)
-    # circuit.cz_gate(0, 1)
-    # circuit.cswap_gate(0, 1, 2)
-    # circuit.rx_gate(30, 0)
-    # circuit.ry_gate(30, 0)
-    # circuit.cphase_gate(30, 0, 1)
-    # circuit.ryy_gate(30, 0, 1)
-    # circuit.rz_gate(30, 0)
-    # circuit.rxx_gate(30, 0, 1)
-    # circuit.p_gate(30, 0)
-    # circuit.rzz_gate(30, 0, 1)
+    circuit = QCircuit(2)
+    circuit.h_gate(0)
+    circuit.u3_gate(45, 45, 45, 1)
+    circuit.measure_all()
 
     circuit.draw_circuit(provider=providers.AMAZON_PROVIDER)
     print(circuit.execute(provider=providers.AMAZON_PROVIDER))
@@ -95,4 +73,4 @@ def braket_demo():
 
 
 if __name__ == '__main__':
-    random_number_demo()
+    braket_demo()
