@@ -1,2 +1,3 @@
 qiskit==0.26.2
 cirq==0.11.0
+amazon-braket-sdk==1.6.4

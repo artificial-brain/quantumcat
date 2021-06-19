@@ -21,6 +21,7 @@ from quantumcat.applications.generator import RandomNumber, RandInt, RandInt2
 def create_circuit_demo():
     circuit = QCircuit(2)
     circuit.x_gate(0)
+    circuit.u3_gate(45, 45, 45, 0)
     circuit.measure_all()
     # circuit.draw_circuit(provider=providers.IBM_PROVIDER)
     print(circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=10))
@@ -62,5 +63,17 @@ def run_on_real_device():
                           api=constants.IBM_API, device=constants.IBM_DEVICE_NAME))
 
 
+def braket_demo():
+    circuit = QCircuit(2)
+    circuit.h_gate(0)
+    circuit.u3_gate(45, 45, 45, 1)
+    circuit.measure_all()
+
+    circuit.draw_circuit(provider=providers.AMAZON_PROVIDER)
+    print(circuit.execute(provider=providers.AMAZON_PROVIDER))
+    # print(circuit.execute(provider=providers.AMAZON_PROVIDER, simulator_name=constants.STATEVECTOR_SIMULATOR))
+
+
 if __name__ == '__main__':
     random_number_demo()
+

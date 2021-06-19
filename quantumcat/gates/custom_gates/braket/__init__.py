@@ -12,5 +12,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from quantumcat.gates.custom_gates import cirq
-from quantumcat.gates.custom_gates import braket
+
+from quantumcat.gates.custom_gates.braket.u2_gate import U2Gate
+from quantumcat.gates.custom_gates.braket.u3_gate import U3Gate
+
+
+
+

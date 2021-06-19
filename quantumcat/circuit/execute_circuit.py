@@ -17,6 +17,7 @@ from qiskit import Aer, execute, IBMQ
 from qiskit.providers.ibmq import least_busy
 import cirq
 import cirq.ionq as ionq
+from braket.devices import LocalSimulator
 
 
 def on_qiskit(q_circuit, simulator_name, repetitions, api, device_name,
@@ -49,7 +50,7 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
         else:
             return helper.cirq_measurment_in_reverse(result.histogram(key='result', fold_func=helper.bitstring))
     elif simulator_name == constants.STATEVECTOR_SIMULATOR:
-        return simulator.simulate(q_circuit).final_state_vector()
+        return simulator.simulate(q_circuit).final_state_vector
 
 
 # Need testing
@@ -62,3 +63,11 @@ def on_ionq(q_circuit, repetitions, api, default_target, operations):
                                               (keys=qubits_index, fold_func=helper.bitstring))
     else:
         return helper.cirq_measurment_in_reverse(result.histogram(key='result', fold_func=helper.bitstring))
+
+
+def on_braket(q_circuit, simulator_name, repetitions, api):
+    if simulator_name == constants.DEFAULT_SIMULATOR:
+        results = LocalSimulator().run(q_circuit, shots=repetitions).result()
+        return dict(results.measurement_counts)
+    elif simulator_name == constants.STATEVECTOR_SIMULATOR:
+        return LocalSimulator().run(q_circuit.state_vector(), shots=0).result().values[0]

@@ -15,7 +15,9 @@
 from quantumcat.circuit.op_type import OpType
 from qiskit.circuit.library import standard_gates
 from cirq import ops
+from braket.circuits import gates as amazon_gates
 from quantumcat.gates import custom_gates
+
 
 quantumcat_to_qiskit = {
     OpType.x_gate: standard_gates.x.XGate,
@@ -83,6 +85,8 @@ quantumcat_to_cirq = {
     OpType.cx_gate: ops.common_gates.CNOT,
     OpType.ccx_gate: ops.three_qubit_gates.CCNOT,
     OpType.h_gate: ops.common_gates.H,
+    OpType.ry_gate: custom_gates.cirq.RYGate,
+    OpType.ryy_gate: custom_gates.cirq.RYYGate,
     OpType.rzz_gate: custom_gates.cirq.RZZGate,
     OpType.rzx_gate: custom_gates.cirq.RZXGate,
     OpType.s_gate: ops.common_gates.S,
@@ -92,7 +96,6 @@ quantumcat_to_cirq = {
     OpType.sxd_gate: custom_gates.cirq.SXDGate,
     OpType.t_gate: ops.common_gates.T,
     OpType.td_gate: custom_gates.cirq.TDGate,
-    OpType.cz_gate: ops.common_gates.CZ,
     OpType.i_gate: ops.identity.I,
     OpType.cy_gate: custom_gates.cirq.CYGate,
     OpType.p_gate: custom_gates.cirq.PGate,
@@ -104,9 +107,7 @@ quantumcat_to_cirq = {
     OpType.rxx_gate: custom_gates.cirq.RXXGate,
     OpType.r_gate: custom_gates.cirq.RGate,
     OpType.rx_gate: custom_gates.cirq.RXGate,
-    OpType.ry_gate: custom_gates.cirq.RYGate,
     OpType.rz_gate: custom_gates.cirq.RZGate,
-    OpType.ryy_gate: custom_gates.cirq.RYYGate,
     OpType.rccx_gate: custom_gates.cirq.RCCXGate,
     OpType.rc3x_gate: custom_gates.cirq.RC3XGate,
     OpType.c3x_gate: custom_gates.cirq.C3XGate,
@@ -125,6 +126,41 @@ quantumcat_to_cirq = {
     OpType.cswap_gate: ops.three_qubit_gates.CSWAP,
     OpType.mct_gate: OpType.mct_gate,
     OpType.unitary: custom_gates.cirq.Unitary,
+    OpType.measure: OpType.measure,
+    OpType.measure_all: OpType.measure_all,
+}
+
+
+quantumcat_to_braket = {
+    OpType.x_gate: amazon_gates.X,
+    OpType.y_gate: amazon_gates.Y,
+    OpType.z_gate: amazon_gates.Z,
+    OpType.cx_gate: amazon_gates.CNot,
+    OpType.ccx_gate: amazon_gates.CCNot,
+    OpType.h_gate: amazon_gates.H,
+    OpType.rzz_gate: amazon_gates.ZZ,
+    OpType.s_gate: amazon_gates.S,
+    OpType.sdg_gate: amazon_gates.Si,
+    OpType.swap_gate: amazon_gates.Swap,
+    OpType.iswap_gate: amazon_gates.ISwap,
+    OpType.sx_gate: amazon_gates.V,
+    OpType.sxd_gate: amazon_gates.Vi,
+    OpType.t_gate: amazon_gates.T,
+    OpType.td_gate: amazon_gates.Ti,
+    OpType.i_gate: amazon_gates.I,
+    OpType.cy_gate: amazon_gates.CY,
+    OpType.p_gate: amazon_gates.PhaseShift,
+    OpType.rxx_gate: amazon_gates.XX,
+    OpType.rx_gate: amazon_gates.Rx,
+    OpType.ry_gate: amazon_gates.Ry,
+    OpType.ryy_gate: amazon_gates.YY,
+    OpType.rz_gate: amazon_gates.Rz,
+    OpType.cz_gate: amazon_gates.CZ,
+    OpType.cphase_gate: amazon_gates.CPhaseShift,
+    OpType.cswap_gate: amazon_gates.CSwap,
+    OpType.u2_gate: custom_gates.braket.U2Gate,
+    OpType.u3_gate: custom_gates.braket.U3Gate,
+    OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
     OpType.measure_all: OpType.measure_all,
 }
