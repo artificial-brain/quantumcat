@@ -15,4 +15,5 @@
 
 from quantumcat.applications.generator.random_number import RandomNumber
 from quantumcat.applications.generator.randint import RandInt
+from quantumcat.applications.generator.randint2 import RandInt2
 
