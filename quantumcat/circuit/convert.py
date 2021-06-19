@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
 from qiskit import QuantumCircuit
 from quantumcat.utils import gates_map
 from quantumcat.circuit.op_type import OpType
@@ -31,8 +32,8 @@ def to_qiskit(q_circuit, qubits):
     :return: qiskit quantumcircuit object
     """
     operations = q_circuit.operations
-    cbits = helper.num_of_cbit(operations)
-    qiskit_qc = QuantumCircuit(qubits, cbits) if cbits > 0 else QuantumCircuit(qubits)
+    num_of_measurements = helper.num_of_measurements(operations)
+    qiskit_qc = QuantumCircuit(qubits, qubits) if num_of_measurements > 0 else QuantumCircuit(qubits)
     for op in operations:
         params = []
         operation = next(iter(op.items()))
@@ -103,10 +104,12 @@ def to_braket(q_circuit, qubits):
         qargs = operation[1]
         if constants.PARAMS in op:
             params = (op[constants.PARAMS])
-        if braket_op == OpType.measure:
-            braket_qc.add(ResultType.Probability(target=[qargs[0]]))
         elif helper.is_braket_custom_gate(operation[0]):
             braket_qc.unitary(matrix=braket_op(*params), targets=[qargs[0]])
+        if braket_op == OpType.measure:
+            braket_qc.add(ResultType.Probability(target=[qargs[0]]))
+        elif braket_op == OpType.measure_all:
+            braket_qc.add(ResultType.Probability)
         else:
             braket_qc.add([Instruction(braket_op(*params), qargs)])
 

@@ -106,9 +106,7 @@ quantumcat_to_cirq = {
     OpType.rxx_gate: custom_gates.cirq.RXXGate,
     OpType.r_gate: custom_gates.cirq.RGate,
     OpType.rx_gate: custom_gates.cirq.RXGate,
-    OpType.ry_gate: custom_gates.cirq.RYGate,
     OpType.rz_gate: custom_gates.cirq.RZGate,
-    OpType.ryy_gate: custom_gates.cirq.RYYGate,
     OpType.rccx_gate: custom_gates.cirq.RCCXGate,
     OpType.rc3x_gate: custom_gates.cirq.RC3XGate,
     OpType.c3x_gate: custom_gates.cirq.C3XGate,
@@ -162,4 +160,5 @@ quantumcat_to_braket = {
     OpType.u3_gate: custom_gates.braket.U3Gate,
     OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
+    OpType.measure_all: OpType.measure_all,
 }
