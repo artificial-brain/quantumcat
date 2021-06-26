@@ -4,8 +4,9 @@ import numpy
 
 @circuit.subroutine(register=True)
 def CHGate(dtype=None):
-    sqt2 = numpy.sqrt(2)
+    _sqrt2o2 = 1 / numpy.sqrt(2)
     return numpy.array([[1, 0, 0, 0],
-                        [0, 1, 0, 0],
-                        [0, 0, 1/sqt2, 1/sqt2],
-                        [0, 0, 1/sqt2, -1/sqt2]], dtype=dtype)
+                        [0, _sqrt2o2, 0, _sqrt2o2],
+                        [0, 0, 1, 0],
+                        [0, _sqrt2o2, 0, -_sqrt2o2]],
+                       dtype=complex)

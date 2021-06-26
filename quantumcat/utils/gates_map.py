@@ -82,6 +82,7 @@ quantumcat_to_cirq = {
     OpType.y_gate: ops.pauli_gates.Y,
     OpType.z_gate: ops.pauli_gates.Z,
     OpType.cx_gate: ops.common_gates.CNOT,
+    OpType.cz_gate: ops.common_gates.CZ,
     OpType.ccx_gate: ops.three_qubit_gates.CCNOT,
     OpType.h_gate: ops.common_gates.H,
     OpType.ry_gate: custom_gates.cirq.RYGate,
