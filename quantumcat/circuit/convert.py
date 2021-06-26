@@ -21,8 +21,7 @@ import cirq
 from braket.circuits import Circuit, Instruction
 from braket.circuits.result_type import ResultType
 import inspect
-# from quantumcat.gates.custom_gates.braket.u3_gate import u3_g
-import numpy as np
+
 
 def to_qiskit(q_circuit, qubits):
     """This function converts quantumcat circuit into qiskit circuit.

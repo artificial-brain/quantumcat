@@ -14,7 +14,7 @@
 
 from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers, constants
-import numpy as np
+
 
 circuit = QCircuit(4)
 circuit.h_gate(0)
@@ -53,7 +53,7 @@ circuit.cu1_gate(30, 0, 1)
 circuit.dcx_gate(0, 1)
 circuit.rzx_gate(30, 0, 1)
 circuit.ch_gate(0, 1)
-circuit.crx_gate(np.pi/3, 0, 1)
+circuit.crx_gate(30, 0, 1)
 circuit.cu_gate(30, 60, 20, 60, 0, 1)
 circuit.cry_gate(40, 0, 1)
 circuit.cu3_gate(30, 60, 30, 0, 1)

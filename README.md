@@ -64,7 +64,7 @@ results = classifier.predict(provider=providers.Google, api='feasdgr2354gdsfgd01
 ## Platforms Supported
 * IBM Qiskit
 * Google Cirq
-* Amazon Braket (In progress)
+* Amazon Braket
 ## Gates Supported
 [Click here to view gates supported](https://sheet.zoho.com/sheet/published/nvlfe4b782cabaa524276ab9a44e270d800b2?mode=html)
 ## Properties

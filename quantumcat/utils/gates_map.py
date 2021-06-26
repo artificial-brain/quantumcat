@@ -176,4 +176,5 @@ quantumcat_to_braket = {
     OpType.rzx_gate: custom_gates.braket.RZXGate,
     OpType.mct_gate: OpType.mct_gate,
     OpType.measure: OpType.measure,
+    OpType.measure_all: OpType.measure_all,
 }
