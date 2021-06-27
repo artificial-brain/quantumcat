@@ -52,6 +52,29 @@ def is_braket_custom_gate(opType):
         return False
 
 
+def display_name(opType):
+    names = {
+        OpType.u_gate: "U",
+        OpType.u1_gate: "U1",
+        OpType.u2_gate: "U2",
+        OpType.u3_gate: "U3",
+        OpType.r_gate: "R",
+        OpType.crz_gate: "CRZ",
+        OpType.csx_gate: "CSX",
+        OpType.cu1_gate: "CU1",
+        OpType.dcx_gate: "DCX",
+        OpType.rzx_gate: "RZX",
+        OpType.ch_gate: "CH",
+        OpType.crx_gate: "CRX",
+        OpType.cu_gate: "CU",
+        OpType.cry_gate: "CRY",
+        OpType.cu3_gate: "CU3",
+        OpType.rc3x_gate: "RC3X",
+        OpType.rccx_gate: "RCCX",
+    }
+    return names.get(opType)
+
+
 def num_of_measurements(operations):
     return sum(1 for op in operations if gates_map.quantumcat_to_qiskit[next(iter(op.items()))[0]] == OpType.measure)
 
