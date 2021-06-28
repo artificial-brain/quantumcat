@@ -21,6 +21,7 @@ from quantumcat.gates.custom_gates.cirq import UGate, U1Gate, U2Gate, U3Gate, RX
 
 from quantumcat.circuit.op_type import OpType
 from quantumcat.utils import gates_map
+from braket.aws import AwsQuantumTask
 
 
 def is_cirq_custom_class(obj):
@@ -119,3 +120,26 @@ def cirq_measurment_in_reverse(results):
 
 def reverse_binary(num):
     return num[::-1]
+
+
+def aws_task(task_id):
+    # recover task
+    task_load = AwsQuantumTask(arn=task_id)
+
+    # print status
+    status = task_load.state()
+
+    if status == 'COMPLETED':
+        # get results
+        results = task_load.result()
+
+        # get measurement counts
+        return results.measurement_counts
+
+    elif status in ['FAILED', 'CANCELLED']:
+        # print terminal message
+        return 'Your task is in terminal status, but has not completed.'
+
+    else:
+        # print current status
+        return 'Sorry, your task is still being processed and has not been finalized yet.'

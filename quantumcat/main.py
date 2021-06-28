@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 from quantumcat.circuit import QCircuit
-from quantumcat.utils import providers, constants
+from quantumcat.utils import providers, constants, helper
 from quantumcat.algorithms import GroversAlgorithm
 from quantumcat.applications.generator import RandomNumber
 
@@ -62,14 +62,21 @@ def run_on_real_device():
 
 
 def braket_demo():
-    circuit = QCircuit(2)
+    circuit = QCircuit(1)
     circuit.h_gate(0)
-    circuit.u3_gate(45, 45, 45, 1)
     circuit.measure_all()
 
     circuit.draw_circuit(provider=providers.AMAZON_PROVIDER)
+
     print(circuit.execute(provider=providers.AMAZON_PROVIDER))
-    # print(circuit.execute(provider=providers.AMAZON_PROVIDER, simulator_name=constants.STATEVECTOR_SIMULATOR))
+
+    # To execute on real quantum device via aws
+    # aws_task = circuit.execute(provider=providers.AMAZON_PROVIDER, device='',
+    #                       bucket='', directory='ionq-results')
+    # aws_task_status = aws_task.state()
+    # print('ID of task:', aws_task.id)
+    # print('Status of task:', aws_task_status)
+    # print(helper.aws_task(aws_task.id))
 
 
 if __name__ == '__main__':
