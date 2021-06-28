@@ -134,7 +134,7 @@ def aws_task(task_id):
         results = task_load.result()
 
         # get measurement counts
-        return results.measurement_counts
+        return dict(results.measurement_counts)
 
     elif status in ['FAILED', 'CANCELLED']:
         # print terminal message

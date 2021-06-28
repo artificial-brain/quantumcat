@@ -72,7 +72,7 @@ def braket_demo():
 
     # To execute on real quantum device via aws
     # aws_task = circuit.execute(provider=providers.AMAZON_PROVIDER, device='',
-    #                       bucket='', directory='ionq-results')
+    #                       bucket='', directory='')
     # aws_task_status = aws_task.state()
     # print('ID of task:', aws_task.id)
     # print('Status of task:', aws_task_status)
