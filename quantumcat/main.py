@@ -15,7 +15,7 @@
 from quantumcat.circuit import QCircuit
 from quantumcat.utils import providers, constants
 from quantumcat.algorithms import GroversAlgorithm
-from quantumcat.applications.generator import RandomNumber, Password
+from quantumcat.applications.generator import RandomNumber, Password, OTP
 
 
 def create_circuit_demo():
@@ -95,9 +95,14 @@ def braket_demo():
 
 
 def password_demo():
-    password = Password(10).generate()
+    password = Password(8).generate()
     print(password)
 
 
+def otp_demo():
+    otp = OTP().generate()
+    print(otp)
+
+
 if __name__ == '__main__':
-    password_demo()
+    otp_demo()
