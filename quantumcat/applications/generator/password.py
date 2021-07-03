@@ -13,5 +13,20 @@
 #  limitations under the License.
 
 
-from quantumcat.applications.generator.random_number import RandomNumber
-from quantumcat.applications.generator.password import Password
+import requests
+from quantumcat.utils import constants
+
+
+class Password:
+    def __init__(self, length):
+        self.length = length
+
+    def generate(self):
+        ANU_QRNG_REQUEST_URL = constants.ANU_QRNG_URL + '?length=1&type=' + \
+                               constants.HEX_TYPE + '&size=' + str(self.length)
+        response = requests.get(ANU_QRNG_REQUEST_URL)
+        if response.status_code != 200:
+            return 'Something went wromg'
+        data = response.json()
+        password = data['data'][0]
+        return password[0: self.length]
