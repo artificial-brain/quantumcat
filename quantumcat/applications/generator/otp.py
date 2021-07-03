@@ -15,22 +15,21 @@
 
 import requests
 from quantumcat.utils import constants, ErrorMessages
-from quantumcat.exceptions import PasswordLengthError
+from quantumcat.exceptions import OTPLengthError
 
 
-class Password:
-    def __init__(self, length):
-        self.length = length
+class OTP:
+    def __init__(self):
+        self.length = 5
 
     def generate(self):
-        if not (4 < self.length <= 20):
-            raise PasswordLengthError(ErrorMessages.PASSWORD_LENGTH_INCORRECT)
-
-        ANU_QRNG_REQUEST_URL = constants.ANU_QRNG_URL + '?length=1&type=' + \
-                               constants.HEX_TYPE + '&size=' + str(self.length)
+        ANU_QRNG_REQUEST_URL = constants.ANU_QRNG_URL + '?length=10&type=' + \
+                               constants.UNIT16_TYPE
         response = requests.get(ANU_QRNG_REQUEST_URL)
         if response.status_code != 200:
             return 'Something went wromg'
         data = response.json()
-        password = data['data'][0]
-        return password[0: self.length]
+        otp = data['data']
+        for i in range(len(otp)):
+            if len(str(otp[i])) == self.length:
+                return otp[i]
