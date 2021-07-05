@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/logo/quantum_cat_logo.jpg?raw=true" alt="Quantum Cat Logo" width="200" height="200" />
+  <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/logo/quantum_cat_logo.jpg?raw=true" alt="Quantum Cat Logo" width="250" height="250" />
 </h1>
 
 
@@ -8,6 +8,7 @@
 - [1. Introduction](#introduction)
   * [1.1 Purpose](#purpose)
   * [1.2 Problems with current QC Libraries](#problems-with-current-qc-libraries)
+  * [1.3 Installation](#installation)
 - [2. Platforms Supported](#platforms-supported)
 - [3. Gates Supported](#gates-supported)
 - [4. Examples](#examples)
@@ -36,7 +37,10 @@ A cross-platform open-source high-level quantum computing library so that the qu
 To execute code on platforms such as IBM, Google, and so on, Developers need to write code separately for each platform independently putting lots of efforts.
 * Basic Knowledge of quantum gates and circuits required:
   Presently, It is very tough to create quantum applications given the fact that many available libraries are low-level libraries i.e. developers have to understand low-level concepts such as gates and circuits before they can actually start working on quantum applications. This is not natural to many developers who are accustomed to high-level concepts rather than worrying about gates and circuits.
-
+## Installation
+```shell
+pip install quantumcat
+```
 ## Platforms Supported
 * Google Cirq
 * IBM Qiskit
@@ -54,17 +58,17 @@ from quantumcat.circuit import QCircuit
 num_of_qubits = 3
 qc = QCircuit(num_of_qubits)
 ```
-### Single Qubit Gate
+### Single-Qubit Gate
 ```python
 qc.x_gate(0) 
 # applies X gate on qubit 0
 ```
-### Two Qubit Gate
+### Two-Qubit Gate
 ```python
 qc.cx_gate(0, 1) 
 # control qubit, target qubit
 ```
-### Multi Qubit Gate
+### Multi-Qubit Gate
 ```python
 qc.mct_gate([0, 1], 2) 
 # control qubits array, target qubit
@@ -104,20 +108,27 @@ from quantumcat.utils import providers
 
 results = qc.execute(provider=providers.IBM_PROVIDER, repetitions=1024, 
 api='API KEY from IBM Quantum dashboard', device='IBM DEVICE NAME such as ibmq_manila or ibmq_quito')
-# Copy API and Device from https://quantum-computing.ibm.com/
+# Copy API and Device name from https://quantum-computing.ibm.com/
 ```
 
 ## Applications
-### Random Number 
+### Random Number Generator
 ```python
 from quantumcat.utils import providers, constants
 from quantumcat.applications.generator import RandomNumber
 
 random_number = RandomNumber(length=2, output_type=constants.DECIMAL)\
-        .execute(provider=providers.AMAZON_PROVIDER)
+        .execute(provider=providers.GOOGLE_PROVIDER)
+# OR providers.IBM_PROVIDER / providers.AMAZON_PROVIDER
+print(random_number)
+
+# To generate random number on actual IBM device
+random_number = RandomNumber(length=2, output_type=constants.DECIMAL)\
+        .execute(provider=providers.IBM_PROVIDER, repetitions=1024, 
+api='API KEY from IBM Quantum dashboard', device='IBM DEVICE NAME such as ibmq_manila or ibmq_quito')
 print(random_number)
 ```
-### Password
+### Password Generator
 ```python
 from quantumcat.applications.generator import Password
 
@@ -126,7 +137,7 @@ print(password)
 # Length should be between 5 - 20
 # Password is generated in hexadecimal format using QRNG@ANU JSON API
 ```
-### OTP
+### OTP Generator
 ```python
 from quantumcat.applications.generator import OTP
 
