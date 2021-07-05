@@ -26,7 +26,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name='quantumcat',
-    version='0.1.2',
+    version='0.1.4',
     description='A high-level cross-platform open-source quantum computing library',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
