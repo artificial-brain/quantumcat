@@ -13,14 +13,15 @@
 - [3. Gates Supported](#gates-supported)
 - [4. Examples](#examples)
   * [6.1 Circuit Creation](#circuit-creation)
-  * [6.2 Single Qubit Gate](#single-qubit-gate)
-  * [6.3 Two Qubit Gate](#two-qubit-gate)
-  * [6.4 Multi Qubit Gate](#multi-qubit-gate)
-  * [6.5 Draw Circuit](#draw-circuit)
-  * [6.6 Execute](#execute)
-  * [6.7 Superposition](#superposition)
-  * [6.8 Entanglement](#entanglement)
-  * [6.9 Phase Kickback](#phase-kickback)
+  * [6.2 Single-Qubit Gate](#single-qubit-gate)
+  * [6.3 Two-Qubit Gate](#two-qubit-gate)
+  * [6.4 Multi-Qubit Gate](#multi-qubit-gate)
+  * [6.5 Superposition](#superposition)
+  * [6.6 Entanglement](#entanglement)
+  * [6.7 Phase Kickback](#phase-kickback)    
+  * [6.8 Draw Circuit](#draw-circuit)
+  * [6.9 Execute on Simulator](#execute-on-simulator)
+  * [6.10 Execute on real IBM device](#execute-on-real-ibm-device)
 - [7. Applications](#applications)
    * [7.1 Random Number](#random-number)
    * [7.2 Password](#password)
@@ -33,9 +34,9 @@ A cross-platform open-source high-level quantum computing library so that the qu
 ## Purpose
 **quantumcat** is a cross-platform library and is built on the principle of write once and execute any quantum provider. The purpose of this library is to help developers create cross-platform quantum applications in few lines of code.
 ## Problems with current QC Libraries
-* Platform dependent code:
+* **Platform dependent code**:
 To execute code on platforms such as IBM, Google, and so on, Developers need to write code separately for each platform independently putting lots of efforts.
-* Basic Knowledge of quantum gates and circuits required:
+* **Basic Knowledge of quantum gates and circuits required**:
   Presently, It is very tough to create quantum applications given the fact that many available libraries are low-level libraries i.e. developers have to understand low-level concepts such as gates and circuits before they can actually start working on quantum applications. This is not natural to many developers who are accustomed to high-level concepts rather than worrying about gates and circuits.
 ## Installation
 ```shell
