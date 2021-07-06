@@ -12,11 +12,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-QUBIT_OUT_OF_BOUND = 'Qubit is out of bound.'
-CBIT_OUT_OF_BOUND = 'Classical Bit is out of bound.'
-QISKIT_NOT_INSTALLED = 'Qiskit is not installed.'
-API_DETAILS_NOT_PROVIDED = 'API Key is required for running on real quantum device.'
-IONQ_API_DETAILS_NOT_PROVIDED = 'API Key is required for running on IonQ.'
-PASSWORD_LENGTH_INCORRECT = 'Password length should be between 5 and 20'
-OTP_LENGTH_INCORRECT = 'OTP length should be either 4 or 5'
+from quantumcat.exceptions import QuantumCatError
 
+
+class PasswordLengthError(QuantumCatError):
+    """Base class for errors raised for api details not found."""
+
+    pass
