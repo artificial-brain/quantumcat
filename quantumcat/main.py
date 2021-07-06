@@ -24,7 +24,9 @@ def create_circuit_demo():
     circuit.x_gate(3)
     circuit.measure_all()
     # circuit.draw_circuit(provider=providers.IBM_PROVIDER)
-    print(circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10))
+    counts = circuit.execute(provider=providers.IBM_PROVIDER, repetitions=10)
+    print(counts)
+    circuit.plot_bar(counts=counts)
 
 
 def grovers_demo():
@@ -105,4 +107,4 @@ def otp_demo():
 
 
 if __name__ == '__main__':
-    otp_demo()
+    create_circuit_demo()

@@ -20,6 +20,7 @@ from quantumcat.circuit import convert
 from quantumcat.utils import providers
 from quantumcat.utils import constants
 from quantumcat.circuit import execute_circuit
+import matplotlib.pyplot as plt
 
 
 class QCircuit:
@@ -447,3 +448,20 @@ class QCircuit:
     def phase_kickback(self, qubit):
         self.x_gate(qubit)
         self.h_gate(qubit)
+
+    @staticmethod
+    def plot_bar(counts, color='#B3365B', title=None,
+                 xlabel=None, ylabel='Probabilities'):
+        x_coord = []
+        y_coord = []
+        for key in counts:
+            x_coord.append(key)
+            y_coord.append(float("{:.3f}".format(counts[key] / sum(counts.values()))))
+        fig, ax = plt.subplots()
+        ax.bar(x_coord, y_coord, color=color, width=0.4)
+        ax.set_title(title)
+        plt_gca = plt.gca()
+        plt.bar_label(plt_gca.containers[0])
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.show()
