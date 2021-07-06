@@ -14,3 +14,5 @@
 
 
 from quantumcat.applications.generator.random_number import RandomNumber
+from quantumcat.applications.generator.password import Password
+from quantumcat.applications.generator.otp import OTP
