@@ -49,7 +49,7 @@ pip install quantumcat
 * IonQ (Via Braket)
 * Rigetti (Via Braket)
 ## Gates Supported
-[Click here to view gates supported](https://sheet.zoho.com/sheet/published/nvlfe4b782cabaa524276ab9a44e270d800b2?mode=html)
+[Click here to view gates supported](https://drive.google.com/file/d/1XNCY2NyioTpqNII4dalm4plKE2-suKYB/view)
 
 ## Examples
 ### Circuit Creation
