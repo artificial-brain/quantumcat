@@ -413,7 +413,9 @@ class QCircuit:
     def execute(self, provider=providers.DEFAULT_PROVIDER,
                 simulator_name=constants.DEFAULT_SIMULATOR,
                 repetitions=1000, api=None, device=None,
-                default_target='simulator'):
+                default_target='simulator', bucket=None,
+                poll_timeout_seconds=100, poll_interval_seconds=10,
+                directory=None):
         self.check_and_convert(provider)
         if self.provider == providers.IBM_PROVIDER:
             return execute_circuit.on_qiskit(self.converted_q_circuit,
@@ -424,7 +426,9 @@ class QCircuit:
                                            simulator_name, repetitions, api, self.get_operations())
         elif self.provider == providers.AMAZON_PROVIDER:
             return execute_circuit.on_braket(self.converted_q_circuit,
-                                             simulator_name, repetitions, api)
+                                             simulator_name, repetitions, device, bucket, directory,
+                                             poll_timeout_seconds=poll_timeout_seconds,
+                                             poll_interval_seconds=poll_interval_seconds)
         elif self.provider == providers.IONQ_PROVIDER:
             if api is None:
                 raise APIDetailsNotFoundError(ErrorMessages.IONQ_API_DETAILS_NOT_PROVIDED)
@@ -452,3 +456,4 @@ class QCircuit:
         self.operations.append({OpType.unitary: args[:],
                                 constants.PARAMS: [matrix, len(*args)]})
         return self
+
