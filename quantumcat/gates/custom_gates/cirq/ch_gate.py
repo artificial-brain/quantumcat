@@ -11,11 +11,11 @@ class CHGate(cirq.Gate):
         return 2
 
     def _unitary_(self, dtype=None):
-        sqt2 = numpy.sqrt(2)
+        _sqrt2o2 = 1 / numpy.sqrt(2)
         return numpy.array([[1, 0, 0, 0],
-                            [0, 1, 0, 0] ,
-                            [0, 0, 1/sqt2, 1/sqt2],
-                            [0, 0, 1/sqt2, -1/sqt2]], dtype=dtype)
-    
+                            [0, _sqrt2o2, 0, _sqrt2o2],
+                            [0, 0, 1, 0],
+                            [0, _sqrt2o2, 0, -_sqrt2o2]],
+                           dtype=complex)
     def _circuit_diagram_info_(self, args):
         return ["CH_c", "CH_t"]

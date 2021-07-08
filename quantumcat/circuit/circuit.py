@@ -382,7 +382,7 @@ class QCircuit:
 
     def check_qubit_boundary(self, qubit):
         if qubit > (self.qubits - 1):
-            raise CircuitError(ErrorMessages.qubit_out_of_bound)
+            raise CircuitError(ErrorMessages.QUBIT_OUT_OF_BOUND)
 
     def draw_circuit(self, provider=providers.DEFAULT_PROVIDER):
         self.check_and_convert(provider)
@@ -431,7 +431,7 @@ class QCircuit:
                                              poll_interval_seconds=poll_interval_seconds)
         elif self.provider == providers.IONQ_PROVIDER:
             if api is None:
-                raise APIDetailsNotFoundError(ErrorMessages.ionq_api_details_not_provided)
+                raise APIDetailsNotFoundError(ErrorMessages.IONQ_API_DETAILS_NOT_PROVIDED)
             return execute_circuit.on_ionq(self.converted_q_circuit,
                                            default_target, repetitions, api, self.get_operations())
 

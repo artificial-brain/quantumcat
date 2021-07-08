@@ -1,4 +1,4 @@
-from braket.circuits import circuit,Circuit
+from braket.circuits import circuit
 import numpy
 
 
