@@ -12,7 +12,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
 from quantumcat.exceptions.exception import QuantumCatError
 from quantumcat.exceptions.circuit_error import CircuitError
 from quantumcat.exceptions.install_error import InstallNotFoundError
 from quantumcat.exceptions.api_error import APIDetailsNotFoundError
+from quantumcat.exceptions.password_length import PasswordLengthError
+from quantumcat.exceptions.otp_length import OTPLengthError
