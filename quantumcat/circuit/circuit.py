@@ -21,6 +21,7 @@ from quantumcat.utils import providers
 from quantumcat.utils import constants
 from quantumcat.circuit import execute_circuit
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class QCircuit:
@@ -413,7 +414,7 @@ class QCircuit:
 
     def execute(self, provider=providers.DEFAULT_PROVIDER,
                 simulator_name=constants.DEFAULT_SIMULATOR,
-                repetitions=1000, api=None, device=None,
+                repetitions=constants.DEFAULT_REPETITIONS, api=None, device=None,
                 default_target='simulator'):
         self.check_and_convert(provider)
         if self.provider == providers.IBM_PROVIDER:
@@ -450,18 +451,27 @@ class QCircuit:
         self.h_gate(qubit)
 
     @staticmethod
-    def plot_bar(counts, color='#B3365B', title=None,
-                 xlabel=None, ylabel='Probabilities'):
+    def plot_bar(counts, color=constants.DEFAULT_COLOR, title=None, xlabel=None,
+                 ylabel='Probabilities'):
         x_coord = []
         y_coord = []
         for key in counts:
             x_coord.append(key)
             y_coord.append(float("{:.3f}".format(counts[key] / sum(counts.values()))))
         fig, ax = plt.subplots()
-        ax.bar(x_coord, y_coord, color=color, width=0.4)
+        ax.bar(x_coord, y_coord, color=color, width=.10)
         ax.set_title(title)
         plt_gca = plt.gca()
         plt.bar_label(plt_gca.containers[0])
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.show()
+
+    def compare_results(self, providers_list=None, repetitions=constants.DEFAULT_REPETITIONS):
+        output_dict = {}
+        providers_list = [providers.GOOGLE_PROVIDER, providers.IBM_PROVIDER, providers.AMAZON_PROVIDER] \
+            if providers_list is None else providers_list
+        for provider in range(len(providers_list)):
+            results = self.execute(provider=providers_list[provider], repetitions=repetitions)
+            output_dict[providers_list[provider]] = results
+        return output_dict
