@@ -414,7 +414,8 @@ class QCircuit:
 
     def execute(self, provider=providers.DEFAULT_PROVIDER,
                 simulator_name=constants.DEFAULT_SIMULATOR,
-                repetitions=1000, api=None, device=None,
+                repetitions=constants.DEFAULT_REPETITIONS,
+                api=None, device=None,
                 default_target='simulator', bucket=None,
                 poll_timeout_seconds=100, poll_interval_seconds=10,
                 directory=None):
@@ -473,10 +474,32 @@ class QCircuit:
 
     def compare_results(self, providers_list=None, repetitions=constants.DEFAULT_REPETITIONS):
         output_dict = {}
-        providers_list = [providers.GOOGLE_PROVIDER, providers.IBM_PROVIDER, providers.AMAZON_PROVIDER] \
-            if providers_list is None else providers_list
-        for provider in range(len(providers_list)):
-            results = self.execute(provider=providers_list[provider], repetitions=repetitions)
-            output_dict[providers_list[provider]] = results
+        if providers_list is None:
+            providers_list = [providers.GOOGLE_PROVIDER, providers.IBM_PROVIDER, providers.AMAZON_PROVIDER]
+            for provider in range(len(providers_list)):
+                results = self.execute(provider=providers_list[provider], repetitions=repetitions)
+                output_dict[providers_list[provider]] = results
+        else:
+            for provider_json in providers_list:
+                provider = provider_json['provider']
+                api = None if 'api' not in provider_json else provider_json['api']
+                device = None if 'device' not in provider_json else provider_json['device']
+                bucket = None if 'bucket' not in provider_json else provider_json['bucket']
+                directory = None if 'directory' not in provider_json else provider_json['directory']
+                simulator = constants.DEFAULT_SIMULATOR if 'simulator' not in provider_json \
+                    else provider_json['simulator']
+                repetitions = constants.DEFAULT_REPETITIONS if 'repetitions' not in provider_json \
+                    else provider_json['repetitions']
+                poll_timeout_seconds = 100 if 'poll_timeout_seconds' not in provider_json \
+                    else provider_json['poll_timeout_seconds']
+                poll_interval_seconds = 10 if 'poll_interval_seconds' not in provider_json \
+                    else provider_json['poll_interval_seconds']
+
+                results = self.execute(provider=provider, simulator_name=simulator,
+                                       repetitions=repetitions, api=api, device=device,
+                                       bucket=bucket, poll_timeout_seconds=poll_timeout_seconds,
+                                       poll_interval_seconds=poll_interval_seconds, directory=directory)
+                output_dict[provider_json['provider']] = results
+
         return output_dict
 
