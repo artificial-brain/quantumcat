@@ -105,6 +105,8 @@ def to_braket(q_circuit, qubits):
             params = (op[constants.PARAMS])
         if braket_op == OpType.measure:
             braket_qc.add(ResultType.Probability(target=[qargs[0]]))
+        elif braket_op == OpType.measure_all:
+            braket_qc.add(ResultType.Probability)
         elif helper.is_braket_custom_gate(operation[0]):
             angles = '('+','.join(str(x) for x in params)+')' if len(params) > 0 else ''
             gate_name = helper.display_name(operation[0])+angles
