@@ -80,7 +80,7 @@ def to_cirq(q_circuit, qubits):
             mct_named_qubits = helper.named_qubits_for_multi_controlled_op(named_qubits, qargs)
             cirq_qc.append([cirq.ops.X(mct_named_qubits[1]).controlled_by(*mct_named_qubits[0])])
         # Find a better way to replace the following if
-        elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_custom_class(cirq_op())):
+        elif len(params) > 0 or (inspect.isclass(cirq_op) and helper.is_cirq_custom_class(cirq_op())):
             cirq_qc.append([cirq_op(*params).on(*helper.named_qubits_for_ops(named_qubits, qargs))])
         else:
             cirq_qc.append([cirq_op(*helper.named_qubits_for_ops(named_qubits, qargs))])
@@ -103,11 +103,12 @@ def to_braket(q_circuit, qubits):
         qargs = operation[1]
         if constants.PARAMS in op:
             params = (op[constants.PARAMS])
-
         if braket_op == OpType.measure:
             braket_qc.add(ResultType.Probability(target=[qargs[0]]))
-        elif braket_op == OpType.measure_all:
-            braket_qc.add(ResultType.Probability)
+        elif helper.is_braket_custom_gate(operation[0]):
+            angles = '('+','.join(str(x) for x in params)+')' if len(params) > 0 else ''
+            gate_name = helper.display_name(operation[0])+angles
+            braket_qc.unitary(display_name=gate_name, matrix=braket_op(*params), targets=[*qargs])
         else:
             braket_qc.add([Instruction(braket_op(*params), qargs)])
 
