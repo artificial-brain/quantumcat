@@ -23,9 +23,9 @@
   * [6.9 Execute on Simulator](#execute-on-simulator)
   * [6.10 Execute on real IBM device](#execute-on-real-ibm-device)
 - [7. Applications](#applications)
-   * [7.1 Random Number](#random-number)
-   * [7.2 Password](#password)
-   * [7.3 OTP](#otp)
+   * [7.1 Random Number](#random-number-generator)
+   * [7.2 Password](#password-generator)
+   * [7.3 OTP](#otp-generator)
 - [8. License](#license)
 
 
