@@ -22,3 +22,6 @@ DECIMAL = 'decimal'
 ANU_QRNG_URL = 'https://qrng.anu.edu.au/API/jsonI.php'
 HEX_TYPE = 'hex16'
 UNIT16_TYPE = 'uint16'
+DEFAULT_REPETITIONS = 1024
+DEFAULT_COLOR = '#B3365B'
+COLORS = ['#B3365B', '#F46526', '#EFCBCA']
