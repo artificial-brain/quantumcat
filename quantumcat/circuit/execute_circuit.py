@@ -18,6 +18,7 @@ from qiskit.providers.ibmq import least_busy
 import cirq
 import cirq.ionq as ionq
 from braket.devices import LocalSimulator
+from braket.aws import AwsDevice
 
 
 def on_qiskit(q_circuit, simulator_name, repetitions, api, device_name,
@@ -53,7 +54,7 @@ def on_cirq(q_circuit, simulator_name, repetitions, api, operations):
         return simulator.simulate(q_circuit).final_state_vector
 
 
-# Need testing
+# Need testing on actual ionq device
 def on_ionq(q_circuit, repetitions, api, default_target, operations):
     service = ionq.Service(api_key=api, default_target=default_target)
     result = service.run(q_circuit, repetitions=repetitions)
@@ -65,9 +66,19 @@ def on_ionq(q_circuit, repetitions, api, default_target, operations):
         return helper.cirq_measurment_in_reverse(result.histogram(key='result', fold_func=helper.bitstring))
 
 
-def on_braket(q_circuit, simulator_name, repetitions, api):
-    if simulator_name == constants.DEFAULT_SIMULATOR:
-        results = LocalSimulator().run(q_circuit, shots=repetitions).result()
-        return dict(results.measurement_counts)
-    elif simulator_name == constants.STATEVECTOR_SIMULATOR:
-        return LocalSimulator().run(q_circuit.state_vector(), shots=0).result().values[0]
+def on_braket(q_circuit, simulator_name, repetitions, device, bucket, directory,
+              poll_timeout_seconds, poll_interval_seconds):
+    if device is None:
+        if simulator_name == constants.DEFAULT_SIMULATOR:
+            results = LocalSimulator().run(q_circuit, shots=repetitions).result()
+            return dict(results.measurement_counts)
+        elif simulator_name == constants.STATEVECTOR_SIMULATOR:
+            return LocalSimulator().run(q_circuit.state_vector(), shots=repetitions).result().values[0]
+    else:
+        s3_location = (bucket, directory)
+        aws_real_device = AwsDevice(device)
+        return aws_real_device.run(q_circuit, s3_location, shots=repetitions,
+                                   poll_timeout_seconds=poll_timeout_seconds,
+                                   poll_interval_seconds=poll_interval_seconds)
+
+

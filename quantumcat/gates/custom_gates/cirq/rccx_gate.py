@@ -29,7 +29,7 @@ class RCCXGate(cirq.Gate):
                             [0, 0, 0, 0, 0, 0, 0, -1j],
                             [0, 0, 0, 0, 1, 0, 0, 0],
                             [0, 0, 0, 0, 0, -1, 0, 0],
-                            [0, 0, 0, 0, 0, 0, 0, 1],
+                            [0, 0, 0, 0, 0, 0, 1, 0],
                             [0, 0, 0, 1j, 0, 0, 1, 0]], dtype=dtype)
 
     def _circuit_diagram_info_(self, args):

@@ -20,6 +20,8 @@ from quantumcat.circuit import convert
 from quantumcat.utils import providers
 from quantumcat.utils import constants
 from quantumcat.circuit import execute_circuit
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 class QCircuit:
@@ -412,8 +414,11 @@ class QCircuit:
 
     def execute(self, provider=providers.DEFAULT_PROVIDER,
                 simulator_name=constants.DEFAULT_SIMULATOR,
-                repetitions=1000, api=None, device=None,
-                default_target='simulator'):
+                repetitions=constants.DEFAULT_REPETITIONS,
+                api=None, device=None,
+                default_target='simulator', bucket=None,
+                poll_timeout_seconds=100, poll_interval_seconds=10,
+                directory=None):
         self.check_and_convert(provider)
         if self.provider == providers.IBM_PROVIDER:
             return execute_circuit.on_qiskit(self.converted_q_circuit,
@@ -424,7 +429,9 @@ class QCircuit:
                                            simulator_name, repetitions, api, self.get_operations())
         elif self.provider == providers.AMAZON_PROVIDER:
             return execute_circuit.on_braket(self.converted_q_circuit,
-                                             simulator_name, repetitions, api)
+                                             simulator_name, repetitions, device, bucket, directory,
+                                             poll_timeout_seconds=poll_timeout_seconds,
+                                             poll_interval_seconds=poll_interval_seconds)
         elif self.provider == providers.IONQ_PROVIDER:
             if api is None:
                 raise APIDetailsNotFoundError(ErrorMessages.IONQ_API_DETAILS_NOT_PROVIDED)
@@ -447,3 +454,52 @@ class QCircuit:
     def phase_kickback(self, qubit):
         self.x_gate(qubit)
         self.h_gate(qubit)
+
+    @staticmethod
+    def plot_bar(counts, color=constants.DEFAULT_COLOR, title=None, xlabel=None,
+                 ylabel='Probabilities'):
+        x_coord = []
+        y_coord = []
+        for key in counts:
+            x_coord.append(key)
+            y_coord.append(float("{:.3f}".format(counts[key] / sum(counts.values()))))
+        fig, ax = plt.subplots()
+        ax.bar(x_coord, y_coord, color=color, width=.10)
+        ax.set_title(title)
+        plt_gca = plt.gca()
+        plt.bar_label(plt_gca.containers[0])
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.show()
+
+    def compare_results(self, providers_list=None, repetitions=constants.DEFAULT_REPETITIONS):
+        output_dict = {}
+        if providers_list is None:
+            providers_list = [providers.GOOGLE_PROVIDER, providers.IBM_PROVIDER, providers.AMAZON_PROVIDER]
+            for provider in range(len(providers_list)):
+                results = self.execute(provider=providers_list[provider], repetitions=repetitions)
+                output_dict[providers_list[provider]] = results
+        else:
+            for provider_json in providers_list:
+                provider = provider_json['provider']
+                api = None if 'api' not in provider_json else provider_json['api']
+                device = None if 'device' not in provider_json else provider_json['device']
+                bucket = None if 'bucket' not in provider_json else provider_json['bucket']
+                directory = None if 'directory' not in provider_json else provider_json['directory']
+                simulator = constants.DEFAULT_SIMULATOR if 'simulator' not in provider_json \
+                    else provider_json['simulator']
+                repetitions = constants.DEFAULT_REPETITIONS if 'repetitions' not in provider_json \
+                    else provider_json['repetitions']
+                poll_timeout_seconds = 100 if 'poll_timeout_seconds' not in provider_json \
+                    else provider_json['poll_timeout_seconds']
+                poll_interval_seconds = 10 if 'poll_interval_seconds' not in provider_json \
+                    else provider_json['poll_interval_seconds']
+
+                results = self.execute(provider=provider, simulator_name=simulator,
+                                       repetitions=repetitions, api=api, device=device,
+                                       bucket=bucket, poll_timeout_seconds=poll_timeout_seconds,
+                                       poll_interval_seconds=poll_interval_seconds, directory=directory)
+                output_dict[provider_json['provider']] = results
+
+        return output_dict
+
