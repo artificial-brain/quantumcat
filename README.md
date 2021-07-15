@@ -23,9 +23,9 @@
   * [6.9 Execute on Simulator](#execute-on-simulator)
   * [6.10 Execute on real IBM device](#execute-on-real-ibm-device)
 - [7. Applications](#applications)
-   * [7.1 Random Number](#random-number)
-   * [7.2 Password](#password)
-   * [7.3 OTP](#otp)
+   * [7.1 Random Number](#random-number-generator)
+   * [7.2 Password](#password-generator)
+   * [7.3 OTP](#otp-generator)
 - [8. License](#license)
 
 
@@ -49,7 +49,7 @@ pip install quantumcat
 * IonQ (Via Braket)
 * Rigetti (Via Braket)
 ## Gates Supported
-[Click here to view gates supported](https://sheet.zoho.com/sheet/published/nvlfe4b782cabaa524276ab9a44e270d800b2?mode=html)
+[Click here to view gates supported](https://drive.google.com/file/d/1XNCY2NyioTpqNII4dalm4plKE2-suKYB/view)
 
 ## Examples
 ### Circuit Creation
