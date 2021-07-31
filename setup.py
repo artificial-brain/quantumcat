@@ -26,8 +26,8 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name='quantumcat',
-    version='0.1.5',
-    description='A cross-platform open-source high-level quantum computing library',
+    version='0.1.6',
+    description='A cross-platform, open-source, high-level quantum computing library',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
     author='Artificial Brain Development Team',
