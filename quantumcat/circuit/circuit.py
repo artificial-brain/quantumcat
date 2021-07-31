@@ -20,9 +20,7 @@ from quantumcat.circuit import convert
 from quantumcat.utils import providers
 from quantumcat.utils import constants
 from quantumcat.circuit import execute_circuit
-import matplotlib.pyplot as plt
-import numpy as np
-from qiskit.visualization import plot_histogram, plot_bloch_multivector
+from qiskit.visualization import plot_histogram, plot_bloch_multivector, plot_state_qsphere
 
 
 class QCircuit:
@@ -495,8 +493,12 @@ class QCircuit:
 
     @staticmethod
     def histogram(counts, color=constants.DEFAULT_COLOR, bar_labels=True, title=None):
-        plot_histogram(counts, color=color, bar_labels=color, title=title)
+        plot_histogram(counts, color=color, bar_labels=bar_labels, title=title)
 
     @staticmethod
     def bloch_multivector(state, title=''):
         plot_bloch_multivector(state=state, title=title)
+
+    @staticmethod
+    def state_qsphere(state):
+        plot_state_qsphere(state=state)
