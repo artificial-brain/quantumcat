@@ -1,4 +1,5 @@
 
+
 <h1 align="center">  
   <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/logo/quantum_cat_logo.jpg?raw=true" alt="Quantum Cat Logo" width="250" height="250" />  
 </h1>  
@@ -15,16 +16,24 @@ qc.h_gate(0)
 qc.cx_gate(0, 1)
 
 # Execute on Google Cirq
-result = qc.execute(provider=providers.GOOGLE_PROVIDER, repetition=1024) 
+result = qc.execute(provider=providers.GOOGLE_PROVIDER, repetitions=1024) 
 ```  
 ```python  
 # Execute on IBM Qiskit
-result = qc.execute(provider=providers.IBM_PROVIDER, repetition=1024)
+result = qc.execute(provider=providers.IBM_PROVIDER, repetitions=1024)
 ```  
 ```python  
 # Execute on Amazon Braket
-result = qc.execute(provider=providers.AMAZON_PROVIDER, repetition=1024)
+result = qc.execute(provider=providers.AMAZON_PROVIDER, repetitions=1024)
 ```
+```python  
+# Execute on All providers in one go
+circuit.compare_results(plot=True)
+```
+<h1 align="center">  
+  <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/screenshots/compare-histogram.png?raw=true" alt="Compare Results" width="400" height="300" />  
+</h1>  
+
 ### Execute on real IBM device  using quantumcat
 ```python  
 from quantumcat.utils import providers  
@@ -38,6 +47,7 @@ device='IBM DEVICE NAME such as ibmq_manila or ibmq_quito')
 ```shell  
 pip install quantumcat
 ```  
+
 ## Platforms Supported  
 * Google Cirq  
 * IBM Qiskit  
@@ -74,6 +84,7 @@ from quantumcat.utils import providers
 qc.draw_circuit(provider=providers.GOOGLE_PROVIDER)
 ```  
 ## High-Level Functions  
+
 ### Superposition  
 ```python  
 qc.superposition(0) 
@@ -90,18 +101,18 @@ qc.phase_kickback(0)
 # applies |-> to qubit 0  
 ```  
 ## High-Level Applications  
+
 ### Random Number Generator  
 ```python  
 from quantumcat.utils import providers, constants  
 from quantumcat.applications.generator import RandomNumber  
   
-random_number = RandomNumber(length=2, output_type=constants.DECIMAL)
-						.execute(provider=providers.GOOGLE_PROVIDER)
+random_number = RandomNumber(length=2, output_type=constants.DECIMAL).execute(provider=providers.GOOGLE_PROVIDER)
 print(random_number)  
 
 # To generate random number on actual IBM device  
 random_number = RandomNumber(length=2, output_type=constants.DECIMAL)
-	.execute(provider=providers.IBM_PROVIDER, repetition=1024, api='API KEY from IBM Quantum dashboard'
+	.execute(provider=providers.IBM_PROVIDER, repetitions=1024, api='API KEY from IBM Quantum dashboard'
 		 device='IBM DEVICE NAME such as ibmq_manila or ibmq_quito')
 print(random_number)
 ```  
@@ -122,7 +133,41 @@ otp = OTP().generate()
 print(otp)  
 # 5 digits OTP is generated using QRNG@ANU JSON API  
 ```  
-  
+
+## Visualization  
+### Histogram
+```python  
+circuit = QCircuit(1)
+circuit.superposition(0)
+counts = circuit.execute(provider=providers.GOOGLE_PROVIDER, repetitions=1024)
+circuit.histogram(counts) 
+```
+<h1 align="center">  
+  <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/screenshots/single-histogram.png?raw=true" alt="Histogram" width=400" height="300"/>  
+</h1>
+
+```python  
+circuit = QCircuit(1)
+circuit.superposition(0)
+state = circuit.execute(provider=providers.GOOGLE_PROVIDER, simulator_name=constants.STATEVECTOR_SIMULATOR)
+circuit.bloch_multivector(state) 
+```
+
+<h1 align="center">  
+  <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/screenshots/bloch.png?raw=true" alt="Bloch Multivector" width="300" height="300" />  
+</h1>
+
+```python  
+circuit = QCircuit(1)
+circuit.superposition(0)
+state = circuit.execute(provider=providers.GOOGLE_PROVIDER, simulator_name=constants.STATEVECTOR_SIMULATOR)
+circuit.state_qsphere(state) 
+```
+
+<h1 align="center">  
+  <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/screenshots/qsphere.png?raw=true" alt="QSphere" width="300" height="300" />  
+</h1>
+
 ## License  
   
 [Apache License 2.0](LICENSE.txt)
