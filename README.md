@@ -146,10 +146,12 @@ circuit.histogram(counts)
   <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/screenshots/single-histogram.png?raw=true" alt="Histogram" width=400" height="300"/>  
 </h1>
 
+### Bloch Multivector
 ```python  
 circuit = QCircuit(1)
 circuit.superposition(0)
-state = circuit.execute(provider=providers.GOOGLE_PROVIDER, simulator_name=constants.STATEVECTOR_SIMULATOR)
+state = circuit.execute(provider=providers.GOOGLE_PROVIDER, 
+			simulator_name=constants.STATEVECTOR_SIMULATOR)
 circuit.bloch_multivector(state) 
 ```
 
@@ -157,10 +159,12 @@ circuit.bloch_multivector(state)
   <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/screenshots/bloch.png?raw=true" alt="Bloch Multivector" width="300" height="300" />  
 </h1>
 
+### QSphere
 ```python  
 circuit = QCircuit(1)
 circuit.superposition(0)
-state = circuit.execute(provider=providers.GOOGLE_PROVIDER, simulator_name=constants.STATEVECTOR_SIMULATOR)
+state = circuit.execute(provider=providers.GOOGLE_PROVIDER, 
+			simulator_name=constants.STATEVECTOR_SIMULATOR)
 circuit.state_qsphere(state) 
 ```
 
