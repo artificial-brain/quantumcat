@@ -22,6 +22,7 @@ from quantumcat.utils import constants
 from quantumcat.circuit import execute_circuit
 import matplotlib.pyplot as plt
 import numpy as np
+from qiskit.visualization import plot_histogram, plot_bloch_multivector
 
 
 class QCircuit:
@@ -455,24 +456,7 @@ class QCircuit:
         self.x_gate(qubit)
         self.h_gate(qubit)
 
-    @staticmethod
-    def plot_bar(counts, color=constants.DEFAULT_COLOR, title=None, xlabel=None,
-                 ylabel='Probabilities'):
-        x_coord = []
-        y_coord = []
-        for key in counts:
-            x_coord.append(key)
-            y_coord.append(float("{:.3f}".format(counts[key] / sum(counts.values()))))
-        fig, ax = plt.subplots()
-        ax.bar(x_coord, y_coord, color=color, width=.10)
-        ax.set_title(title)
-        plt_gca = plt.gca()
-        plt.bar_label(plt_gca.containers[0])
-        plt.xlabel(xlabel)
-        plt.ylabel(ylabel)
-        plt.show()
-
-    def compare_results(self, providers_list=None, repetitions=constants.DEFAULT_REPETITIONS):
+    def compare_results(self, providers_list=None, plot=False, repetitions=constants.DEFAULT_REPETITIONS):
         output_dict = {}
         if providers_list is None:
             providers_list = [providers.GOOGLE_PROVIDER, providers.IBM_PROVIDER, providers.AMAZON_PROVIDER]
@@ -501,5 +485,18 @@ class QCircuit:
                                        poll_interval_seconds=poll_interval_seconds, directory=directory)
                 output_dict[provider_json['provider']] = results
 
+        if plot:
+            all_counts = []
+            for key in output_dict:
+                all_counts.append(output_dict[key])
+            plot_histogram(all_counts)
+
         return output_dict
 
+    @staticmethod
+    def histogram(counts, color=constants.DEFAULT_COLOR, bar_labels=True, title=None):
+        plot_histogram(counts, color=color, bar_labels=color, title=title)
+
+    @staticmethod
+    def bloch_multivector(state, title=''):
+        plot_bloch_multivector(state=state, title=title)
