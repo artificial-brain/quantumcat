@@ -26,15 +26,14 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name='quantumcat',
-    version='0.1.4',
-    description='A high-level cross-platform open-source quantum computing library',
+    version='0.1.5',
+    description='A cross-platform open-source high-level quantum computing library',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
     author='Artificial Brain Development Team',
-    author_email='setup@artificialbrain.us',
+    author_email='entangled@artificialbrain.us',
     license='Apache-2.0',
     keywords="quantum sdk",
-    # packages=setuptools.find_namespace_packages(include=['quantumcat.*']),
     packages=setuptools.find_namespace_packages(),
     install_requires=REQUIREMENTS,
     include_package_data=True,
