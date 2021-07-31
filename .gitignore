@@ -131,3 +131,5 @@ dmypy.json
 # pycharm
 .idea/*
 quantumcat/data/
+
+quantumcat/main.py
