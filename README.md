@@ -26,6 +26,9 @@ result = qc.execute(provider=providers.IBM_PROVIDER, repetitions=1024)
 # Execute on Amazon Braket
 result = qc.execute(provider=providers.AMAZON_PROVIDER, repetitions=1024)
 ```
+
+### Execute and compare results across all the supported providers using a single line of code
+
 ```python  
 # Execute on All providers in one go
 circuit.compare_results(plot=True)
