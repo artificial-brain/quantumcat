@@ -6,8 +6,13 @@
   
   
 ## Introduction  
-A cross-platform, open-source, high-level quantum computing library so that the quantum community could concentrate on building quantum applications without much effort.  
-### Write once and execute on any supported quantum providers using one syntax
+quantumcat is a platform-independent, open-source, high-level quantum computing library, which allows the quantum community to focus on developing platform-independent quantum applications without much effort.
+## It is based on two principles:
+1) Write once and execute on any supported quantum provider using one syntax
+
+2) quantumcat should enable researchers and developers to create quantum applications using high-level programming in the future so that they can focus on developing quantum applications instead of learning low-level concepts such as gates and circuits
+
+### Write once
 ```python  
 from quantumcat.utils import providers  
 num_of_qubits = 2
@@ -15,19 +20,19 @@ qc = QCircuit(num_of_qubits)
 qc.h_gate(0)
 qc.cx_gate(0, 1)
 
-# Execute on Google Cirq
+# To execute on Google Cirq
 result = qc.execute(provider=providers.GOOGLE_PROVIDER, repetitions=1024) 
 ```  
 ```python  
-# Execute on IBM Qiskit
+# To execute on IBM Qiskit
 result = qc.execute(provider=providers.IBM_PROVIDER, repetitions=1024)
 ```  
 ```python  
-# Execute on Amazon Braket
+# To execute on Amazon Braket
 result = qc.execute(provider=providers.AMAZON_PROVIDER, repetitions=1024)
 ```
 
-### Execute and compare results across all the supported providers using a single line of code
+### Compare the results of all the supported providers with a single line of code
 
 ```python  
 # Execute on All providers in one go
@@ -37,7 +42,7 @@ circuit.compare_results(plot=True)
   <img src="https://github.com/artificial-brain/quantumcat/blob/assets/quantumcat/screenshots/compare-histogram.png?raw=true" alt="Compare Results" width="400" height="300" />  
 </h1>  
 
-### Execute on real IBM device  using quantumcat
+### Execute on real IBM quantum hardware with quantumcat
 ```python  
 from quantumcat.utils import providers  
   
