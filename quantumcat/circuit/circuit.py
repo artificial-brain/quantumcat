@@ -385,11 +385,14 @@ class QCircuit:
         if qubit > (self.qubits - 1):
             raise CircuitError(ErrorMessages.QUBIT_OUT_OF_BOUND)
 
-    def draw_circuit(self, provider=providers.DEFAULT_PROVIDER):
+    def draw_circuit(self, provider=providers.DEFAULT_PROVIDER, filename=None, output='text'):
         self.check_and_convert(provider)
 
         if self.provider == providers.IBM_PROVIDER:
-            print(self.converted_q_circuit.draw())
+            if output == 'mpl':
+                self.converted_q_circuit.draw(filename=filename, output=output)
+            else:
+                print(self.converted_q_circuit.draw(filename=filename, output=output))
         elif self.provider == providers.GOOGLE_PROVIDER:
             print(self.converted_q_circuit)
         elif self.provider == providers.MICROSOFT_PROVIDER:
