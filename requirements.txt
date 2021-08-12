@@ -3,3 +3,4 @@ cirq==0.11.0
 amazon-braket-sdk==1.6.4
 requests==2.25.1
 seaborn==0.11.1
+pylatexenc==2.10
