@@ -495,13 +495,19 @@ class QCircuit:
         return output_dict
 
     @staticmethod
-    def histogram(counts, color=constants.DEFAULT_COLOR, bar_labels=True, title=None):
-        plot_histogram(counts, color=color, bar_labels=bar_labels, title=title)
+    def histogram(counts, color=constants.DEFAULT_COLOR, bar_labels=True, title=None, filename=None):
+        fig = plot_histogram(counts, color=color, bar_labels=bar_labels, title=title)
+        if filename is not None:
+            fig.savefig(filename)
 
     @staticmethod
-    def bloch_multivector(state, title=''):
-        plot_bloch_multivector(state=state, title=title)
+    def bloch_multivector(state, title='', filename=None):
+        fig =plot_bloch_multivector(state=state, title=title)
+        if filename is not None:
+            fig.savefig(filename)
 
     @staticmethod
-    def state_qsphere(state):
-        plot_state_qsphere(state=state)
+    def state_qsphere(state, filename=None):
+        fig = plot_state_qsphere(state=state)
+        if filename is not None:
+            fig.savefig(filename)
