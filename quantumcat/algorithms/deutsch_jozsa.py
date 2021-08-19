@@ -33,7 +33,7 @@ class DeutschJozsa:
 
     def dj_algorithm(self):
         n = self.num_qubits
-        dj_circuit = QCircuit(n + 1)
+        dj_circuit = QCircuit(n + 1, n)
         self.dj_circuit = dj_circuit
         dj_circuit.x_gate(n)
         dj_circuit.h_gate(n)
@@ -49,7 +49,6 @@ class DeutschJozsa:
             dj_circuit.h_gate(qubit)
 
         for i in range(n):
-            print(i, n)
             dj_circuit.measure(i)
 
         return dj_circuit

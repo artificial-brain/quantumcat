@@ -23,7 +23,7 @@ from braket.circuits.result_type import ResultType
 import inspect
 
 
-def to_qiskit(q_circuit, qubits):
+def to_qiskit(q_circuit, qubits, cbits):
     """This function converts quantumcat circuit into qiskit circuit.
     :param q_circuit: quantumcat circuit object that needs to be converted to qiskit circuit object
     :param qubits: number of qubits to create qiskit circuit
@@ -32,7 +32,13 @@ def to_qiskit(q_circuit, qubits):
     """
     operations = q_circuit.operations
     num_of_measurements = helper.num_of_measurements(operations)
-    qiskit_qc = QuantumCircuit(qubits, qubits) if num_of_measurements > 0 else QuantumCircuit(qubits)
+    if cbits > 0:
+        qiskit_qc = QuantumCircuit(qubits, cbits)
+    elif num_of_measurements > 0:
+        qiskit_qc = QuantumCircuit(qubits, qubits)
+    else:
+        qiskit_qc = QuantumCircuit(qubits)
+    # qiskit_qc = QuantumCircuit(qubits, qubits) if num_of_measurements > 0 else QuantumCircuit(qubits)
     for op in operations:
         params = []
         operation = next(iter(op.items()))
