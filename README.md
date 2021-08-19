@@ -62,36 +62,13 @@ pip install quantumcat
 * Amazon Braket  
 * IonQ (Via Braket)  
 * Rigetti (Via Braket)  
-## Gates Supported  
-[Click here to view gates supported](https://drive.google.com/file/d/1XNCY2NyioTpqNII4dalm4plKE2-suKYB/view)  
-  
-## Examples  
-### Circuit Creation  
+
+## Examples of High-Level Functions
+### Deutsch Jozsa  Algorithm
 ```python  
-from quantumcat.circuit import QCircuit  
-  
-num_of_qubits = 3  
-qc = QCircuit(num_of_qubits)  
-```  
-### Single-Qubit Gate  
-```python  
-qc.x_gate(0) # applies X gate on qubit 0  
-```  
-### Two-Qubit Gate  
-```python  
-qc.cx_gate(0, 1) # control qubit, target qubit  
-```  
-### Multi-Qubit Gate  
-```python  
-qc.mct_gate([0, 1], 2) # control qubits array, target qubit  
-```  
-### Draw Circuit  
-```python  
-from quantumcat.utils import providers  
-  
-qc.draw_circuit(provider=providers.GOOGLE_PROVIDER)
-```  
-## High-Level Functions  
+deutsch_jozsa = DeutschJozsa('balanced', 4)
+print(deutsch_jozsa.execute(provider=providers.IBM_PROVIDER))
+```
 
 ### Superposition  
 ```python  
@@ -108,8 +85,8 @@ qc.entangle(0, 1)
 qc.phase_kickback(0) 
 # applies |-> to qubit 0  
 ```  
-## High-Level Applications  
 
+## Example of High-Level Applications  
 ### Random Number Generator  
 ```python  
 from quantumcat.utils import providers, constants  
@@ -141,6 +118,35 @@ otp = OTP().generate()
 print(otp)  
 # 5 digits OTP is generated using QRNG@ANU JSON API  
 ```  
+
+## Examples of Low-Level Functions
+### Circuit Creation  
+```python  
+from quantumcat.circuit import QCircuit  
+  
+num_of_qubits = 3  
+qc = QCircuit(num_of_qubits)  
+```  
+### Single-Qubit Gate  
+```python  
+qc.x_gate(0) # applies X gate on qubit 0  
+```  
+### Two-Qubit Gate  
+```python  
+qc.cx_gate(0, 1) # control qubit, target qubit  
+```  
+### Multi-Qubit Gate  
+```python  
+qc.mct_gate([0, 1], 2) # control qubits array, target qubit  
+```  
+### Draw Circuit  
+```python  
+from quantumcat.utils import providers  
+  
+qc.draw_circuit(provider=providers.GOOGLE_PROVIDER)
+``` 
+## Gates Supported  
+[Click here to view gates supported](https://drive.google.com/file/d/1XNCY2NyioTpqNII4dalm4plKE2-suKYB/view)  
 
 ## Visualization  
 ### Histogram
