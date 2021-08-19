@@ -13,3 +13,4 @@
 #  limitations under the License.
 
 from quantumcat.algorithms.grovers_algorithm import GroversAlgorithm
+from quantumcat.algorithms.deutsch_jozsa import DeutschJozsa

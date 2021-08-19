@@ -26,9 +26,10 @@ from qiskit.visualization import plot_histogram, plot_bloch_multivector, plot_st
 class QCircuit:
     """docstring for Circuit."""
 
-    def __init__(self, qubits, provider=providers.DEFAULT_PROVIDER):
+    def __init__(self, qubits, cbits=0, provider=providers.DEFAULT_PROVIDER):
         super(QCircuit, self).__init__()
         self.qubits = qubits
+        self.cbits = cbits
         self.operations = []
         self.converted_q_circuit = None
         self.provider = provider
@@ -403,7 +404,7 @@ class QCircuit:
     def convert_circuit(self):
         converted_q_circuit = None
         if self.provider == providers.IBM_PROVIDER:
-            converted_q_circuit = convert.to_qiskit(self, self.qubits)
+            converted_q_circuit = convert.to_qiskit(self, self.qubits, self.cbits)
         elif self.provider == providers.GOOGLE_PROVIDER:
             converted_q_circuit = convert.to_cirq(self, self.qubits)
         elif self.provider == providers.IONQ_PROVIDER:
